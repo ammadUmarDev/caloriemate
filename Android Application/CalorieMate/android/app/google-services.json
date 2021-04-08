@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "78256855303",
+    "project_id": "caloriemate-5e261",
+    "storage_bucket": "caloriemate-5e261.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78256855303:android:c21ee0ea1b8bdf2279cda2",
+        "android_client_info": {
+          "package_name": "com.triplea.calorie_mate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78256855303-id1hc084f5mon0ppfadkh2h540ekec35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiaUrlxjP997jfwFFRK1_WorCTOe72WHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78256855303-id1hc084f5mon0ppfadkh2h540ekec35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
