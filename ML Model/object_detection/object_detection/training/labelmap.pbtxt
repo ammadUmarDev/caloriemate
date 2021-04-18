@@ -1,0 +1,84 @@
+item {
+  id:1
+  name:'coin'
+}
+item {
+  id:2
+  name:'pear'
+}
+item {
+  id:3
+  name:'litchi'
+}
+item {
+  id:4
+  name:'doughnut'
+}
+item {
+  id:5
+  name:'plum'
+}
+item {
+  id:6
+  name:'egg'
+}
+item {
+  id:7
+  name:'bun'
+}
+item {
+  id:8
+  name:'fired_dough_twist'
+}
+item {
+  id:9
+  name:'qiwi'
+}
+item {
+  id:10
+  name:'sachima'
+}
+item {
+  id:11
+  name:'bread'
+}
+item {
+  id:12
+  name:'orange'
+}
+item {
+  id:13
+  name:'apple'
+}
+item {
+  id:14
+  name:'lemon'
+}
+item {
+  id:15
+  name:'tomato'
+}
+item {
+  id:16
+  name:'grape'
+}
+item {
+  id:17
+  name:'mix'
+}
+item {
+  id:18
+  name:'banana'
+}
+item {
+  id:19
+  name:'peach'
+}
+item {
+  id:20
+  name:'mooncake'
+}
+item {
+  id:21
+  name:'mango'
+}
