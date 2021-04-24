@@ -52,21 +52,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         value: SystemUiOverlayStyle.light,
         child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                0.1,
-                0.4,
-                0.7,
-                0.9
-              ],
-                  colors: [
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.1, 0.4, 0.7, 0.9],
+              colors: [
                 Color(0xFF3594DD),
                 Color(0xFF4569DB),
                 Color(0xFF5036D5),
                 Color(0xFF5B16D0)
-              ])),
+              ],
+            ),
+          ),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 40.0),
             child: Column(
@@ -220,7 +217,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               width: double.infinity,
               color: Colors.white,
               child: GestureDetector(
-                onTap: () => print('get started'),
+                onTap: () => {},
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
