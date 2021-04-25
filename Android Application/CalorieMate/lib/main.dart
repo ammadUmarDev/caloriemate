@@ -1,10 +1,11 @@
+import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/authentication/login_signup.dart';
+import 'package:calorie_mate/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import './screens/on_boarding/onboarding_screen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +19,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Calorie Mate',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        fontFamily: 'Montserrat',
+    return MultiProvider(
+      providers: [
+        Provider<General_Provider>(create: (context) => General_Provider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: DashBoard.id,
+        routes: {
+          LoginSignupScreen.id: (context) => LoginSignupScreen(),
+          DashBoard.id: (context) => DashBoard(),
+        },
       ),
-      routes: {},
-      // home: HomeScreen(),
-      home: LoginSignupScreen(),
     );
   }
 }

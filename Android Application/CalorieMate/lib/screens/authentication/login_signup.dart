@@ -4,6 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginSignupScreen extends StatefulWidget {
+  static String id = '/LoginSignup';
   @override
   _LoginSignupScreenState createState() => _LoginSignupScreenState();
 }
