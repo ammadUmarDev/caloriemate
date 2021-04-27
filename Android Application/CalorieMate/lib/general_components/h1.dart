@@ -4,7 +4,7 @@ import '../constants.dart';
 
 class H1TextStyle extends TextStyle {
   H1TextStyle({this.color});
-  final fontFamily = "Cantarell";
+  final fontFamily = "Montserrat";
   final fontSize = kH1Size;
   final Color color;
   final fontWeight = FontWeight.w600;

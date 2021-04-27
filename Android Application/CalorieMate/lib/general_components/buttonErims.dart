@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../constants.dart';
+import '../constants.dart';
 import 'h3.dart';
-
 
 // ignore: must_be_immutable
 class ButtonErims extends StatefulWidget {
@@ -25,18 +25,18 @@ class _ButtonErimsState extends State<ButtonErims> {
       roundLoadingShape: true,
       width: MediaQuery.of(context).size.width * 0.45,
       onTap: widget.onTap,
-      child: Text(widget.labelText, style: H3TextStyle()),
+      child: Text(widget.labelText, style: H3TextStyle(color: kTextLightColor)),
       loader: Container(
         padding: EdgeInsets.all(10),
         child: SpinKitRotatingCircle(
-          color: kPrimaryAccentColor,
+          color: kTextLightColor,
         ),
       ),
-      borderRadius: 10.0,
-      color: kTextLightColor,
+      borderRadius: 12.0,
+      color: kPrimaryAccentColor,
       borderSide: BorderSide(
-        color: kPrimaryAccentColor,
-        width: 4.0,
+        color: Colors.transparent,
+        width: 2.0,
       ),
     );
   }
