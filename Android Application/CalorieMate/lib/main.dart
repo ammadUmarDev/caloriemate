@@ -1,6 +1,5 @@
 import 'package:calorie_mate/providers/general_provider.dart';
-import 'package:calorie_mate/screens/authentication/LoginPage.dart';
-import 'package:calorie_mate/screens/authentication/RegisterPage.dart';
+
 import 'package:calorie_mate/screens/authentication/login_signup.dart';
 import 'package:calorie_mate/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/authentication/login_signup.dart';
 import 'screens/authentication/login_signup.dart';
 import 'screens/authentication/login_signup.dart';
 
@@ -36,8 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: LoginSignupScreen.id,
         routes: {
-          RegisterPage.id: (context) => RegisterPage(),
-          LoginPage.id: (context) => LoginPage(),
+          LoginSignupScreen.id: (context) => LoginSignupScreen(),
           LoginSignupScreen.id: (context) => LoginSignupScreen(),
           DashBoard.id: (context) => DashBoard(),
         },

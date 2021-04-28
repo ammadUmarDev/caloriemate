@@ -8,6 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
 import '../../general_components/buttonErims.dart';
 import '../../general_components/h2.dart';
 import '../../general_components/h3.dart';
@@ -306,12 +312,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromRGBO(30, 80, 145, 0.5),
-                    Color.fromRGBO(30, 80, 145, 0.6),
-                    Color.fromRGBO(30, 80, 145, 0.7),
-                    Color.fromRGBO(30, 80, 145, 0.8),
-                    Color.fromRGBO(30, 80, 145, 0.9),
-                    Color.fromRGBO(30, 80, 145, 1.0)
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor
                   ],
                 ),
               ),
@@ -321,7 +327,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 100,
+                      height: 65,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/images/CMLogoDark.png"),
@@ -329,7 +335,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0, top: 15),
+                      padding: const EdgeInsets.only(left: 25.0, top: 25),
                       child: RichText(
                         text: TextSpan(
                           text: isSignupScreen
@@ -385,8 +391,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(0.3),
-                      blurRadius: 15,
-                      spreadRadius: 5),
+                      blurRadius: 30,
+                      spreadRadius: 10),
                 ],
               ),
               child: SingleChildScrollView(
@@ -420,8 +426,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 55,
-                                    color: Colors.blue[600],
+                                    width: 100,
+                                    color: kPrimaryDarkColor,
                                   )
                               ],
                             ),
@@ -447,8 +453,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 55,
-                                    color: Colors.blue[600],
+                                    width: 100,
+                                    color: kPrimaryDarkColor,
                                   )
                               ],
                             ),
@@ -545,7 +551,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     textFieldText: 'Password',
     textFieldIcon: Icon(
       FontAwesomeIcons.lock,
-      size: 20,
+      size: kIconSize,
       color: kIconColor,
     ),
     obscure: true,
@@ -561,7 +567,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     textFieldText: 'Email (example@gmail.com)',
     textFieldIcon: Icon(
       FontAwesomeIcons.solidEnvelopeOpen,
-      size: 20,
+      size: kIconSize,
       color: kIconColor,
     ),
     keyboardType: TextInputType.emailAddress,
@@ -577,7 +583,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     textFieldText: 'Password',
     textFieldIcon: Icon(
       FontAwesomeIcons.lock,
-      size: 20,
+      size: kIconSize,
       color: kIconColor,
     ),
     obscure: true,
@@ -625,7 +631,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       style: TextButton.styleFrom(
         elevation: 5.0,
         // side: BorderSide(width: 1, color: Colors.grey),
-        minimumSize: Size(60, 60),
+        minimumSize: Size(50, 50),
         shape: CircleBorder(),
         primary: Colors.white,
         onSurface: Colors.green,
@@ -634,8 +640,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       ),
       child: Image(
         image: AssetImage("assets/images/google.png"),
-        width: 40,
-        height: 40,
+        width: kIconSize,
+        height: kIconSize,
       ),
     );
   }

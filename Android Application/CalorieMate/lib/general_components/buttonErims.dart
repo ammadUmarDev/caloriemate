@@ -21,7 +21,7 @@ class _ButtonErimsState extends State<ButtonErims> {
   @override
   Widget build(BuildContext context) {
     return ArgonButton(
-      height: 45,
+      height: 40,
       roundLoadingShape: true,
       width: MediaQuery.of(context).size.width * 0.45,
       onTap: widget.onTap,
