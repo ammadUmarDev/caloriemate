@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../constants.dart';
+import '../../../constants.dart';
+import '../../../constants.dart';
 import '../dashboard.dart';
 import 'about_us.dart';
 
@@ -30,17 +32,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    // super.initState();
-    // user = Provider.of<General_Provider>(context, listen: false).get_user();
-    // if (user == null) {
-    //   print("user obj is null");
-    // }
+    super.initState();
+    user = Provider.of<General_Provider>(context, listen: false).get_user();
+    if (user == null) {
+      print("user obj is null");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     userImagePath = "assets/icons/custIcon.png";
-    // user = Provider.of<General_Provider>(context, listen: false).get_user();
+    user = Provider.of<General_Provider>(context, listen: false).get_user();
 
     // ignore: missing_return
     Widget showDesciption() {
@@ -85,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           H3(textBody: "Phone Number: "),
                           SizedBox(height: 5),
-                          BodyText(textBody: user == null ? "Loading..." : user.phoneNumber),
+                          BodyText(textBody: user.phoneNumber == null ? "unset" : user.phoneNumber),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -96,6 +98,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
 
             Divider(),
+            Container(
+              margin: EdgeInsets.only(left: 280),
+              child: ClipOval(
+                child: Material(
+                  color: Colors.transparent, // button color
+                  child: InkWell(
+                    splashColor: kPrimaryAccentColor, // inkwell color
+                    child: SizedBox(
+                      width: kIconSize,
+                      height: kIconSize,
+                      child: Icon(
+                        Icons.edit,
+                        color: kPrimaryAccentColor,
+                        size: kIconSize,
+                      ),
+                    ),
+                    onTap: () {
+                      Alert(
+                          context: context,
+                          title: "Update Profile Information",
+                          style: AlertStyle(
+                            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              H3(textBody: "Coming Soon"),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: Colors.white,
+                              height: 0,
+                              child: SizedBox(height: 0),
+                              onPressed: ()=>{},
+                            ),
+                          ]).show();
+                    },
+                  ),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -115,17 +164,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 10),
                       H3(textBody: "Age:"),
                       SizedBox(height: 5),
-                      BodyText(textBody: user == null ? "Loading..." : user.age),
+                      BodyText(textBody: user.targettedWeight == null ? "unset" : user.age),
                       SizedBox(height: 10),
                       H3(textBody: "Current Weight:"),
                       SizedBox(height: 5),
                       BodyText(
-                          textBody:user == null ? "Loading..." : user.currentWeight),
+                          textBody:user.targettedWeight == null ? "unset" : user.currentWeight),
                       SizedBox(height: 10),
                       H3(textBody: "Targetted Weight:"),
                       SizedBox(height: 5),
                       BodyText(
-                          textBody:user == null ? "Loading..." : user.targettedWeight),
+                          textBody:user.targettedWeight == null ? "unset" : user.targettedWeight),
                       SizedBox(height: 10),
                     ],
                   ),
@@ -137,15 +186,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(height: 10),
                     H3(textBody: "Gender:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: user == null ? "Loading..." : user.gender),
+                    BodyText(textBody: user.gender == null ? "unset" : user.gender),
                     SizedBox(height: 10),
                     H3(textBody: "Height:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: user == null ? "Loading..." : user.heightFt.toString()+"ft "+user.heightIn.toString()+"in"),
+                    BodyText(textBody: user.heightFt == null ? "unset" : user.heightFt.toString()+"ft "+user.heightIn.toString()+"in"),
                     SizedBox(height: 10),
                     H3(textBody: "Physical Activity:"),
                     SizedBox(height: 5),
-                    BodyText(textBody: user == null ? "Loading..." : user.physicalActivityLevel),
+                    BodyText(textBody: user.physicalActivityLevel == null ? "unset" : user.physicalActivityLevel),
                   ],
                 ),
               ],
