@@ -1,0 +1,1 @@
+python xmltotxt.py -c classes.txt -xml inputDirectory -out outputDirectory
