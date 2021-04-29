@@ -1,0 +1,9 @@
+ ["burrito"] =0
+ ["sub"]     =1
+ ["taco"]    =2
+ ["drink"]   =3
+ ["burger"]  =4
+ ["sandwich"]=5
+ ["salad"]   =6
+
+ image count =458(1.jpg ----- 458.jpg)

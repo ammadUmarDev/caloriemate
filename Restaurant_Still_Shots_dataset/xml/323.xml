@@ -1,0 +1,26 @@
+<annotation>
+	<folder>data</folder>
+	<filename>323.jpg</filename>
+	<path>D:\dataset\fyp_data\foodd1\data\323.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2592</width>
+		<height>1944</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>sub</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>149</xmin>
+			<ymin>267</ymin>
+			<xmax>2532</xmax>
+			<ymax>1372</ymax>
+		</bndbox>
+	</object>
+</annotation>

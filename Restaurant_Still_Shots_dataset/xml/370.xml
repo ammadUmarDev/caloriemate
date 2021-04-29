@@ -1,0 +1,26 @@
+<annotation>
+	<folder>data</folder>
+	<filename>370.jpg</filename>
+	<path>D:\dataset\fyp_data\foodd1\data\370.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2592</width>
+		<height>1944</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>taco</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>569</xmin>
+			<ymin>362</ymin>
+			<xmax>2184</xmax>
+			<ymax>1189</ymax>
+		</bndbox>
+	</object>
+</annotation>

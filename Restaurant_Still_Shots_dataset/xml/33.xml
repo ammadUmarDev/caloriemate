@@ -1,0 +1,26 @@
+<annotation>
+	<folder>data</folder>
+	<filename>33.jpg</filename>
+	<path>D:\dataset\fyp_data\foodd1\data\33.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2592</width>
+		<height>1944</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>burrito</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>42</xmin>
+			<ymin>489</ymin>
+			<xmax>2569</xmax>
+			<ymax>1367</ymax>
+		</bndbox>
+	</object>
+</annotation>
