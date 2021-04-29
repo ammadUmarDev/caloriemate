@@ -44,8 +44,16 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
   Color color = kPrimaryAccentColor;
   String warningMessage = '';
 
+  bool _togglePassword;
+
+  @override
+  void initState() {
+    _togglePassword = false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var none;
     return Column(
       children: <Widget>[
         Container(
@@ -56,18 +64,36 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
             cursorColor: kPrimaryAccentColor,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kPrimaryAccentColor, width: 2.0),
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: kPrimaryAccentColor, width: 1.5),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black45, width: 2.0),
+                borderSide: BorderSide(color: Colors.black26, width: 1.5),
+                borderRadius: BorderRadius.circular(12),
               ),
               labelText: widget.textFieldText,
               prefixIcon: widget.textFieldIcon,
               labelStyle: H3TextStyle(color: kTextDarkColor),
+              suffixIcon: widget.obscure
+                  ? IconButton(
+                      icon: Icon(
+                        _togglePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: kIconColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _togglePassword = !_togglePassword;
+                        });
+                      },
+                    )
+                  : none,
             ),
             keyboardType: widget.keyboardType,
             maxLines: (widget.keyboardType == TextInputType.multiline) ? 3 : 1,
-            obscureText: widget.obscure,
+            // obscureText: widget.obscure,
+            obscureText: widget.obscure ? !_togglePassword : false,
             controller: widget._textEditingController,
             onChanged: (value) {
               setState(() {

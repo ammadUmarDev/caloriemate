@@ -1,7 +1,33 @@
+import 'package:calorie_mate/general_components/h1.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../constants.dart';
+import '../../general_components/buttonErims.dart';
+import '../../general_components/h2.dart';
+import '../../general_components/h3.dart';
+import '../../general_components/text_Field_outlined.dart';
+import '../../models/user.dart';
+import '../../providers/firebase_functions.dart';
+import '../../providers/general_provider.dart';
+import '../dashboard/dashboard.dart';
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:intl/intl.dart';
+
+import '../../general_components/or_divider.dart';
+import '../dashboard/components/main_background.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   static String id = '/LoginSignup';
@@ -12,16 +38,264 @@ class LoginSignupScreen extends StatefulWidget {
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
   bool isSignupScreen = true;
 
-  bool _togglePassword;
-
-  @override
-  void initState() {
-    _togglePassword = false;
-  }
+  String name;
+  String email;
+  String password;
+  bool authCheckFields = false;
+  bool _showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+
+    Widget signupButton = ButtonErims(
+      onTap: (startLoading, stopLoading, btnState) async {
+        if (btnState == ButtonState.Idle) {
+          startLoading();
+          print('User Signing Up:');
+          print(fullNameTextField.getReturnValue());
+          print(emailTextFieldSignup.getReturnValue());
+          print(passwordTextFieldSignup.getReturnValue());
+          String fullNameRetValue =
+              fullNameTextField.getReturnValue().toString();
+          String emailRetValue =
+              emailTextFieldSignup.getReturnValue().toString().trim();
+          String passRetValue =
+              passwordTextFieldSignup.getReturnValue().toString().trim();
+          try {
+            if (fullNameRetValue.toString().isEmpty &&
+                fullNameRetValue.toString().startsWith(' ') &&
+                fullNameRetValue.toString().endsWith(' ') &&
+                fullNameRetValue.toString().contains(' ') == false &&
+                emailRetValue.toString().contains('@') != false &&
+                emailRetValue.toString().endsWith('.com') != false &&
+                passRetValue.toString().length <= 6) {
+              setState(() {
+                //cannot allow signup
+                authCheckFields = false;
+              });
+            } else {
+              setState(() {
+                //allow signup
+                authCheckFields = true;
+              });
+            }
+            if (authCheckFields == true) {
+              final createUser = (await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: emailTextFieldSignup.getReturnValue().trim(),
+                          password:
+                              passwordTextFieldSignup.getReturnValue().trim()))
+                  .user;
+              if (createUser != null) {
+                final currentUserId = createUser.uid;
+                final createdUserModelObj = UserModel(
+                  userID: currentUserId,
+                  fullName: fullNameTextField.getReturnValue(),
+                  email: emailTextFieldSignup.getReturnValue().trim(),
+                  createdDate: DateFormat("dd/MM/yyyy")
+                      .format(DateTime.now())
+                      .toString(),
+                  lastPassChangeDate: DateFormat("dd/MM/yyyy")
+                      .format(DateTime.now())
+                      .toString(),
+                );
+                signupFirebaseDb(createdUserModelObj).then((retUser) async {
+                  try {
+                    Provider.of<General_Provider>(context, listen: false)
+                        .set_user(createdUserModelObj);
+                    try {
+                      Provider.of<General_Provider>(context, listen: false)
+                          .set_firebase_user(createUser);
+                      print("User Created, Proceeding to Dashboard");
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return DashBoard();
+                        },
+                      ));
+                      stopLoading();
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+
+                    print('set_firebase_user');
+                  } catch (e) {
+                    print(e);
+                  }
+                });
+              }
+            }
+          } catch (e) {
+            print(e);
+          }
+        } else {
+          stopLoading();
+        }
+      },
+      labelText: "SIGN UP",
+    );
+
+    Widget loginButton = ButtonErims(
+      onTap: (startLoading, stopLoading, btnState) async {
+        if (btnState == ButtonState.Idle) {
+          startLoading();
+          print('Attempting signing  in:');
+          print(emailTextFieldLogin.getReturnValue());
+          print(passwordTextFieldLogin.getReturnValue());
+          String emailRetValue =
+              emailTextFieldLogin.getReturnValue().toString().trim();
+          String passRetValue =
+              passwordTextFieldLogin.getReturnValue().toString().trim();
+          try {
+            if (emailRetValue.toString().contains('@') != false &&
+                emailRetValue.toString().endsWith('.com') != false &&
+                passRetValue.toString().length <= 6) {
+              setState(() {
+                //cannot allow signup
+                authCheckFields = false;
+              });
+            } else {
+              setState(() {
+                //allow signup
+                authCheckFields = true;
+              });
+            }
+            if (authCheckFields == true) {
+              final signInUser = (await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: emailTextFieldLogin.getReturnValue().trim(),
+                          password:
+                              passwordTextFieldLogin.getReturnValue().trim()))
+                  .user;
+              print("we here ");
+              if (signInUser != null) {
+                final currentUserId = signInUser.uid;
+                print(currentUserId);
+                UserModel retGetUserObjFirebase;
+                //TODO: This function below returns null and provider is unable to save obj
+                FirebaseFirestore db = FirebaseFirestore.instance;
+                CollectionReference users = db.collection('Users');
+                await users
+                    .doc(currentUserId)
+                    .get()
+                    .then((DocumentSnapshot documentSnapshot) {
+                  if (documentSnapshot.exists) {
+                    print('Document exist on the database');
+                    retGetUserObjFirebase = UserModel(
+                      email: documentSnapshot.data()["Email"].toString(),
+                      fullName: documentSnapshot.data()["Full_Name"].toString(),
+                      userID: documentSnapshot.data()["User_Id"].toString(),
+                      createdDate:
+                          documentSnapshot.data()["Created_Date"].toString(),
+                      lastPassChangeDate: documentSnapshot
+                          .data()["Last_Pass_Change_Date"]
+                          .toString(),
+                    );
+                  }
+                });
+                if (retGetUserObjFirebase != null) {
+                  try {
+                    print("dsdsad" + retGetUserObjFirebase.userID);
+                    Provider.of<General_Provider>(context, listen: false)
+                        .set_user(retGetUserObjFirebase);
+                    try {
+                      Provider.of<General_Provider>(context, listen: false)
+                          .set_firebase_user(signInUser);
+                      print("User Signed In, Proceeding to Dashboard");
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return DashBoard();
+                        },
+                      ));
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+                    stopLoading();
+                  } catch (e) {
+                    print(e);
+                  }
+                } else {
+                  print("retGetUserDocFirebase is null");
+                }
+              }
+            }
+          } catch (e) {
+            print(e);
+          }
+        } else {
+          stopLoading();
+        }
+      },
+      labelText: "LOG IN",
+    );
+
+    Widget buildSignup() {
+      return Container(
+        margin: EdgeInsets.only(top: 30),
+        child: Form(
+          child: Column(
+            children: [
+              fullNameTextField,
+              SizedBox(
+                height: 20,
+              ),
+              emailTextFieldSignup,
+              SizedBox(
+                height: 20,
+              ),
+              passwordTextFieldSignup,
+              SizedBox(
+                height: 40,
+              ),
+              signupButton,
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget buildLogin() {
+      return Container(
+        margin: EdgeInsets.only(top: 30),
+        child: Form(
+          child: Column(
+            children: [
+              emailTextFieldLogin,
+              SizedBox(
+                height: 20,
+              ),
+              passwordTextFieldLogin,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: kTextDarkColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              loginButton,
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // backgroundColor: Color(0xFFE9EEF5),
@@ -32,28 +306,28 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             right: 0,
             left: 0,
             child: Container(
-              height: 400,
+              height: 290,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromRGBO(30, 80, 145, 0.5),
-                    Color.fromRGBO(30, 80, 145, 0.6),
-                    Color.fromRGBO(30, 80, 145, 0.7),
-                    Color.fromRGBO(30, 80, 145, 0.8),
-                    Color.fromRGBO(30, 80, 145, 0.9),
-                    Color.fromRGBO(30, 80, 145, 1.0)
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor,
+                    kPrimaryAccentColor
                   ],
                 ),
               ),
               child: Container(
-                padding: EdgeInsets.only(top: 45),
+                padding: EdgeInsets.only(top: 35),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 180,
+                      height: 65,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/images/CMLogoDark.png"),
@@ -61,7 +335,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0, top: 15),
+                      padding: const EdgeInsets.only(left: 25.0, top: 25),
                       child: RichText(
                         text: TextSpan(
                           text: isSignupScreen
@@ -99,17 +373,15 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             ),
           ),
 
-          // Trick to add the shadow for the submit button
-          buildBottomHalfContainer(true),
           //Main Contianer for Login and Signup
           AnimatedPositioned(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOutBack,
-            top: isSignupScreen ? 310 : 340,
+            top: isSignupScreen ? 220 : 240,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 300),
               curve: Curves.easeInOutBack,
-              height: isSignupScreen ? 340 : 290,
+              height: isSignupScreen ? 400 : 330,
               padding: EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -119,8 +391,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(0.3),
-                      blurRadius: 15,
-                      spreadRadius: 5),
+                      blurRadius: 30,
+                      spreadRadius: 10),
                 ],
               ),
               child: SingleChildScrollView(
@@ -142,20 +414,20 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  "LOGIN",
+                                  "LOG IN",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: !isSignupScreen
-                                          ? Color(0xFF09126C)
-                                          : Color(0XFFA7BCC7)),
+                                          ? kDarkAccentColor
+                                          : kTextDarkColor),
                                 ),
                                 if (!isSignupScreen)
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 55,
-                                    color: Colors.lightBlue,
+                                    width: 100,
+                                    color: kPrimaryDarkColor,
                                   )
                               ],
                             ),
@@ -169,36 +441,34 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  "SIGNUP",
+                                  "SIGN UP",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: isSignupScreen
-                                          ? Color(0xFF09126C)
-                                          : Color(0XFFA7BCC7)),
+                                          ? kDarkAccentColor
+                                          : kTextDarkColor),
                                 ),
                                 if (isSignupScreen)
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 55,
-                                    color: Colors.lightBlue,
+                                    width: 100,
+                                    color: kPrimaryDarkColor,
                                   )
                               ],
                             ),
                           )
                         ],
                       ),
-                      if (isSignupScreen) buildSignupSection(),
-                      if (!isSignupScreen) buildLoginSection()
+                      if (isSignupScreen) buildSignup(),
+                      if (!isSignupScreen) buildLogin()
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          // Trick to add the submit button
-          buildBottomHalfContainer(false),
           // Bottom buttons
           Positioned(
             top: MediaQuery.of(context).size.height - 130,
@@ -206,7 +476,22 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             left: 0,
             child: Column(
               children: [
-                Text(isSignupScreen ? "Or Sign Up With" : "Or Log In With"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 1.5,
+                      color: Colors.black26,
+                    ),
+                    H2(textBody: "  OR  "),
+                    Container(
+                      width: 50,
+                      height: 1.5,
+                      color: Colors.black26,
+                    ),
+                  ],
+                ),
                 Container(
                   margin: EdgeInsets.only(right: 20, left: 20, top: 15),
                   child: Row(
@@ -214,7 +499,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     children: [
                       // buildTextButton(MaterialCommunityIcons.facebook, "Facebook",
                       //     facebookColor),
-                      buildTextButton(
+                      buildBottomButton(
                           MaterialCommunityIcons.google, "Google", Colors.white)
                     ],
                   ),
@@ -227,190 +512,136 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     );
   }
 
-  Container buildLoginSection() {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Form(
-        child: Column(
-          children: [
-            buildTextField(Icons.mail_outline, "Email", false, true),
-            SizedBox(
-              height: 20,
-            ),
-            buildTextField(
-                MaterialCommunityIcons.lock_outline, "Password", true, false),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              // crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Forgot Password?",
-                    style: TextStyle(fontSize: 12, color: Color(0XFFA7BCC7)),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  TextFieldOutlined fullNameTextField = TextFieldOutlined(
+    textFieldText: 'Name',
+    textFieldIcon: Icon(
+      FontAwesomeIcons.solidUser,
+      size: 20,
+      color: kIconColor,
+    ),
+    keyboardType: TextInputType.emailAddress,
+    isValidEntry: (entry) {
+      if (entry.toString().isEmpty &&
+          entry.toString().startsWith(' ') &&
+          entry.toString().endsWith(' ') &&
+          entry.toString().contains(' ') == false) {
+        return 'Invalid Full Name';
+      }
+      return '';
+    },
+  );
 
-  Container buildSignupSection() {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Form(
-        child: Column(
-          children: [
-            buildTextField(
-                MaterialCommunityIcons.account_outline, "Name", false, false),
-            SizedBox(
-              height: 20,
-            ),
-            buildTextField(
-                MaterialCommunityIcons.email_outline, "Email", false, true),
-            SizedBox(
-              height: 20,
-            ),
-            buildTextField(
-                MaterialCommunityIcons.lock_outline, "Password", true, false),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  TextFieldOutlined emailTextFieldLogin = TextFieldOutlined(
+    textFieldText: 'Email (example@gmail.com)',
+    textFieldIcon: Icon(
+      FontAwesomeIcons.solidEnvelopeOpen,
+      size: 20,
+      color: kIconColor,
+    ),
+    keyboardType: TextInputType.emailAddress,
+    isValidEntry: (entry) {
+      if (entry.toString().contains('@') && entry.toString().endsWith('.com'))
+        return '';
+      return 'Invalid Email';
+    },
+    onChanged: () {},
+  );
 
-  TextButton buildTextButton(
+  TextFieldOutlined passwordTextFieldLogin = TextFieldOutlined(
+    textFieldText: 'Password',
+    textFieldIcon: Icon(
+      FontAwesomeIcons.lock,
+      size: kIconSize,
+      color: kIconColor,
+    ),
+    obscure: true,
+    keyboardType: TextInputType.visiblePassword,
+    isValidEntry: (entry) {
+      if (entry.toString().length <= 6)
+        return 'Minimum Password Length: 6 characters';
+      return '';
+    },
+  );
+
+  TextFieldOutlined emailTextFieldSignup = TextFieldOutlined(
+    textFieldText: 'Email (example@gmail.com)',
+    textFieldIcon: Icon(
+      FontAwesomeIcons.solidEnvelopeOpen,
+      size: kIconSize,
+      color: kIconColor,
+    ),
+    keyboardType: TextInputType.emailAddress,
+    isValidEntry: (entry) {
+      if (entry.toString().contains('@') && entry.toString().endsWith('.com'))
+        return '';
+      return 'Invalid Email';
+    },
+    onChanged: () {},
+  );
+
+  TextFieldOutlined passwordTextFieldSignup = TextFieldOutlined(
+    textFieldText: 'Password',
+    textFieldIcon: Icon(
+      FontAwesomeIcons.lock,
+      size: kIconSize,
+      color: kIconColor,
+    ),
+    obscure: true,
+    keyboardType: TextInputType.visiblePassword,
+    isValidEntry: (entry) {
+      if (entry.toString().length <= 6)
+        return 'Minimum Password Length: 6 characters';
+      return '';
+    },
+  );
+
+  TextButton buildBottomButton(
       IconData icon, String title, Color backgroundColor) {
     return TextButton(
       onPressed: () {
         if (title == "Google") {
           print("Google button pressed");
         }
+        Alert(
+            context: context,
+            title: "Coming Soon",
+            style: AlertStyle(
+              titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+            ),
+            content: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                H3(textBody: "Stay tuned for the next update :)"),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+            buttons: [
+              DialogButton(
+                color: Colors.white,
+                height: 0,
+                child: SizedBox(height: 0),
+                onPressed: () {},
+              ),
+            ]).show();
       },
       style: TextButton.styleFrom(
         elevation: 5.0,
         // side: BorderSide(width: 1, color: Colors.grey),
-        minimumSize: Size(60, 60),
+        minimumSize: Size(50, 50),
         shape: CircleBorder(),
         primary: Colors.white,
         onSurface: Colors.green,
         backgroundColor: Colors.white,
         padding: EdgeInsets.all(0.0),
       ),
-
       child: Image(
         image: AssetImage("assets/images/google.png"),
-        width: 40,
-        height: 40,
-      ),
-      // child: Row(
-      //   children: [
-      //     ImageIcon(
-      //       AssetImage('assets/images/google.png'),
-      //       color: Colors.black,
-      //       // size: 40,
-      //     ),
-      //     SizedBox(
-      //       width: 5,
-      //     ),
-      //   ],
-      // ),
-    );
-  }
-
-  Widget buildBottomHalfContainer(bool showShadow) {
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOutBack,
-      top: isSignupScreen ? 600 : 580,
-      right: 0,
-      left: 0,
-      child: Center(
-        child: Container(
-          height: 90,
-          width: 90,
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                if (showShadow)
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.3),
-                    spreadRadius: 1.5,
-                    blurRadius: 10,
-                  )
-              ]),
-          child: !showShadow
-              ? Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.blue[300], Colors.blue[900]],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight),
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(.3),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 1))
-                      ]),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                  ),
-                )
-              : Center(),
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextField(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
-    var none;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: TextFormField(
-        obscureText: isPassword ? !_togglePassword : false,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: Color(0xFFB6C7D1),
-          ),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _togglePassword ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.black87,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _togglePassword = !_togglePassword;
-                    });
-                  },
-                )
-              : none,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFA7BCC7)),
-            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0XFFA7BCC7)),
-            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-          ),
-          contentPadding: EdgeInsets.all(10),
-          hintText: hintText,
-          hintStyle: TextStyle(fontSize: 14, color: Color(0XFFA7BCC7)),
-        ),
+        width: kIconSize,
+        height: kIconSize,
       ),
     );
   }
