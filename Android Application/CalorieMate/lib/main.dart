@@ -1,15 +1,18 @@
+import 'package:calorie_mate/constants.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 
 import 'package:calorie_mate/screens/authentication/login_signup.dart';
+import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predictor.dart';
+import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_results.dart';
+import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:calorie_mate/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'constants.dart';
 
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/authentication/login_signup.dart';
-import 'screens/authentication/login_signup.dart';
 import 'screens/authentication/login_signup.dart';
 
 Future<void> main() async {
@@ -39,6 +42,9 @@ class MyApp extends StatelessWidget {
           LoginSignupScreen.id: (context) => LoginSignupScreen(),
           LoginSignupScreen.id: (context) => LoginSignupScreen(),
           DashBoard.id: (context) => DashBoard(),
+          CaloriePredictorScreen.id: (context) => CaloriePredictorScreen(),
+          LoadingScreen.id: (context) => LoadingScreen(),
+          CalorieResults.id: (context) => CalorieResults(),
         },
       ),
     );

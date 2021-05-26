@@ -13,11 +13,13 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithoutHome(pageName: "Dashboard", helpAlertTitle: "Statistics Help", helpAlertBody: "View statistics to track progress of your fitness journey."),
+        appBar: AppBarWithoutHome(
+            pageName: "Dashboard",
+            helpAlertTitle: "Statistics Help",
+            helpAlertBody:
+                "View statistics to track progress of your fitness journey."),
         backgroundColor: kBackgroundColor,
         body: SafeArea(
-            top: true,
-            child: Center(child: H3(textBody: "Coming Soon"))
-    ));
+            top: true, child: Center(child: H3(textBody: "Coming Soon"))));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:calorie_mate/general_components/body_text%20copy.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predictor.dart';
+import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:calorie_mate/screens/dashboard/diary/dairy.dart';
 import 'package:calorie_mate/screens/dashboard/profile/profile.dart';
 import 'package:calorie_mate/screens/dashboard/statistics/statistics.dart';
