@@ -8,12 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
-import '../../constants.dart';
-import '../../constants.dart';
-import '../../constants.dart';
-import '../../constants.dart';
-import '../../constants.dart';
-import '../../constants.dart';
 import '../../general_components/buttonErims.dart';
 import '../../general_components/h2.dart';
 import '../../general_components/h3.dart';
@@ -426,7 +420,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 100,
+                                    width: 60,
                                     color: kPrimaryDarkColor,
                                   )
                               ],
@@ -453,7 +447,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   Container(
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
-                                    width: 100,
+                                    width: 75,
                                     color: kPrimaryDarkColor,
                                   )
                               ],
@@ -603,30 +597,31 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           print("Google button pressed");
         }
         Alert(
-            context: context,
-            title: "Coming Soon",
-            style: AlertStyle(
-              titleStyle: H2TextStyle(color: kPrimaryAccentColor),
-            ),
-            content: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                H3(textBody: "Stay tuned for the next update :)"),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-            buttons: [
-              DialogButton(
-                color: Colors.white,
-                height: 0,
-                child: SizedBox(height: 0),
-                onPressed: () {},
+          context: context,
+          title: "Coming Soon",
+          style: AlertStyle(
+            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+          ),
+          content: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
               ),
-            ]).show();
+              H3(textBody: "Stay tuned for the next update :)"),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+          buttons: [
+            DialogButton(
+              color: Colors.white,
+              height: 0,
+              child: SizedBox(height: 0),
+              onPressed: () {},
+            ),
+          ],
+        ).show();
       },
       style: TextButton.styleFrom(
         elevation: 5.0,
@@ -640,8 +635,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       ),
       child: Image(
         image: AssetImage("assets/images/google.png"),
-        width: kIconSize,
-        height: kIconSize,
+        width: 24,
+        height: 24,
       ),
     );
   }
