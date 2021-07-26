@@ -59,6 +59,8 @@ dependencies:
   validators: ^3.0.0
   flutter_icons:
   flutter_svg:
+  firebase_storage: ^10.0.1
+  firebase_database: ^7.1.2
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'
