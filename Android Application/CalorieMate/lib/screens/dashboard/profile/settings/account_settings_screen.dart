@@ -24,6 +24,8 @@ class AccountSettingScreen extends StatefulWidget {
 
 class AccountSettingState extends State<AccountSettingScreen> {
   String new_full_name;
+  String phoneNumber;
+
   UserModel userObj;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LinearGradient mainButton = LinearGradient(
@@ -42,6 +44,8 @@ class AccountSettingState extends State<AccountSettingScreen> {
       key: _scaffoldKey,
       appBar: AppBarPageName(
         pageName: "Account Settings",
+        helpAlertTitle: "Account Settings Help",
+        helpAlertBody: "Modify your account.",
       ),
       body: BackgroundS(
         child: SafeArea(
@@ -50,11 +54,15 @@ class AccountSettingState extends State<AccountSettingScreen> {
               SizedBox(
                 height: 10,
               ),
+              //Edit Name
               ShadowBoxList(
                 icon: Icon(Icons.edit, color: kIconColor),
                 widgetColumn: <Widget>[
                   SizedBox(height: 10),
-                  H2(textBody: userObj == null ? "Full Name: Loading..." : "Full Name: " + userObj.fullName),
+                  H2(
+                      textBody: userObj == null
+                          ? "Full Name: Loading..."
+                          : "Full Name: " + userObj.fullName),
                   SizedBox(height: 5),
                   BodyText(textBody: "Tap to edit"),
                   SizedBox(height: 10),
@@ -97,6 +105,89 @@ class AccountSettingState extends State<AccountSettingScreen> {
                                     SnackBar sc = SnackBar(
                                       content: Text(
                                         "Full Name Changed Successfully",
+                                        style: H3TextStyle(),
+                                      ),
+                                    );
+                                    _scaffoldKey.currentState.showSnackBar(sc);
+                                    Navigator.pop(context);
+                                    stopLoading();
+                                  });
+                                }
+                              } else {
+                                stopLoading();
+                              }
+                            },
+                            labelText: "SAVE",
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                      buttons: [
+                        DialogButton(
+                          color: Colors.white,
+                          height: 0,
+                          child: SizedBox(height: 0),
+                          onPressed: () {},
+                        ),
+                      ]).show();
+                },
+              ),
+              //Edit Phone Number
+              ShadowBoxList(
+                icon: Icon(Icons.edit, color: kIconColor),
+                widgetColumn: <Widget>[
+                  SizedBox(height: 10),
+                  H2(
+                      textBody: userObj.phoneNumber == null
+                          ? "Phone Number: unset"
+                          : "Phone Number: " +
+                              (userObj.phoneNumber).toString()),
+                  SizedBox(height: 5),
+                  BodyText(textBody: "Tap to edit"),
+                  SizedBox(height: 10),
+                ],
+                onTapFunction: () {
+                  Alert(
+                      context: context,
+                      title: "Edit Phone Number",
+                      style: AlertStyle(
+                        titleStyle: H2TextStyle(color: kTextDarkColor),
+                      ),
+                      content: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          RoundedInputField(
+                            hintText: "Enter your Phone Number",
+                            keyboardType:
+                                TextInputType.numberWithOptions(signed: true),
+                            onChanged: (value) => {this.phoneNumber = value},
+                            icon: FontAwesomeIcons.solidUser,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ButtonErims(
+                            onTap: (startLoading, stopLoading, btnState) async {
+                              if (btnState == ButtonState.Idle) {
+                                startLoading();
+                                var retChangePhoneNumber =
+                                    changePhoneNumber(userObj, phoneNumber);
+                                bool retChangePhoneNumberCheck;
+                                await retChangePhoneNumber.then((value) =>
+                                    retChangePhoneNumberCheck = value);
+                                if (retChangePhoneNumberCheck == true) {
+                                  setState(() {
+                                    userObj.phoneNumber = phoneNumber;
+                                    Provider.of<General_Provider>(context,
+                                            listen: false)
+                                        .set_user(userObj);
+                                    SnackBar sc = SnackBar(
+                                      content: Text(
+                                        "Phone Number Edited Successfully",
                                         style: H3TextStyle(),
                                       ),
                                     );

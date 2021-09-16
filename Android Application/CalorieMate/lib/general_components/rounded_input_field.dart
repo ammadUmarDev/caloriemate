@@ -37,16 +37,15 @@ class RoundedInputField extends StatelessWidget {
         keyboardType: this.keyboardType,
         enabled: this.enabled,
         decoration: InputDecoration(
-          icon: Icon(
-            icon,
-            color: kIconColor,
-            size: kIconSize,
-          ),
-          hintText: hintText,
-          border: InputBorder.none,
-          hintStyle: BodyTextStyle(),
-          labelStyle: BodyTextStyle()
-        ),
+            icon: Icon(
+              icon,
+              color: kIconColor,
+              size: kIconSize,
+            ),
+            hintText: hintText,
+            border: UnderlineInputBorder(),
+            hintStyle: BodyTextStyle(),
+            labelStyle: BodyTextStyle()),
         inputFormatters: inputFormatters.toList(),
       ),
     );

@@ -11,20 +11,21 @@ class ShadowBoxList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
       child: GestureDetector(
         child: Container(
-
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
-              // BoxShadow(
-              //   color: kPrimaryAccentColor.withOpacity(0.5),
-              //   blurRadius: 20.0, // has the effect of softening the shadow
-              //   spreadRadius: 0.1, // has the effect of extending the shadow
-              // ),
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 2.0,
+                spreadRadius: 1.0,
+                offset: Offset(1.0, 1.0),
+                // shadow direction: bottom right
+              )
             ],
           ),
           margin: EdgeInsets.symmetric(vertical: 0, horizontal: 0),

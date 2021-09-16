@@ -42,8 +42,8 @@ class _DashBoardState extends State<DashBoard> {
   onTap(int pageIndex) {
     pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeIn,
+      duration: Duration(milliseconds: 200),
+      curve: Curves.linear,
     );
   }
 
@@ -71,48 +71,60 @@ class _DashBoardState extends State<DashBoard> {
         onPageChanged: onPageChanged,
         scrollDirection: Axis.horizontal,
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: pageIndex,
-        onTap: onTap,
-        activeColor: kPrimaryAccentColor,
-        inactiveColor: kPrimaryLightColor.withOpacity(0.4),
-        items: [
-          BottomNavigationBarItem(
-            label: "Dashboard",
-            icon: Icon(
-              FontAwesomeIcons.heartbeat,
-              size: kIconSize,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              spreadRadius: 0.5,
+              offset: Offset(0, 5),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Diary",
-            icon: Icon(
-              FontAwesomeIcons.book,
-              size: kIconSize,
+          ],
+        ),
+        child: CupertinoTabBar(
+          currentIndex: pageIndex,
+          onTap: onTap,
+          activeColor: kPrimaryAccentColor,
+          inactiveColor: kPrimaryLightColor.withOpacity(0.4),
+          items: [
+            BottomNavigationBarItem(
+              label: "Statistics",
+              icon: Icon(
+                FontAwesomeIcons.heartbeat,
+                size: kIconSize,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Calorie Predictor",
-            icon: Icon(
-              FontAwesomeIcons.hamburger,
-              size: kIconSize,
+            BottomNavigationBarItem(
+              label: "Diary",
+              icon: Icon(
+                FontAwesomeIcons.book,
+                size: kIconSize,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Tools",
-            icon: Icon(
-              FontAwesomeIcons.tools,
-              size: kIconSize,
+            BottomNavigationBarItem(
+              label: "Calorie Predictor",
+              icon: Icon(
+                FontAwesomeIcons.hamburger,
+                size: kIconSize,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Profile",
-            icon: Icon(
-              FontAwesomeIcons.solidUser,
-              size: kIconSize,
+            BottomNavigationBarItem(
+              label: "Tools",
+              icon: Icon(
+                FontAwesomeIcons.tools,
+                size: kIconSize,
+              ),
             ),
-          ),
-        ],
+            BottomNavigationBarItem(
+              label: "Profile",
+              icon: Icon(
+                FontAwesomeIcons.solidUser,
+                size: kIconSize,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

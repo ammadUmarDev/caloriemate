@@ -6,6 +6,8 @@ import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predict
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_results.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:calorie_mate/screens/dashboard/dashboard.dart';
+import 'package:calorie_mate/screens/dashboard/profile/edit_information.dart';
+import 'package:calorie_mate/screens/dashboard/tools/bmi_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'constants.dart';
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
           CaloriePredictorScreen.id: (context) => CaloriePredictorScreen(),
           LoadingScreen.id: (context) => LoadingScreen(),
           CalorieResults.id: (context) => CalorieResults(),
+          BMICalculator.id: (context) => BMICalculator(),
+          EditInformation.id: (context) => EditInformation(),
         },
       ),
     );

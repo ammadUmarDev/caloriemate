@@ -13,7 +13,7 @@ class H1TextStyle extends TextStyle {
 class H1 extends StatelessWidget {
   H1({
     this.textBody,
-    this.color = kTextDarkColor,
+    this.color = kTextDarkColor, Padding child,
   });
   final String textBody;
   final Color color;

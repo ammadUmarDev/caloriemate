@@ -183,6 +183,18 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       email: documentSnapshot.data()["Email"].toString(),
                       fullName: documentSnapshot.data()["Full_Name"].toString(),
                       userID: documentSnapshot.data()["User_Id"].toString(),
+                      phoneNumber:
+                          documentSnapshot.data()["Phone_Number"].toString(),
+                      age: documentSnapshot.data()["Age"],
+                      gender: documentSnapshot.data()["Gender"].toString(),
+                      currentWeight: documentSnapshot.data()["Current_Weight"],
+                      targettedWeight:
+                          documentSnapshot.data()["Targetted_Weight"],
+                      heightFt: documentSnapshot.data()["Height_Ft"],
+                      heightIn: documentSnapshot.data()["Height_In"],
+                      physicalActivityLevel: documentSnapshot
+                          .data()["Physical_Activity_Level"]
+                          .toString(),
                       createdDate:
                           documentSnapshot.data()["Created_Date"].toString(),
                       lastPassChangeDate: documentSnapshot
@@ -306,12 +318,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    kPrimaryAccentColor,
-                    kPrimaryAccentColor,
-                    kPrimaryAccentColor,
-                    kPrimaryAccentColor,
-                    kPrimaryAccentColor,
-                    kPrimaryAccentColor
+                    kLightAccentColor,
+                    kLightAccentColor,
+                    kLightAccentColor,
+                    kLightAccentColor,
+                    kLightAccentColor,
+                    kLightAccentColor
                   ],
                 ),
               ),

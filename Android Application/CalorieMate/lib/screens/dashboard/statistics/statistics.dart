@@ -14,7 +14,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarWithoutHome(
-            pageName: "Dashboard",
+            pageName: "Statistics",
             helpAlertTitle: "Statistics Help",
             helpAlertBody:
                 "View statistics to track progress of your fitness journey."),

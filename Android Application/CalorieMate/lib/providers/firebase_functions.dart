@@ -32,18 +32,18 @@ Future<bool> signupFirebaseDb(UserModel user) async {
       'Email': user.email.toString(),
       'Created_Date': user.createdDate.toString(),
       'Last_Pass_Change_Date': user.lastPassChangeDate.toString(),
-      'Phone_Number' : user.phoneNumber,
-      'Age' : user.age,
-      'Gender' : user.gender,
-      'Height_Ft' : user.heightFt,
-      'Height_In' : user.heightIn,
-      'Current_Weight' : user.currentWeight,
-      'Targetted_Weight' : user.targettedWeight,
-      'Body_Goal' : user.bodyGoal,
-      'Physical_Activity_Level' : user.physicalActivityLevel,
-      'Latest_BMI' : user.latestBMIScore,
-      'Weight_History' : user.weightHistory,
-      'BMI_History' : user.BMIHistory
+      'Phone_Number': user.phoneNumber,
+      'Age': user.age,
+      'Gender': user.gender,
+      'Height_Ft': user.heightFt,
+      'Height_In': user.heightIn,
+      'Current_Weight': user.currentWeight,
+      'Targetted_Weight': user.targettedWeight,
+      'Body_Goal': user.bodyGoal,
+      'Physical_Activity_Level': user.physicalActivityLevel,
+      'Latest_BMI': user.latestBMIScore,
+      'Weight_History': user.weightHistory,
+      'BMI_History': user.BMIHistory
       //    new DateFormat("dd/MM/yyyy").parse("11/11/2011");
     });
   }
@@ -77,3 +77,102 @@ Future<bool> changeFullName(UserModel u, String newName) async {
   return check;
 }
 
+//User Phone Number Change
+Future<bool> changePhoneNumber(UserModel u, String newPhoneNumber) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Phone_Number': newPhoneNumber})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Age Change
+Future<bool> changeAge(UserModel u, int newAge) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Age': newAge})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Gender Change
+Future<bool> changeGender(UserModel u, String newGender) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Gender': newGender})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Current Weight Change
+Future<bool> changeCurrentWeight(UserModel u, double newCurrentWeight) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Current_Weight': newCurrentWeight})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Targetted Weight Change
+Future<bool> changeTargettedWeight(
+    UserModel u, double newTargettedWeight) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Targetted_Weight': newTargettedWeight})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Height Change
+Future<bool> changeHeight(UserModel u, int newHeightFt, int newHeightIn) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Height_Ft': newHeightFt, 'Height_In': newHeightIn})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Physical Activity Level Change
+Future<bool> changePhysicalActivityLevel(
+    UserModel u, String newPhysicalActivityLevel) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Physical_Activity_Level': newPhysicalActivityLevel})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}

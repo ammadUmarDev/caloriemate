@@ -8,12 +8,11 @@ import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/profile/faq_page.dart';
 import 'package:calorie_mate/screens/dashboard/profile/settings/general_settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../../../constants.dart';
-import '../../../constants.dart';
 import '../../../constants.dart';
 import '../dashboard.dart';
 import 'about_us.dart';
@@ -28,6 +27,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String description = "Null";
   String userImagePath;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    userImagePath = "assets/icons/custIcon.png";
+    userImagePath = "assets/icons/user.png";
     user = Provider.of<General_Provider>(context, listen: false).get_user();
 
     // ignore: missing_return
@@ -56,9 +57,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding:
                       const EdgeInsets.only(right: 20, top: 10, bottom: 10),
                   child: CircleAvatar(
+                    child: ClipOval(
+                        child: Image.asset(
+                      userImagePath,
+                      width: 60,
+                    )),
                     maxRadius: 40,
-                    backgroundImage: AssetImage(userImagePath),
-                    backgroundColor: kPrimaryAccentColor,
+                    // backgroundImage: AssetImage(userImagePath),
+                    backgroundColor: kDarkAccentColor,
                   ),
                 ),
                 Expanded(
@@ -111,40 +117,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: InkWell(
                     splashColor: kPrimaryAccentColor, // inkwell color
                     child: SizedBox(
-                      width: kIconSize,
-                      height: kIconSize,
+                      width: 30,
+                      height: 30,
                       child: Icon(
-                        Icons.edit,
+                        MaterialCommunityIcons.pencil,
                         color: kPrimaryAccentColor,
-                        size: kIconSize,
+                        size: 30,
                       ),
                     ),
                     onTap: () {
-                      Alert(
-                          context: context,
-                          title: "Update Profile Information",
-                          style: AlertStyle(
-                            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
-                          ),
-                          content: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 10,
-                              ),
-                              H3(textBody: "Coming Soon"),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                          buttons: [
-                            DialogButton(
-                              color: Colors.white,
-                              height: 0,
-                              child: SizedBox(height: 0),
-                              onPressed: () => {},
-                            ),
-                          ]).show();
+                      Navigator.of(context).pushNamed('/EditProfile');
                     },
                   ),
                 ),
@@ -165,28 +147,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //     textBody: user == null
                       //         ? "Loading..."
                       //         : user.userID.substring(0, 10)),
-
-                      SizedBox(height: 10),
+                      // SizedBox(height: 10),
                       H3(textBody: "Age:"),
                       SizedBox(height: 5),
                       BodyText(
-                          textBody: user.targettedWeight == null
+                          textBody: user.age == null
                               ? "unset"
-                              : user.age),
+                              : (user.age).toString()),
                       SizedBox(height: 10),
                       H3(textBody: "Current Weight:"),
                       SizedBox(height: 5),
                       BodyText(
-                          textBody: user.targettedWeight == null
+                          textBody: user.currentWeight == null
                               ? "unset"
-                              : user.currentWeight),
+                              : (user.currentWeight).toString() + " kg"),
                       SizedBox(height: 10),
-                      H3(textBody: "Targetted Weight:"),
+                      H3(textBody: "Target Weight:"),
                       SizedBox(height: 5),
                       BodyText(
                           textBody: user.targettedWeight == null
                               ? "unset"
-                              : user.targettedWeight),
+                              : (user.targettedWeight).toString() + " kg"),
                       SizedBox(height: 10),
                     ],
                   ),
@@ -207,9 +188,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textBody: user.heightFt == null
                             ? "unset"
                             : user.heightFt.toString() +
-                                "ft " +
+                                "\' " +
                                 user.heightIn.toString() +
-                                "in"),
+                                "\""),
                     SizedBox(height: 10),
                     H3(textBody: "Physical Activity:"),
                     SizedBox(height: 5),
@@ -231,6 +212,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 1.0,
+              spreadRadius: 1.0,
+              offset: Offset(1.0, 1.0), // shadow direction: bottom right
+            )
+          ],
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -243,6 +232,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBarPageName(
           pageName: "My Profile",
           helpAlertTitle: "Profile Manager Help",
@@ -262,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 RoundContainerBox(ListTile(
                   title: H1(textBody: 'Settings'),
                   subtitle:
-                      BodyText(textBody: 'Change account details and logout'),
+                      BodyText(textBody: 'Change account details & logout'),
                   leading: Icon(FontAwesomeIcons.userCog, size: kIconSize),
                   trailing: Icon(Icons.chevron_right,
                       color: kPrimaryLightColor, size: kIconSize),
