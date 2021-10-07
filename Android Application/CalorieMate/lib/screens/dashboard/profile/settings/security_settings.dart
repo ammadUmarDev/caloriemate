@@ -13,11 +13,11 @@ import 'package:calorie_mate/screens/dashboard/profile/components/background_set
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../../constants.dart';
-
 
 class SecuritySettingsState extends StatefulWidget {
   SecuritySettingsScreen createState() => SecuritySettingsScreen();
@@ -47,104 +47,159 @@ class SecuritySettingsScreen extends State<SecuritySettingsState> {
           pageName: "Change Password",
         ),
         body: BackgroundS(
-          child: Column(
-            children: [
-              SizedBox(height: 15),
-              ShadowBoxList(
-                icon: Icon(
-                  Icons.edit,
-                  color: kPrimaryAccentColor,
-                ),
-                widgetColumn: <Widget>[
-                  SizedBox(height: 10),
-                  H2(textBody: "Account Password: *********"),
-                  SizedBox(height: 5),
-                  BodyText(textBody: u == null ? "Last Change: Loading..." : "Full Name: " + u.lastPassChangeDate),
-                  SizedBox(height: 5),
-                  BodyText(textBody: "Tap to edit"),
-                  SizedBox(height: 10),
-                ],
-                onTapFunction: () {
-                  Alert(
-                      context: context,
-                      title: "Change Password",
-                      style: AlertStyle(
-                        titleStyle: H2TextStyle(color: kTextDarkColor),
-                      ),
-                      content: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RoundedPasswordField(
-                            onChanged: (value) => {this.oldPassword = value},
-                            hintText: "Old Password",
-                          ),
-                          RoundedPasswordField(
-                            onChanged: (value) => {this.new_password = value},
-                            hintText: "New Password",
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ButtonErims(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              if (btnState == ButtonState.Idle) {
-                                startLoading();
-                                try {
-                                  EmailAuthCredential credential =
-                                      EmailAuthProvider.credential(
-                                          email: u.email,
-                                          password: oldPassword);
-                                  await FirebaseAuth.instance.currentUser
-                                      .reauthenticateWithCredential(credential);
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              children: [
+                SizedBox(height: 15),
+                ShadowBoxList(
+                  color: Colors.white,
+                  icon: Icon(
+                    Icons.edit,
+                    color: kPrimaryAccentColor,
+                  ),
+                  widgetColumn: <Widget>[
+                    SizedBox(height: 10),
+                    H2(textBody: "Account Password: *********"),
+                    SizedBox(height: 5),
+                    BodyText(
+                        textBody: u == null
+                            ? "Last Change: Loading..."
+                            : "Full Name: " + u.lastPassChangeDate),
+                    SizedBox(height: 5),
+                    BodyText(textBody: "Tap to edit"),
+                    SizedBox(height: 10),
+                  ],
+                  onTapFunction: () {
+                    Alert(
+                        context: context,
+                        title: "Change Password",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
+                        style: AlertStyle(
+                          overlayColor: Colors.black45,
+                          titleStyle: H2TextStyle(color: kTextDarkColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            RoundedPasswordField(
+                              onChanged: (value) => {this.oldPassword = value},
+                              hintText: "Old Password",
+                            ),
+                            RoundedPasswordField(
+                              onChanged: (value) => {this.new_password = value},
+                              hintText: "New Password",
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonErims(
+                              onTap:
+                                  (startLoading, stopLoading, btnState) async {
+                                if (btnState == ButtonState.Idle) {
+                                  startLoading();
                                   try {
-                                    await changePassword(u, new_password)
-                                        .then((value) => () {
-                                              if (value == true) {
-                                                setState(() {
-                                                  SnackBar sc = SnackBar(
-                                                    content: Text(
-                                                      "Password Changed Successfully",
-                                                      style: H3TextStyle(),
+                                    EmailAuthCredential credential =
+                                        EmailAuthProvider.credential(
+                                            email: u.email,
+                                            password: oldPassword);
+                                    await FirebaseAuth.instance.currentUser
+                                        .reauthenticateWithCredential(
+                                            credential);
+                                    try {
+                                      await changePassword(u, new_password)
+                                          .then((value) => () {
+                                                if (value == true) {
+                                                  setState(() {
+                                                    SnackBar sc = SnackBar(
+                                                      content: Text(
+                                                        "Password Changed Successfully",
+                                                        style: H3TextStyle(),
+                                                      ),
+                                                    );
+                                                    _scaffoldKey.currentState
+                                                        .showSnackBar(sc);
+                                                    Navigator.pop(context);
+                                                    stopLoading();
+                                                  });
+                                                } else {
+                                                  Alert(
+                                                    context: context,
+                                                    title:
+                                                        "Something Went Wrong :(",
+                                                    closeIcon: Icon(
+                                                      FontAwesomeIcons
+                                                          .timesCircle,
+                                                      color: kPrimaryLightColor,
+                                                    ),
+                                                    style: AlertStyle(
+                                                      overlayColor:
+                                                          Colors.black45,
+                                                      titleStyle: H2TextStyle(
+                                                          color:
+                                                              kTextDarkColor),
+                                                    ),
+                                                    content: Column(
+                                                      children: <Widget>[
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        H3(
+                                                            textBody:
+                                                                "Please enter correct old password."),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                      ],
                                                     ),
                                                   );
-                                                  _scaffoldKey.currentState
-                                                      .showSnackBar(sc);
-                                                  Navigator.pop(context);
-                                                  stopLoading();
-                                                });
-                                              } else {
-                                                Alert(
-                                                  context: context,
-                                                  title:
-                                                      "Something Went Wrong :(",
-                                                  style: AlertStyle(
-                                                    titleStyle: H2TextStyle(
-                                                        color: kTextDarkColor),
-                                                  ),
-                                                  content: Column(
-                                                    children: <Widget>[
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      H3(
-                                                          textBody:
-                                                              "Please enter correct old password."),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }
-                                            });
+                                                }
+                                              });
+                                    } catch (e) {
+                                      print(e);
+                                      Alert(
+                                        context: context,
+                                        title: "Something Went Wrong :(",
+                                        closeIcon: Icon(
+                                          FontAwesomeIcons.timesCircle,
+                                          color: kPrimaryLightColor,
+                                        ),
+                                        style: AlertStyle(
+                                          overlayColor: Colors.black45,
+                                          titleStyle: H2TextStyle(
+                                              color: kTextDarkColor),
+                                        ),
+                                        content: Column(
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            H3(
+                                                textBody:
+                                                    "Please enter correct old password."),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
                                   } catch (e) {
                                     print(e);
                                     Alert(
                                       context: context,
                                       title: "Something Went Wrong :(",
+                                      closeIcon: Icon(
+                                        FontAwesomeIcons.timesCircle,
+                                        color: kPrimaryLightColor,
+                                      ),
                                       style: AlertStyle(
+                                        overlayColor: Colors.black45,
                                         titleStyle:
                                             H2TextStyle(color: kTextDarkColor),
                                       ),
@@ -163,52 +218,29 @@ class SecuritySettingsScreen extends State<SecuritySettingsState> {
                                       ),
                                     );
                                   }
-                                } catch (e) {
-                                  print(e);
-                                  Alert(
-                                    context: context,
-                                    title: "Something Went Wrong :(",
-                                    style: AlertStyle(
-                                      titleStyle:
-                                          H2TextStyle(color: kTextDarkColor),
-                                    ),
-                                    content: Column(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        H3(
-                                            textBody:
-                                                "Please enter correct old password."),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                } else {
+                                  stopLoading();
                                 }
-                              } else {
-                                stopLoading();
-                              }
-                            },
-                            labelText: "SAVE",
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                      buttons: [
-                        DialogButton(
-                          color: Colors.white,
-                          height: 0,
-                          child: SizedBox(height: 0),
-                          onPressed: () {},
+                              },
+                              labelText: "SAVE",
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
                         ),
-                      ]).show();
-                },
-              ),
-            ],
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                            child: SizedBox(height: 0),
+                            onPressed: () {},
+                          ),
+                        ]).show();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

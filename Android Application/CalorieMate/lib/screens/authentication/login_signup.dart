@@ -611,7 +611,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
         Alert(
           context: context,
           title: "Coming Soon",
+          closeIcon: Icon(
+            FontAwesomeIcons.timesCircle,
+            color: kPrimaryLightColor,
+          ),
           style: AlertStyle(
+            overlayColor: Colors.black45,
             titleStyle: H2TextStyle(color: kPrimaryAccentColor),
           ),
           content: Column(

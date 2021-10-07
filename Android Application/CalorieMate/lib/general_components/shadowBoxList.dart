@@ -5,18 +5,19 @@ class ShadowBoxList extends StatelessWidget {
   final Icon icon;
   final widgetColumn;
   final Function onTapFunction;
+  final Color color;
 
-  ShadowBoxList({this.icon, this.onTapFunction, this.widgetColumn});
+  ShadowBoxList({this.icon, this.onTapFunction, this.widgetColumn, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
+      padding: const EdgeInsets.only(top: 15, right: 0, left: 00),
       child: GestureDetector(
         child: Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: color,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(

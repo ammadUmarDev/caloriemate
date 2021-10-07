@@ -34,7 +34,7 @@ dependencies:
   rflutter_alert: ^2.0.2
   page_transition: ^1.1.4
   simple_animations: ^2.2.1
-  transparent_image: 1.0.0
+  transparent_image: ^1.0.0
   grouped_buttons: ^1.0.4
   flutter_swiper: ^1.1.6
   flutter_staggered_grid_view: ^0.4.0
@@ -61,6 +61,9 @@ dependencies:
   flutter_svg:
   firebase_storage: ^10.0.1
   firebase_database: ^7.1.2
+  fl_chart: ^0.20.1
+  syncfusion_flutter_charts: ^19.3.43
+  auto_size_text: ^2.1.0
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'

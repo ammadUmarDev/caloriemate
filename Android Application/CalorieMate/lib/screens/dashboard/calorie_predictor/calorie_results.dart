@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/constants.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CalorieResults extends StatefulWidget {
@@ -134,7 +135,12 @@ class _CalorieResultsState extends State<CalorieResults> {
                                 Alert(
                                   context: context,
                                   title: "Coming Soon",
+                                  closeIcon: Icon(
+                                    FontAwesomeIcons.timesCircle,
+                                    color: kPrimaryLightColor,
+                                  ),
                                   style: AlertStyle(
+                                    overlayColor: Colors.black45,
                                     titleStyle:
                                         H2TextStyle(color: kPrimaryAccentColor),
                                   ),

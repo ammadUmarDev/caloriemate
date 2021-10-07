@@ -73,11 +73,12 @@ class _EditInformationState extends State<EditInformation> {
         top: true,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10, right: 20, left: 20),
             child: Column(
               children: <Widget>[
                 //Edit Age
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.calendarAlt, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -86,14 +87,19 @@ class _EditInformationState extends State<EditInformation> {
                             ? "Age: unset"
                             : "Age: " + (userObj.age).toString()),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
                   onTapFunction: () {
                     Alert(
                         context: context,
                         title: "Edit Age",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
                         style: AlertStyle(
+                          overlayColor: Colors.black45,
                           titleStyle: H2TextStyle(color: kTextDarkColor),
                         ),
                         content: Column(
@@ -161,6 +167,7 @@ class _EditInformationState extends State<EditInformation> {
                 ),
                 //Edit Gender
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.venusMars, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -169,14 +176,19 @@ class _EditInformationState extends State<EditInformation> {
                             ? "Gender: unset"
                             : "Gender: " + userObj.gender),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
                   onTapFunction: () {
                     Alert(
                         context: context,
                         title: "Edit Gender",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
                         style: AlertStyle(
+                          overlayColor: Colors.black45,
                           titleStyle: H2TextStyle(color: kTextDarkColor),
                         ),
                         content: StatefulBuilder(
@@ -224,63 +236,48 @@ class _EditInformationState extends State<EditInformation> {
                                     H3(textBody: "Other"),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ButtonErims(
-                                  onTap: (startLoading, stopLoading,
-                                      btnState) async {
-                                    if (btnState == ButtonState.Idle) {
-                                      startLoading();
-                                      var retChangeGender = changeGender(
-                                          userObj, _gender.toShortString());
-                                      bool retChangeGenderCheck;
-                                      await retChangeGender.then((value) =>
-                                          retChangeGenderCheck = value);
-                                      if (retChangeGenderCheck == true) {
-                                        setState(() {
-                                          userObj.gender =
-                                              _gender.toShortString();
-                                          Provider.of<General_Provider>(context,
-                                                  listen: false)
-                                              .set_user(userObj);
-                                          SnackBar sc = SnackBar(
-                                            content: Text(
-                                              "Gender Edited Successfully",
-                                              style: H3TextStyle(),
-                                            ),
-                                          );
-                                          _scaffoldKey.currentState
-                                              .showSnackBar(sc);
-                                          Navigator.pop(context);
-                                          stopLoading();
-                                        });
-                                      }
-                                    } else {
-                                      stopLoading();
-                                    }
-                                  },
-                                  labelText: "SAVE",
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
                               ],
                             );
                           },
                         ),
                         buttons: [
                           DialogButton(
-                            color: Colors.white,
-                            height: 0,
-                            child: SizedBox(height: 0),
-                            onPressed: () {},
+                            color: kPrimaryAccentColor,
+                            height: 40,
+                            child: Text(
+                              "SAVE",
+                              style: TextStyle(color: kTextLightColor),
+                            ),
+                            onPressed: () async {
+                              var retChangeGender = changeGender(
+                                  userObj, _gender.toShortString());
+                              bool retChangeGenderCheck;
+                              await retChangeGender.then(
+                                  (value) => retChangeGenderCheck = value);
+                              if (retChangeGenderCheck == true) {
+                                setState(() {
+                                  userObj.gender = _gender.toShortString();
+                                  Provider.of<General_Provider>(context,
+                                          listen: false)
+                                      .set_user(userObj);
+                                  SnackBar sc = SnackBar(
+                                    content: Text(
+                                      "Gender Edited Successfully",
+                                      style: H3TextStyle(),
+                                    ),
+                                  );
+                                  _scaffoldKey.currentState.showSnackBar(sc);
+                                });
+                                Navigator.pop(context);
+                              }
+                            },
                           ),
                         ]).show();
                   },
                 ),
                 //Edit Current Weight
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.weight, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -291,14 +288,19 @@ class _EditInformationState extends State<EditInformation> {
                                 (userObj.currentWeight).toString() +
                                 " kg"),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
                   onTapFunction: () {
                     Alert(
                         context: context,
                         title: "Edit Current Weight (kg)",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
                         style: AlertStyle(
+                          overlayColor: Colors.black45,
                           titleStyle: H2TextStyle(color: kTextDarkColor),
                         ),
                         content: Column(
@@ -370,6 +372,7 @@ class _EditInformationState extends State<EditInformation> {
                 ),
                 //Edit Targetted Weight
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.weight, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -380,14 +383,19 @@ class _EditInformationState extends State<EditInformation> {
                                 (userObj.targettedWeight).toString() +
                                 " kg"),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
                   onTapFunction: () {
                     Alert(
                         context: context,
                         title: "Edit Targetted Weight (kg)",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
                         style: AlertStyle(
+                          overlayColor: Colors.black45,
                           titleStyle: H2TextStyle(color: kTextDarkColor),
                         ),
                         content: Column(
@@ -459,6 +467,7 @@ class _EditInformationState extends State<EditInformation> {
                 ),
                 //Edit Height
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.rulerVertical, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -471,14 +480,19 @@ class _EditInformationState extends State<EditInformation> {
                                 (userObj.heightIn).toString() +
                                 "\""),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
                   onTapFunction: () {
                     Alert(
                         context: context,
                         title: "Edit Height (Ft)",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
+                        ),
                         style: AlertStyle(
+                          overlayColor: Colors.black45,
                           titleStyle: H2TextStyle(color: kTextDarkColor),
                         ),
                         content: Column(
@@ -552,7 +566,9 @@ class _EditInformationState extends State<EditInformation> {
                   },
                 ),
                 //Edit Physical Activity Level
+
                 ShadowBoxList(
+                  color: Colors.white,
                   icon: Icon(FontAwesomeIcons.hiking, color: kIconColor),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
@@ -562,157 +578,141 @@ class _EditInformationState extends State<EditInformation> {
                             : "Physical Activity Level: " +
                                 userObj.physicalActivityLevel),
                     SizedBox(height: 5),
-                    BodyText(textBody: "Tap to edit"),
+                    BodyText(textBody: "Tap to update"),
                     SizedBox(height: 10),
                   ],
-                  onTapFunction: () {
+                  onTapFunction: () async {
                     Alert(
-                        context: context,
-                        title: "Edit Physical Activity Level",
-                        style: AlertStyle(
-                          titleStyle: H2TextStyle(color: kTextDarkColor),
-                        ),
-                        content: StatefulBuilder(
-                          builder:
-                              (BuildContext context, StateSetter setState) {
-                            return Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: [
-                                        Radio<PhysicalActivityLevel>(
-                                          value:
-                                              PhysicalActivityLevel.Sedentary,
-                                          groupValue: _physicalActivityLevel,
-                                          onChanged:
-                                              (PhysicalActivityLevel value) {
-                                            setState(() {
-                                              _physicalActivityLevel = value;
-                                              print(_physicalActivityLevel
-                                                  .toShortString());
-                                            });
-                                          },
-                                        ),
-                                        H3(textBody: "Sedentary"),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Radio<PhysicalActivityLevel>(
-                                          value: PhysicalActivityLevel.Light,
-                                          groupValue: _physicalActivityLevel,
-                                          onChanged:
-                                              (PhysicalActivityLevel value) {
-                                            setState(() {
-                                              _physicalActivityLevel = value;
-                                              print(_physicalActivityLevel
-                                                  .toShortString());
-                                            });
-                                          },
-                                        ),
-                                        H3(textBody: "Light"),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Radio<PhysicalActivityLevel>(
-                                          value: PhysicalActivityLevel.Moderate,
-                                          groupValue: _physicalActivityLevel,
-                                          onChanged:
-                                              (PhysicalActivityLevel value) {
-                                            setState(() {
-                                              _physicalActivityLevel = value;
-                                              print(_physicalActivityLevel
-                                                  .toShortString());
-                                            });
-                                          },
-                                        ),
-                                        H3(textBody: "Moderate"),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Radio<PhysicalActivityLevel>(
-                                          value: PhysicalActivityLevel.Vigorous,
-                                          groupValue: _physicalActivityLevel,
-                                          onChanged:
-                                              (PhysicalActivityLevel value) {
-                                            setState(() {
-                                              _physicalActivityLevel = value;
-                                              print(_physicalActivityLevel
-                                                  .toShortString());
-                                            });
-                                          },
-                                        ),
-                                        H3(textBody: "Vigorous"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ButtonErims(
-                                  onTap: (startLoading, stopLoading,
-                                      btnState) async {
-                                    if (btnState == ButtonState.Idle) {
-                                      startLoading();
-                                      var retChangePhysicalActivityLevel =
-                                          changePhysicalActivityLevel(
-                                              userObj,
-                                              _physicalActivityLevel
-                                                  .toShortString());
-                                      bool retChangePhysicalActivityLevelCheck;
-                                      await retChangePhysicalActivityLevel.then(
-                                          (value) =>
-                                              retChangePhysicalActivityLevelCheck =
-                                                  value);
-                                      if (retChangePhysicalActivityLevelCheck ==
-                                          true) {
-                                        setState(() {
-                                          userObj.physicalActivityLevel =
-                                              _physicalActivityLevel
-                                                  .toShortString();
-                                          Provider.of<General_Provider>(context,
-                                                  listen: false)
-                                              .set_user(userObj);
-                                          SnackBar sc = SnackBar(
-                                            content: Text(
-                                              "PhysicalActivityLevel Edited Successfully",
-                                              style: H3TextStyle(),
-                                            ),
-                                          );
-                                          _scaffoldKey.currentState
-                                              .showSnackBar(sc);
-                                          Navigator.pop(context);
-                                          stopLoading();
-                                        });
-                                      }
-                                    } else {
-                                      stopLoading();
-                                    }
-                                  },
-                                  labelText: "SAVE",
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            );
+                      context: context,
+                      title: "Edit Physical Activity Level",
+                      closeIcon: Icon(
+                        FontAwesomeIcons.timesCircle,
+                        color: kPrimaryLightColor,
+                      ),
+                      style: AlertStyle(
+                        overlayColor: Colors.black45,
+                        titleStyle: H2TextStyle(color: kTextDarkColor),
+                      ),
+                      content: StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                          return Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Radio<PhysicalActivityLevel>(
+                                        value: PhysicalActivityLevel.Sedentary,
+                                        groupValue: _physicalActivityLevel,
+                                        onChanged:
+                                            (PhysicalActivityLevel value) {
+                                          setState(() {
+                                            _physicalActivityLevel = value;
+                                            print(_physicalActivityLevel
+                                                .toShortString());
+                                          });
+                                        },
+                                      ),
+                                      H3(textBody: "Sedentary"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio<PhysicalActivityLevel>(
+                                        value: PhysicalActivityLevel.Light,
+                                        groupValue: _physicalActivityLevel,
+                                        onChanged:
+                                            (PhysicalActivityLevel value) {
+                                          setState(() {
+                                            _physicalActivityLevel = value;
+                                            print(_physicalActivityLevel
+                                                .toShortString());
+                                          });
+                                        },
+                                      ),
+                                      H3(textBody: "Light"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio<PhysicalActivityLevel>(
+                                        value: PhysicalActivityLevel.Moderate,
+                                        groupValue: _physicalActivityLevel,
+                                        onChanged:
+                                            (PhysicalActivityLevel value) {
+                                          setState(() {
+                                            _physicalActivityLevel = value;
+                                            print(_physicalActivityLevel
+                                                .toShortString());
+                                          });
+                                        },
+                                      ),
+                                      H3(textBody: "Moderate"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio<PhysicalActivityLevel>(
+                                        value: PhysicalActivityLevel.Vigorous,
+                                        groupValue: _physicalActivityLevel,
+                                        onChanged:
+                                            (PhysicalActivityLevel value) {
+                                          setState(() {
+                                            _physicalActivityLevel = value;
+                                            print(_physicalActivityLevel
+                                                .toShortString());
+                                          });
+                                        },
+                                      ),
+                                      H3(textBody: "Vigorous"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      buttons: [
+                        DialogButton(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          color: kPrimaryAccentColor,
+                          height: 40,
+                          child: Text(
+                            "SAVE",
+                            style: TextStyle(color: kTextLightColor),
+                          ),
+                          onPressed: () async {
+                            var retChangePhysicalActivityLevel =
+                                changePhysicalActivityLevel(userObj,
+                                    _physicalActivityLevel.toShortString());
+                            bool retChangePhysicalActivityLevelCheck;
+                            await retChangePhysicalActivityLevel.then((value) =>
+                                retChangePhysicalActivityLevelCheck = value);
+                            if (retChangePhysicalActivityLevelCheck == true) {
+                              setState(() {
+                                userObj.physicalActivityLevel =
+                                    _physicalActivityLevel.toShortString();
+                                Provider.of<General_Provider>(context,
+                                        listen: false)
+                                    .set_user(userObj);
+                                SnackBar sc = SnackBar(
+                                  content: Text(
+                                    "Physical Activity Level Edited Successfully",
+                                    style: H3TextStyle(),
+                                  ),
+                                );
+                                _scaffoldKey.currentState.showSnackBar(sc);
+                              });
+                              Navigator.pop(context);
+                            }
                           },
                         ),
-                        buttons: [
-                          DialogButton(
-                            color: Colors.white,
-                            height: 0,
-                            child: SizedBox(height: 0),
-                            onPressed: () {},
-                          ),
-                        ]).show();
+                      ],
+                    ).show();
                   },
                 ),
               ],

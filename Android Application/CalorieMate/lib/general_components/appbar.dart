@@ -1,6 +1,7 @@
 import 'package:calorie_mate/screens/dashboard/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../constants.dart';
 import 'h1.dart';
@@ -45,7 +46,12 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
                 Alert(
                     context: context,
                     title: helpAlertTitle,
+                    closeIcon: Icon(
+                      FontAwesomeIcons.timesCircle,
+                      color: kPrimaryLightColor,
+                    ),
                     style: AlertStyle(
+                      overlayColor: Colors.black45,
                       titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                     ),
                     content: Column(
@@ -64,7 +70,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
                         color: Colors.white,
                         height: 0,
                         child: SizedBox(height: 0),
-                        onPressed: ()=>{},
+                        onPressed: () => {},
                       ),
                     ]).show();
               },
@@ -105,8 +111,8 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-
-class AppBarWithoutPageName extends StatelessWidget implements PreferredSizeWidget {
+class AppBarWithoutPageName extends StatelessWidget
+    implements PreferredSizeWidget {
   AppBarWithoutPageName({this.helpAlertTitle, this.helpAlertBody});
   String helpAlertTitle;
   String helpAlertBody;
@@ -139,7 +145,12 @@ class AppBarWithoutPageName extends StatelessWidget implements PreferredSizeWidg
                 Alert(
                     context: context,
                     title: helpAlertTitle,
+                    closeIcon: Icon(
+                      FontAwesomeIcons.timesCircle,
+                      color: kPrimaryLightColor,
+                    ),
                     style: AlertStyle(
+                      overlayColor: Colors.black45,
                       titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                     ),
                     content: Column(
@@ -158,7 +169,7 @@ class AppBarWithoutPageName extends StatelessWidget implements PreferredSizeWidg
                         color: Colors.white,
                         height: 0,
                         child: SizedBox(height: 0),
-                        onPressed: ()=>{},
+                        onPressed: () => {},
                       ),
                     ]).show();
               },
@@ -237,7 +248,12 @@ class AppBarWithoutHome extends StatelessWidget implements PreferredSizeWidget {
                 Alert(
                     context: context,
                     title: helpAlertTitle,
+                    closeIcon: Icon(
+                      FontAwesomeIcons.timesCircle,
+                      color: kPrimaryLightColor,
+                    ),
                     style: AlertStyle(
+                      overlayColor: Colors.black45,
                       titleStyle: H2TextStyle(color: kPrimaryAccentColor),
                     ),
                     content: Column(
@@ -256,7 +272,7 @@ class AppBarWithoutHome extends StatelessWidget implements PreferredSizeWidget {
                         color: Colors.white,
                         height: 0,
                         child: SizedBox(height: 0),
-                        onPressed: ()=>{},
+                        onPressed: () => {},
                       ),
                     ]).show();
               },

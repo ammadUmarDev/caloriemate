@@ -41,7 +41,12 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
     Alert(
       context: context,
       title: "Side View",
+      closeIcon: Icon(
+        FontAwesomeIcons.timesCircle,
+        color: kPrimaryLightColor,
+      ),
       style: AlertStyle(
+        overlayColor: Colors.black45,
         titleStyle: H1TextStyle(color: kPrimaryAccentColor),
       ),
       content: Column(
@@ -98,7 +103,12 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
     Alert(
       context: context,
       title: "Side View",
+      closeIcon: Icon(
+        FontAwesomeIcons.timesCircle,
+        color: kPrimaryLightColor,
+      ),
       style: AlertStyle(
+        overlayColor: Colors.black45,
         titleStyle: H1TextStyle(color: kPrimaryAccentColor),
       ),
       content: Column(
@@ -164,7 +174,12 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                     Alert(
                       context: context,
                       title: "Top View",
+                      closeIcon: Icon(
+                        FontAwesomeIcons.timesCircle,
+                        color: kPrimaryLightColor,
+                      ),
                       style: AlertStyle(
+                        overlayColor: Colors.black45,
                         titleStyle: H1TextStyle(color: kPrimaryAccentColor),
                       ),
                       content: Column(
@@ -262,7 +277,12 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                     Alert(
                       context: context,
                       title: "Top View",
+                      closeIcon: Icon(
+                        FontAwesomeIcons.timesCircle,
+                        color: kPrimaryLightColor,
+                      ),
                       style: AlertStyle(
+                        overlayColor: Colors.black45,
                         titleStyle: H1TextStyle(color: kPrimaryAccentColor),
                       ),
                       content: Column(

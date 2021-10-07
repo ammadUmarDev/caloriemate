@@ -55,7 +55,9 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     icon: MaterialCommunityIcons.silverware_variant,
                     color: kDarkAccentColor,
                     textColor: Colors.white,
-                    press: () => {},
+                    press: () {
+                      Navigator.of(context).pushNamed('/IntakeRecommender');
+                    },
                   ),
                   Spacer(),
                   RoundedIconButton(
@@ -84,7 +86,9 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     icon: MaterialCommunityIcons.human_handsup,
                     color: kDarkAccentColor,
                     textColor: Colors.white,
-                    press: () => {},
+                    press: () {
+                      Navigator.of(context).pushNamed('/WorkoutPlanner');
+                    },
                   )
                 ],
               ),
@@ -97,7 +101,9 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     icon: MaterialCommunityIcons.scale_bathroom,
                     color: kDarkAccentColor,
                     textColor: Colors.white,
-                    press: () => {},
+                    press: () {
+                      Navigator.of(context).pushNamed('/WeightTracker');
+                    },
                   ),
                   // SizedBox(width: 30),
                   Spacer(),
@@ -107,7 +113,6 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     color: kDarkAccentColor,
                     textColor: Colors.white,
                     press: () {
-                      print("buttonpressed");
                       Navigator.of(context).pushNamed('/BMICalculator');
                     },
                   )

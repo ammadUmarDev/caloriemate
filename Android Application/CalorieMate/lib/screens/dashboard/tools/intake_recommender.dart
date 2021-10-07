@@ -1,12 +1,19 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:calorie_mate/general_components/body_text%20copy.dart';
 import 'package:calorie_mate/general_components/card.dart';
+import 'package:calorie_mate/general_components/h2.dart';
+import 'package:calorie_mate/general_components/shadowBoxList.dart';
+import 'package:calorie_mate/models/user.dart';
+import 'package:calorie_mate/providers/firebase_functions.dart';
+import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../constants.dart';
 import '../../../general_components/appbar.dart';
@@ -14,22 +21,33 @@ import '../../../general_components/buttonErims.dart';
 import '../../../general_components/h1.dart';
 import '../../../general_components/h3.dart';
 
-enum Gender {
-  male,
-  female,
-}
+enum Gender { male, female }
 
 enum HeightUnit { ft, cm }
 enum WeightUnit { kg, lbs }
 
-class BMICalculator extends StatefulWidget {
-  static final String id = '/BMICalculator';
-  @override
-  _BMICalculatorState createState() => _BMICalculatorState();
+enum PhysicalActivityLevel { Sedentary, Light, Moderate, Vigorous }
+
+extension ParseToString on PhysicalActivityLevel {
+  String toShortString() {
+    return this.toString().split('.').last;
+  }
 }
 
-class _BMICalculatorState extends State<BMICalculator> {
+class IntakeRecommender extends StatefulWidget {
+  static final String id = '/IntakeRecommender';
+  @override
+  _IntakeRecommenderState createState() => _IntakeRecommenderState();
+}
+
+class _IntakeRecommenderState extends State<IntakeRecommender> {
+  List<BoxShadow> shadow = [
+    BoxShadow(color: Colors.black12, offset: Offset(0, 3), blurRadius: 6)
+  ];
+
   Gender selectedGender;
+  PhysicalActivityLevel _physicalActivityLevel;
+  UserModel userObj;
 
   //Height Variables and functions
 
@@ -173,10 +191,9 @@ class _BMICalculatorState extends State<BMICalculator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarPageName(
-          pageName: "BMI Calculator",
-          helpAlertTitle: "BMI Calculator Help",
-          helpAlertBody:
-              "Enter you Gender, Height, Weight and Age to calculate your BMI."),
+          pageName: "Intake Recommender",
+          helpAlertTitle: "Intake Recommender Help",
+          helpAlertBody: "Get a recommendation on your daily calorie intake."),
       backgroundColor: kBackgroundColor,
       body: SafeArea(
         top: true,
@@ -184,49 +201,44 @@ class _BMICalculatorState extends State<BMICalculator> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Calculate Your BMI",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: <Widget>[
+                    //Gender Picker
                     Row(
                       children: <Widget>[
-                        SelectionCard(
-                          onPress: () {
-                            setState(() {
-                              selectedGender = Gender.male;
-                            });
-                          },
-                          color: selectedGender == Gender.male
-                              ? kActiveCardColour
-                              : kInactiveCardColour,
-                          icon: FontAwesomeIcons.mars,
-                          text: 'MALE',
-                          textColor: Colors.white,
+                        SizedBox(
+                          height: 150,
+                          child: SelectionCard(
+                            onPress: () {
+                              setState(() {
+                                selectedGender = Gender.male;
+                              });
+                            },
+                            color: selectedGender == Gender.male
+                                ? kActiveCardColour
+                                : kInactiveCardColour,
+                            icon: FontAwesomeIcons.mars,
+                            text: 'MALE',
+                            textColor: Colors.white,
+                          ),
                         ),
                         Spacer(),
-                        SelectionCard(
-                          onPress: () {
-                            setState(() {
-                              selectedGender = Gender.female;
-                            });
-                          },
-                          color: selectedGender == Gender.female
-                              ? kActiveCardColour
-                              : kInactiveCardColour,
-                          icon: FontAwesomeIcons.venus,
-                          text: 'FEMALE',
-                          textColor: Colors.white,
+                        SizedBox(
+                          height: 150,
+                          child: SelectionCard(
+                            onPress: () {
+                              setState(() {
+                                selectedGender = Gender.female;
+                              });
+                            },
+                            color: selectedGender == Gender.female
+                                ? kActiveCardColour
+                                : kInactiveCardColour,
+                            icon: FontAwesomeIcons.venus,
+                            text: 'FEMALE',
+                            textColor: Colors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -969,7 +981,152 @@ class _BMICalculatorState extends State<BMICalculator> {
                             SizedBox(height: 10),
                           ]))
                     ]),
+                    //Edit Physical Activity Level
+                    ShadowBoxList(
+                      color: kPrimaryAccentColor,
+                      icon:
+                          Icon(FontAwesomeIcons.hiking, color: kTextLightColor),
+                      widgetColumn: <Widget>[
+                        SizedBox(height: 10),
+                        H2(
+                            color: kTextLightColor,
+                            textBody: _physicalActivityLevel == null
+                                ? "Physical Activity Level: unset"
+                                : "Physical Activity Level: " +
+                                    _physicalActivityLevel.toShortString()),
+                        SizedBox(height: 5),
+                        BodyText(
+                          textBody: "Tap to edit",
+                          color: kTextLightColor,
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                      onTapFunction: () {
+                        Alert(
+                            context: context,
+                            title: "Edit Physical Activity Level",
+                            closeIcon: Icon(
+                              FontAwesomeIcons.timesCircle,
+                              color: kPrimaryLightColor,
+                            ),
+                            style: AlertStyle(
+                              overlayColor: Colors.black45,
+                              titleStyle: H2TextStyle(color: kTextDarkColor),
+                            ),
+                            content: StatefulBuilder(
+                              builder:
+                                  (BuildContext context, StateSetter setState) {
+                                return Column(
+                                  children: <Widget>[
+                                    SizedBox(height: 10),
+                                    Column(
+                                      children: <Widget>[
+                                        Row(
+                                          children: [
+                                            Radio<PhysicalActivityLevel>(
+                                              value: PhysicalActivityLevel
+                                                  .Sedentary,
+                                              groupValue:
+                                                  _physicalActivityLevel,
+                                              onChanged: (PhysicalActivityLevel
+                                                  value) {
+                                                setState(() {
+                                                  _physicalActivityLevel =
+                                                      value;
+                                                  print(_physicalActivityLevel
+                                                      .toShortString());
+                                                });
+                                              },
+                                            ),
+                                            H3(textBody: "Sedentary"),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Radio<PhysicalActivityLevel>(
+                                              value:
+                                                  PhysicalActivityLevel.Light,
+                                              groupValue:
+                                                  _physicalActivityLevel,
+                                              onChanged: (PhysicalActivityLevel
+                                                  value) {
+                                                setState(() {
+                                                  _physicalActivityLevel =
+                                                      value;
+                                                  print(_physicalActivityLevel
+                                                      .toShortString());
+                                                });
+                                              },
+                                            ),
+                                            H3(textBody: "Light"),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Radio<PhysicalActivityLevel>(
+                                              value: PhysicalActivityLevel
+                                                  .Moderate,
+                                              groupValue:
+                                                  _physicalActivityLevel,
+                                              onChanged: (PhysicalActivityLevel
+                                                  value) {
+                                                setState(() {
+                                                  _physicalActivityLevel =
+                                                      value;
+                                                  print(_physicalActivityLevel
+                                                      .toShortString());
+                                                });
+                                              },
+                                            ),
+                                            H3(textBody: "Moderate"),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Radio<PhysicalActivityLevel>(
+                                              value: PhysicalActivityLevel
+                                                  .Vigorous,
+                                              groupValue:
+                                                  _physicalActivityLevel,
+                                              onChanged: (PhysicalActivityLevel
+                                                  value) {
+                                                setState(() {
+                                                  _physicalActivityLevel =
+                                                      value;
+                                                  print(_physicalActivityLevel
+                                                      .toShortString());
+                                                });
+                                              },
+                                            ),
+                                            H3(textBody: "Vigorous"),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 0,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                            buttons: [
+                              DialogButton(
+                                margin: EdgeInsets.symmetric(horizontal: 20),
+                                color: kPrimaryAccentColor,
+                                height: 40,
+                                child: Text("OK",
+                                    style: TextStyle(color: kTextLightColor)),
+                                onPressed: () {
+                                  setState(() {});
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ]).show();
+                      },
+                    ),
                     SizedBox(height: 20),
+
                     //CalculateButton
                     ArgonButton(
                       height: 54,

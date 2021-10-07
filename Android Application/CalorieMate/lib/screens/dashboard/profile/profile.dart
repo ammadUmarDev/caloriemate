@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/general_components/body_text%20copy.dart';
 import 'package:calorie_mate/general_components/h1.dart';
@@ -58,10 +59,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const EdgeInsets.only(right: 20, top: 10, bottom: 10),
                   child: CircleAvatar(
                     child: ClipOval(
-                        child: Image.asset(
-                      userImagePath,
-                      width: 60,
-                    )),
+                      child: Image.asset(
+                        userImagePath,
+                        width: 60,
+                      ),
+                    ),
                     maxRadius: 40,
                     // backgroundImage: AssetImage(userImagePath),
                     backgroundColor: kDarkAccentColor,
@@ -86,9 +88,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           H3(textBody: "Email: "),
                           SizedBox(height: 5),
-                          BodyText(
-                              textBody:
-                                  user == null ? "Loading..." : user.email),
+                          SizedBox(
+                            width: 180,
+                            child: FittedBox(
+                              alignment: Alignment.centerLeft,
+                              fit: BoxFit.scaleDown,
+                              child: BodyText(
+                                textBody:
+                                    user == null ? "Loading..." : user.email,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 10),
