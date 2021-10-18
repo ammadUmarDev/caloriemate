@@ -327,10 +327,20 @@ class _EditInformationState extends State<EditInformation> {
                                   var retChangeCurrentWeight =
                                       changeCurrentWeight(
                                           userObj, double.parse(currentWeight));
+                                  List<double> weightHist = [
+                                    double.parse(currentWeight)
+                                  ];
+                                  var retUpdateWeightHistory =
+                                      updateWeightHistory(userObj, weightHist);
                                   bool retChangeCurrentWeightCheck;
+                                  bool retUpdateWeightHistoryCheck;
                                   await retChangeCurrentWeight.then((value) =>
                                       retChangeCurrentWeightCheck = value);
-                                  if (retChangeCurrentWeightCheck == true) {
+                                  await retUpdateWeightHistory.then((value) =>
+                                      retUpdateWeightHistoryCheck = value);
+
+                                  if (retChangeCurrentWeightCheck == true &&
+                                      retUpdateWeightHistoryCheck == true) {
                                     setState(() {
                                       userObj.currentWeight =
                                           double.parse(currentWeight);
@@ -434,7 +444,7 @@ class _EditInformationState extends State<EditInformation> {
                                           .set_user(userObj);
                                       SnackBar sc = SnackBar(
                                         content: Text(
-                                          "Current Weight Edited Successfully",
+                                          "Targetted Weight Edited Successfully",
                                           style: H3TextStyle(),
                                         ),
                                       );

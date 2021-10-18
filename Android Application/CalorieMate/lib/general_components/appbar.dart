@@ -35,8 +35,8 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
             child: InkWell(
               splashColor: kPrimaryAccentColor, // inkwell color
               child: SizedBox(
-                width: 56,
-                height: 56,
+                width: 46,
+                height: 46,
                 child: Icon(
                   Icons.help,
                   color: kPrimaryAccentColor,

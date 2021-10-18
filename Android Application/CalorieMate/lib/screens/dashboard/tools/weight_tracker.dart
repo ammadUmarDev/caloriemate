@@ -30,19 +30,43 @@ class _WeightTrackerState extends State<WeightTracker> {
 
   UserModel userObj;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  LinearGradient mainButton = LinearGradient(
-      colors: [Color(0xFF2b580c), Color(0xFF2b580c), Color(0xFF2b580c)],
-      begin: FractionalOffset.topCenter,
-      end: FractionalOffset.bottomCenter);
 
-  List<BoxShadow> shadow = [
-    BoxShadow(color: Colors.black12, offset: Offset(0, 3), blurRadius: 6)
-  ];
+  List<double> weightHist = [];
+  List<FlSpot> weightList = [];
+
+  int l = 0;
+
+  Future<void> initializeValues() async {
+    userObj = Provider.of<General_Provider>(context, listen: false).get_user();
+    weightHist = await getWeightHistory(userObj);
+    l = weightList.length;
+    print("======================================");
+    print(weightHist);
+    for (int i = l; i < weightHist.length; i++) {
+      setState(() {
+        weightList.add(FlSpot(i.toDouble(), weightHist[i]));
+      });
+    }
+
+    if (weightList.length > 12) {
+      int x = 0;
+      for (int y = weightHist.length - 12; y < weightHist.length; y++) {
+        weightList[x] = FlSpot((x).toDouble(), weightHist[y]);
+        x++;
+      }
+      weightList.removeRange(12, weightList.length);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeValues();
+  }
 
   @override
   Widget build(BuildContext context) {
-    userObj = Provider.of<General_Provider>(context, listen: false).get_user();
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
@@ -59,7 +83,7 @@ class _WeightTrackerState extends State<WeightTracker> {
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 20, bottom: 10, right: 20),
+                padding: EdgeInsets.only(top: 20, bottom: 20, right: 20),
                 height: 280,
                 width: MediaQuery.of(context).size.width - 20,
                 decoration: BoxDecoration(
@@ -98,18 +122,7 @@ class _WeightTrackerState extends State<WeightTracker> {
                     lineBarsData: [
                       LineChartBarData(
                         colors: [kPrimaryAccentColor, kTextLightColor],
-                        spots: [
-                          FlSpot(0, 180),
-                          FlSpot(1, 140),
-                          FlSpot(2, 110),
-                          FlSpot(3, 150),
-                          FlSpot(5, 105),
-                          FlSpot(7, 90),
-                          FlSpot(8, 80),
-                          FlSpot(9, 95),
-                          FlSpot(10, 75),
-                          FlSpot(11, 60),
-                        ],
+                        spots: weightList,
                         belowBarData:
                             BarAreaData(show: true, colors: [Colors.white24]),
                         isCurved: true,
@@ -187,13 +200,24 @@ class _WeightTrackerState extends State<WeightTracker> {
                                 var retChangeCurrentWeight =
                                     changeCurrentWeight(
                                         userObj, double.parse(currentWeight));
+                                List<double> weightHist = [];
+                                // weightHist = [double.parse(currentWeight)];
+                                weightHist.add(double.parse(currentWeight));
+                                var retUpdateWeightHistory =
+                                    updateWeightHistory(userObj, weightHist);
                                 bool retChangeCurrentWeightCheck;
+                                bool retUpdateWeightHistoryCheck;
                                 await retChangeCurrentWeight.then((value) =>
                                     retChangeCurrentWeightCheck = value);
-                                if (retChangeCurrentWeightCheck == true) {
+                                await retUpdateWeightHistory.then((value) =>
+                                    retUpdateWeightHistoryCheck = value);
+                                if (retChangeCurrentWeightCheck == true &&
+                                    retUpdateWeightHistoryCheck == true) {
                                   setState(() {
+                                    initializeValues();
                                     userObj.currentWeight =
                                         double.parse(currentWeight);
+                                    // userObj.weightHistory.add(weightHist[0]);
                                     Provider.of<General_Provider>(context,
                                             listen: false)
                                         .set_user(userObj);
@@ -241,9 +265,9 @@ class LineTitles {
   static getTitleData() => FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
-          showTitles: true,
+          showTitles: false,
           margin: 3,
-          // reservedSize: 24,
+          // reservedSize: 240,
           getTextStyles: (value) => const TextStyle(
             color: kTextLightColor,
             fontFamily: 'Montserrat',

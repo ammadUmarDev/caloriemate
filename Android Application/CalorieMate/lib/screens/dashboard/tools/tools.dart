@@ -65,7 +65,9 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     icon: MaterialCommunityIcons.run,
                     color: kDarkAccentColor,
                     textColor: Colors.white,
-                    press: () => {},
+                    press: () {
+                      Navigator.of(context).pushNamed('/WorkoutRecommender');
+                    },
                   )
                 ],
               ),

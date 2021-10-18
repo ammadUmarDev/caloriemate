@@ -17,25 +17,24 @@ class UserModel {
   List<double> weightHistory;
   List<double> BMIHistory;
 
-
-  UserModel({this.userID,
-    this.fullName,
-    this.email,
-    this.createdDate,
-    this.lastPassChangeDate,
-    this.phoneNumber,
-    this.age,
-    this.gender,
-    this.heightFt,
-    this.heightIn,
-    this.currentWeight,
-    this.targettedWeight,
-    this.bodyGoal,
-    this.physicalActivityLevel,
-    this.latestBMIScore,
-    this.weightHistory,
-    this.BMIHistory
-  });
+  UserModel(
+      {this.userID,
+      this.fullName,
+      this.email,
+      this.createdDate,
+      this.lastPassChangeDate,
+      this.phoneNumber,
+      this.age,
+      this.gender,
+      this.heightFt,
+      this.heightIn,
+      this.currentWeight,
+      this.targettedWeight,
+      this.bodyGoal,
+      this.physicalActivityLevel,
+      this.latestBMIScore,
+      this.weightHistory,
+      this.BMIHistory});
 
   // ignore: non_constant_identifier_names
   void print_user() {

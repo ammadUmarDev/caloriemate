@@ -125,14 +125,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Material(
                   color: Colors.transparent, // button color
                   child: InkWell(
-                    splashColor: kPrimaryAccentColor, // inkwell color
                     child: SizedBox(
-                      width: 30,
-                      height: 30,
+                      width: 28,
+                      height: 28,
                       child: Icon(
                         MaterialCommunityIcons.pencil,
                         color: kPrimaryAccentColor,
-                        size: 30,
+                        size: 28,
                       ),
                     ),
                     onTap: () {
@@ -142,6 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -150,29 +150,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // SizedBox(height: 10),
-                      // H3(textBody: "User ID:"),
-                      // SizedBox(height: 5),
-                      // BodyText(
-                      //     textBody: user == null
-                      //         ? "Loading..."
-                      //         : user.userID.substring(0, 10)),
-                      // SizedBox(height: 10),
-                      H3(textBody: "Age:"),
+                      H3(textBody: "Age"),
                       SizedBox(height: 5),
                       BodyText(
                           textBody: user.age == null
                               ? "unset"
                               : (user.age).toString()),
                       SizedBox(height: 10),
-                      H3(textBody: "Current Weight:"),
+                      H3(textBody: "Current Weight"),
                       SizedBox(height: 5),
                       BodyText(
                           textBody: user.currentWeight == null
                               ? "unset"
                               : (user.currentWeight).toString() + " kg"),
                       SizedBox(height: 10),
-                      H3(textBody: "Target Weight:"),
+                      H3(textBody: "Target Weight"),
                       SizedBox(height: 5),
                       BodyText(
                           textBody: user.targettedWeight == null
@@ -186,13 +178,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10),
-                    H3(textBody: "Gender:"),
+                    H3(textBody: "Gender"),
                     SizedBox(height: 5),
                     BodyText(
                         textBody: user.gender == null ? "unset" : user.gender),
                     SizedBox(height: 10),
-                    H3(textBody: "Height:"),
+                    H3(textBody: "Height"),
                     SizedBox(height: 5),
                     BodyText(
                         textBody: user.heightFt == null
@@ -202,12 +193,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 user.heightIn.toString() +
                                 "\""),
                     SizedBox(height: 10),
-                    H3(textBody: "Physical Activity:"),
+                    H3(textBody: "Activity Level"),
                     SizedBox(height: 5),
                     BodyText(
                         textBody: user.physicalActivityLevel == null
                             ? "unset"
                             : user.physicalActivityLevel),
+                    SizedBox(height: 10),
                   ],
                 ),
               ],

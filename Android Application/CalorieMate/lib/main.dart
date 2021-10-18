@@ -9,8 +9,10 @@ import 'package:calorie_mate/screens/dashboard/dashboard.dart';
 import 'package:calorie_mate/screens/dashboard/profile/edit_information.dart';
 import 'package:calorie_mate/screens/dashboard/tools/bmi_calculator.dart';
 import 'package:calorie_mate/screens/dashboard/tools/intake_recommender.dart';
+import 'package:calorie_mate/screens/dashboard/tools/models/workout.dart';
 import 'package:calorie_mate/screens/dashboard/tools/weight_tracker.dart';
 import 'package:calorie_mate/screens/dashboard/tools/workout_planner.dart';
+import 'package:calorie_mate/screens/dashboard/tools/workout_recommender.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'constants.dart';
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
           WeightTracker.id: (context) => WeightTracker(),
           IntakeRecommender.id: (context) => IntakeRecommender(),
           WorkoutPlanner.id: (context) => WorkoutPlanner(),
+          WorkoutRecommender.id: (context) => WorkoutRecommender(),
         },
       ),
     );

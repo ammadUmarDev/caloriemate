@@ -109,16 +109,17 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                       margin:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 2.0,
-                              spreadRadius: 1.0,
-                              offset: Offset(1.0, 1.0),
-                            )
-                          ]),
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 2.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(1.0, 1.0),
+                          )
+                        ],
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 12.5, horizontal: 16),

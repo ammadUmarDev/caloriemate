@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:calorie_mate/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:validators/sanitizers.dart';
 
 //Check Internet Availability
 Future<bool> internetCheck() async {
@@ -127,6 +128,73 @@ Future<bool> changeCurrentWeight(UserModel u, double newCurrentWeight) async {
   await users
       .doc(u.userID)
       .update({'Current_Weight': newCurrentWeight})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//User Weight History Update
+Future<bool> updateWeightHistory(
+    UserModel u, List<double> newCurrentWeight) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  List<double> weightHist = [];
+  weightHist = await getWeightHistory(u).onError((error, stackTrace) => []);
+  weightHist.addAll(newCurrentWeight);
+  // deleteWeightHistory(u);
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Weight_History': weightHist})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
+//Appending weight history instead of union
+Future<List<double>> getWeightHistory(UserModel u) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  List<double> weightHist = [];
+
+  await users.doc(u.userID).get().then((value) {
+    if (value == null) {
+      return [];
+    }
+    List.from(value.data()["Weight_History"]).forEach((element) {
+      weightHist.add(element);
+    });
+  });
+  return weightHist;
+}
+
+//Appending weight history instead of union
+List<double> getWeightHistory2(UserModel u)  {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  List<double> weightHist = [];
+
+   users.doc(u.userID).get().then((value) {
+    if (value == null) {
+      return [];
+    }
+    List.from(value.data()["Weight_History"]).forEach((element) {
+      weightHist.add(element);
+    });
+  });
+  return weightHist;
+}
+
+//User Weight History Delete
+Future<bool> deleteWeightHistory(UserModel u) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Weight_History': FieldValue.delete()})
       .then((value) => check = true)
       .catchError((error) => print("Failed to update user: $error"));
 

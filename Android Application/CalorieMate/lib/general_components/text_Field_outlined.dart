@@ -57,8 +57,12 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
     return Column(
       children: <Widget>[
         Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+          ),
           height: 50.0,
-          color: kTextLightColor,
+          // color: kTextLightColor,
           child: TextFormField(
             style: H2TextStyle(),
             cursorColor: kPrimaryAccentColor,
