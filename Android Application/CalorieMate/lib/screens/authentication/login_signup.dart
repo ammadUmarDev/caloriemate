@@ -6,7 +6,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
 import '../../constants.dart';
 import '../../general_components/buttonErims.dart';
 import '../../general_components/h2.dart';
@@ -37,6 +36,15 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   String password;
   bool authCheckFields = false;
   bool _showSpinner = false;
+
+  // @override
+  // Future<void> initState() async {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   if (await FirebaseAuth.instance.currentUser != null) {
+  //     Navigator.pushNamed(context, DashBoard.id);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

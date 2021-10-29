@@ -30,22 +30,25 @@ class GeneralSettingsScreen extends StatelessWidget {
                           children: <Widget>[
                             ListTile(
                               title: Text('Account Settings'),
-                              leading: Icon(FontAwesomeIcons.userCog, size: kIconSize),
+                              leading: Icon(FontAwesomeIcons.userCog,
+                                  size: kIconSize),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (_) => AccountSettingScreen())),
                             ),
                             ListTile(
                               title: Text('Security Settings'),
-                              leading: Icon(FontAwesomeIcons.userLock, size: kIconSize),
+                              leading: Icon(FontAwesomeIcons.userLock,
+                                  size: kIconSize),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (_) => SecuritySettingsState())),
                             ),
                             ListTile(
                                 title: Text('Sign out'),
-                                leading: Icon(FontAwesomeIcons.signOutAlt, size: kIconSize),
-                                onTap: () {
+                                leading: Icon(FontAwesomeIcons.signOutAlt,
+                                    size: kIconSize),
+                                onTap: () async {
                                   FirebaseAuth.instance.signOut();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (_) => LoginSignupScreen()));
