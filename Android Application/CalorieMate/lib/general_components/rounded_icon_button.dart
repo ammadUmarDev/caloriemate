@@ -17,7 +17,7 @@ class RoundedIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 182,
+      height: 150,
       width: 156,
       child: ElevatedButton(
         onPressed: press,
@@ -34,7 +34,7 @@ class RoundedIconButton extends StatelessWidget {
             Icon(
               icon,
               color: textColor,
-              size: 90,
+              size: 60,
             ),
             Spacer(),
             Text(

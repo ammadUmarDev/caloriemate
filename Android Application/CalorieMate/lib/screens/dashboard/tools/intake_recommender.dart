@@ -282,7 +282,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                           ),
                           Row(children: <Widget>[
                             Container(
-                              width: 160,
+                              width: 150,
                               child: TextFormField(
                                 onTap: selectedUnit == HeightUnit.ft
                                     ? () {

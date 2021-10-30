@@ -270,7 +270,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                           ),
                           Row(children: <Widget>[
                             Container(
-                              width: 160,
+                              width: 150,
                               child: TextFormField(
                                 onTap: selectedUnit == HeightUnit.ft
                                     ? () {

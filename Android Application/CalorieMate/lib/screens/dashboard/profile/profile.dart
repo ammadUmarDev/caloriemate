@@ -61,10 +61,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: ClipOval(
                       child: Image.asset(
                         userImagePath,
-                        width: 60,
+                        width: 50,
                       ),
                     ),
-                    maxRadius: 40,
+                    maxRadius: 35,
                     // backgroundImage: AssetImage(userImagePath),
                     backgroundColor: kDarkAccentColor,
                   ),
@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      Wrap(
                         children: [
                           H3(textBody: "Name: "),
                           SizedBox(height: 5),
