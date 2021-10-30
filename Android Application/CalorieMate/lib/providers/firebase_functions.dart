@@ -233,7 +233,7 @@ Future<bool> changeHeight(UserModel u, int newHeightFt, int newHeightIn) async {
 }
 
 //User Physical Activity Level Change
-Future<void> changePhysicalActivityLevel(
+Future<bool> changePhysicalActivityLevel(
     UserModel u, String newPhysicalActivityLevel) async {
   FirebaseFirestore db = FirebaseFirestore.instance;
   CollectionReference users = db.collection('Users');
@@ -261,7 +261,7 @@ Future<void> createDiaryLog(DiaryModel d, UserModel u)  {
 }
 
 //get my diaries
-Future<void> addDiaryLogItem(DairyItem d, UserModel u, String ID)  async {
+Future<bool> addDiaryLogItem(DairyItem d, UserModel u, String ID)  async {
   FirebaseFirestore db = FirebaseFirestore.instance;
   CollectionReference diaries = db.collection('diaries');
   List<DairyItem> logItems = [];
