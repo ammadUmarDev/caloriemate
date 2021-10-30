@@ -64,6 +64,7 @@ dependencies:
   fl_chart: ^0.20.1
   syncfusion_flutter_charts: ^19.3.43
   auto_size_text: ^2.1.0
+  shared_preferences: ^2.0.7
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'

@@ -13,6 +13,7 @@ import 'package:calorie_mate/screens/dashboard/tools/models/workout.dart';
 import 'package:calorie_mate/screens/dashboard/tools/weight_tracker.dart';
 import 'package:calorie_mate/screens/dashboard/tools/workout_planner.dart';
 import 'package:calorie_mate/screens/dashboard/tools/workout_recommender.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'constants.dart';
@@ -44,9 +45,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "Montserrat",
         ),
-        initialRoute: LoginSignupScreen.id,
+        // initialRoute: LoginSignupScreen.id,
+        initialRoute: FirebaseAuth.instance.currentUser != null
+            ? DashBoard.id
+            : LoginSignupScreen.id,
         routes: {
-          LoginSignupScreen.id: (context) => LoginSignupScreen(),
           LoginSignupScreen.id: (context) => LoginSignupScreen(),
           DashBoard.id: (context) => DashBoard(),
           CaloriePredictorScreen.id: (context) => CaloriePredictorScreen(),

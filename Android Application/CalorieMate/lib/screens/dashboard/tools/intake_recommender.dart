@@ -88,7 +88,14 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
   double bmi;
 
   String calculateBMI() {
-    bmi = weight / pow(height / 100, 2);
+    if (selectedGender == Gender.male) {
+      bmi = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    }
+
+    if (selectedGender == Gender.female) {
+      bmi = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
     return bmi.toStringAsFixed(1);
   }
 
@@ -96,25 +103,24 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
   String bmiType;
 
   setBMIDescription() {
-    if (bmi > 25 && bmi <= 30) {
-      bmiDescription =
-          "Your weight is at a clearly elevated level; in our view, it is definitely not optimal for your health. By classification of the WHO, you are:";
-      bmiType = "Overweight";
+    if (_physicalActivityLevel == PhysicalActivityLevel.Sedentary) {
+      bmiDescription = (bmi * 1.1).toStringAsFixed(0);
+      bmiType = (bmi * 0.9).toStringAsFixed(0) + " calories per day.";
     }
-    if (bmi >= 20 && bmi <= 25) {
-      bmiDescription =
-          "Your weight is at the level that, in our view, should be optimal for health. By classification of the WHO, you are:";
-      bmiType = "Normal Weight";
+
+    if (_physicalActivityLevel == PhysicalActivityLevel.Light) {
+      bmiDescription = (bmi * 1.3).toStringAsFixed(0);
+      bmiType = (bmi * 1.1).toStringAsFixed(0) + " calories per day";
     }
-    if (bmi < 20) {
-      bmiDescription =
-          "Your weight is at a low level; in our view, it may lead to considerable health problems. By classification of the WHO, you are:";
-      bmiType = "Underweight";
+
+    if (_physicalActivityLevel == PhysicalActivityLevel.Moderate) {
+      bmiDescription = (bmi * 1.5).toStringAsFixed(0);
+      bmiType = (bmi * 1.3).toStringAsFixed(0) + " calories per day";
     }
-    if (bmi > 30) {
-      bmiDescription =
-          "Your weight is at a high level; in our view, it can lead to health problems. By classification of the WHO, you are:";
-      bmiType = "Obese";
+
+    if (_physicalActivityLevel == PhysicalActivityLevel.Vigorous) {
+      bmiDescription = (bmi * 1.7).toStringAsFixed(0);
+      bmiType = (bmi * 1.5).toStringAsFixed(0) + " calories per day";
     }
   }
 
@@ -1153,13 +1159,13 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                           setBMIDescription();
                           Alert(
                               context: context,
-                              title: "BMI Result",
+                              title: "Intake Recommendation",
                               closeIcon: Icon(
                                 FontAwesomeIcons.timesCircle,
                                 color: kPrimaryLightColor,
                               ),
                               content: Container(
-                                  height: 300,
+                                  height: 240,
                                   width: 300,
                                   child: Column(children: <Widget>[
                                     Divider(
@@ -1167,21 +1173,18 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                       color: Colors.black26,
                                     ),
                                     Spacer(),
-                                    Text("Your BMI is:"),
-                                    Spacer(),
-                                    Text(bmiResult,
-                                        style: TextStyle(
-                                            fontSize: 32,
-                                            fontWeight: FontWeight.bold,
-                                            color: kDarkAccentColor)),
+                                    Text("On a daily basis, you burn: "),
                                     Spacer(),
                                     Text(
-                                      bmiDescription,
+                                      bmiDescription + " calories",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 18,
-                                      ),
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: kDarkAccentColor),
                                     ),
+                                    Spacer(),
+                                    Text("To lose, consume:"),
                                     Spacer(),
                                     Text(bmiType,
                                         style: TextStyle(
