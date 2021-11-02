@@ -49,6 +49,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
               // Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RoundedIconButton(
                     text: "Intake Recommender",

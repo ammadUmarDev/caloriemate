@@ -13,26 +13,26 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class CalorieResults extends StatefulWidget {
   static final String id = '/CalorieResults';
 
-  String predictedCalories;
-  int predictedQuantity;
+  double predictedCalories;
+  String predictedName;
 
   CalorieResults({
     // Key key,
     this.predictedCalories,
-    this.predictedQuantity,
+    this.predictedName,
   });
   // : super(key: key);
 
   @override
   _CalorieResultsState createState() =>
-      _CalorieResultsState(predictedCalories, predictedQuantity);
+      _CalorieResultsState(predictedCalories, predictedName);
 }
 
 class _CalorieResultsState extends State<CalorieResults> {
-  String calories;
-  int quantity;
+  double calories;
+  String name;
 
-  _CalorieResultsState(this.calories, this.quantity);
+  _CalorieResultsState(this.calories, this.name);
 
   @override
   void initState() {
@@ -101,6 +101,18 @@ class _CalorieResultsState extends State<CalorieResults> {
                         Row(
                           children: <Widget>[
                             H2(
+                              textBody: "Estimated Item Type: ",
+                              color: kPrimaryDarkColor,
+                            ),
+                            H2(
+                              textBody: "$name",
+                              color: kTextDarkColor,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            H2(
                               textBody: "Estimated Energy: ",
                               color: kPrimaryDarkColor,
                             ),
@@ -112,18 +124,6 @@ class _CalorieResultsState extends State<CalorieResults> {
                         ),
                         SizedBox(
                           height: 10,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            H2(
-                              textBody: "Estimated Serving Size: ",
-                              color: kPrimaryDarkColor,
-                            ),
-                            H2(
-                              textBody: "$quantity g",
-                              color: kTextDarkColor,
-                            ),
-                          ],
                         ),
                         SizedBox(height: 20),
                         Row(

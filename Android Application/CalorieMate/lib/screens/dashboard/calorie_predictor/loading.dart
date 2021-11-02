@@ -5,8 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:calorie_mate/general_components/appbar.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../models/calories_data.dart';
+class ServerResponse {
+  final String name;
+  final double calories;
+
+  ServerResponse({this.name, this.calories});
+
+  factory ServerResponse.fromJson(Map<String, dynamic> json) {
+    return ServerResponse(
+        name: json['name'] ,
+        calories: json['calories']
+    );
+  }
+}
 
 class LoadingScreen extends StatefulWidget {
   static final String id = '/LoadingScreen';
@@ -24,21 +40,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
     CalorieModel object = CalorieModel();
 
     // await for data
-    await Future.delayed(Duration(seconds: 1));
-
-    databaseReference.once().then((DataSnapshot data) {
-      setState(() {
-        object.calories = '${data.value}';
-      });
-    });
-    object.calories = "48.637";
-    object.quantity = 98;
+    //await Future.delayed(Duration(seconds: 10));
+    final response = await http.get(Uri.parse('http://d69d-34-86-79-140.ngrok.io/generateResults'));
+    print(response.statusCode);
+    print(response.body);
+    // databaseReference.once().then((DataSnapshot data) {
+    //   setState(() {
+    //     object.calories = '${data.value}';
+    //   });
+    // });
+    final jsonResponse = ServerResponse.fromJson(jsonDecode(response.body));
+    object.name = jsonResponse.name;
+    object.calories = jsonResponse.calories;
 
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => CalorieResults(
             predictedCalories: object.calories,
-            predictedQuantity: object.quantity),
+            predictedName: object.name),
       ),
     );
   }
