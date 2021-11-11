@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     maxRadius: 40,
                     // backgroundImage: AssetImage(userImagePath),
-                    backgroundColor: kDarkAccentColor,
+                    backgroundColor: kPrimaryGreenColor,
                   ),
                 ),
                 Expanded(
@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Divider(),
             Container(
-              margin: EdgeInsets.only(left: 280),
+              margin: EdgeInsets.only(left: 300),
               child: ClipOval(
                 child: Material(
                   color: Colors.transparent, // button color
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 28,
                       child: Icon(
                         MaterialCommunityIcons.pencil,
-                        color: kPrimaryAccentColor,
+                        color: kPrimaryGreenColor,
                         size: 28,
                       ),
                     ),
@@ -237,6 +237,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       key: _scaffoldKey,
       appBar: AppBarPageName(
           pageName: "My Profile",
+          leading: false,
           helpAlertTitle: "Profile Manager Help",
           helpAlertBody:
               "View and edit profile information, read FAQs and learn more about us."),
@@ -255,28 +256,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: H1(textBody: 'Settings'),
                   subtitle:
                       BodyText(textBody: 'Change account details & logout'),
-                  leading: Icon(FontAwesomeIcons.userCog, size: kIconSize),
+                  leading: Icon(
+                    FontAwesomeIcons.userCog,
+                    size: kIconSize,
+                    color: kPrimaryGreenColor,
+                  ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kPrimaryLightColor, size: kIconSize),
+                      color: kPrimaryGreenColor, size: kIconSize),
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => GeneralSettingsScreen())),
                 )),
                 RoundContainerBox(ListTile(
                   title: H1(textBody: 'FAQ'),
                   subtitle: BodyText(textBody: 'Questions and Answer'),
-                  leading: Icon(FontAwesomeIcons.solidQuestionCircle,
-                      size: kIconSize),
+                  leading: Icon(
+                    FontAwesomeIcons.solidQuestionCircle,
+                    size: kIconSize,
+                    color: kPrimaryGreenColor,
+                  ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kPrimaryLightColor, size: kIconSize),
+                      color: kPrimaryGreenColor, size: kIconSize),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => FaqScreen())),
                 )),
                 RoundContainerBox(ListTile(
                   title: H1(textBody: 'About Us'),
                   subtitle: BodyText(textBody: 'Get to know TripleA'),
-                  leading: Icon(FontAwesomeIcons.building, size: kIconSize),
+                  leading: Icon(
+                    FontAwesomeIcons.building,
+                    size: kIconSize,
+                    color: kPrimaryGreenColor,
+                  ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kPrimaryLightColor, size: kIconSize),
+                      color: kPrimaryGreenColor, size: kIconSize),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => AboutScreen())),
                 )),

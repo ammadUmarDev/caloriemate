@@ -5,6 +5,8 @@ import 'package:calorie_mate/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:validators/sanitizers.dart';
+import 'package:calorie_mate/models/logDiary.dart';
+import 'package:calorie_mate/models/diaryItem.dart';
 
 //Check Internet Availability
 Future<bool> internetCheck() async {
@@ -171,12 +173,12 @@ Future<List<double>> getWeightHistory(UserModel u) async {
 }
 
 //Appending weight history instead of union
-List<double> getWeightHistory2(UserModel u)  {
+List<double> getWeightHistory2(UserModel u) {
   FirebaseFirestore db = FirebaseFirestore.instance;
   CollectionReference users = db.collection('Users');
   List<double> weightHist = [];
 
-   users.doc(u.userID).get().then((value) {
+  users.doc(u.userID).get().then((value) {
     if (value == null) {
       return [];
     }
@@ -243,4 +245,48 @@ Future<bool> changePhysicalActivityLevel(
       .catchError((error) => print("Failed to update user: $error"));
 
   return check;
+}
+
+//get my diaries
+Future<void> createDiaryLog(DiaryModel d, UserModel u) {
+  CollectionReference diaries =
+      FirebaseFirestore.instance.collection('diaries');
+  return diaries
+      .add({'userID': u.userID, 'date': DateTime.now(), 'items': []})
+      .then((value) => print("DiaryLog Added"))
+      .catchError((error) => print("Failed to add DiaryLog: $error"));
+}
+
+//get my diaries
+Future<bool> addDiaryLogItem(DairyItem d, UserModel u, String ID) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference diaries = db.collection('diaries');
+  List<DairyItem> logItems = [];
+  logItems = await getDiarylogItems(ID).onError((error, stackTrace) => []);
+  logItems.add(d);
+  // deleteWeightHistory(u);
+  bool check = false;
+  await diaries
+      .doc(ID)
+      .update({'items': logItems})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update diary: $error"));
+  return check;
+}
+
+//Appending weight history instead of union
+Future<List<DairyItem>> getDiarylogItems(String id) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('diaries');
+  List<DairyItem> logItems = [];
+
+  await users.doc(id).get().then((value) {
+    if (value == null) {
+      return [];
+    }
+    List.from(value.data()["items"]).forEach((element) {
+      logItems.add(element);
+    });
+  });
+  return logItems;
 }

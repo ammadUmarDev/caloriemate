@@ -1,5 +1,6 @@
 import 'package:calorie_mate/constants.dart';
 import 'package:calorie_mate/general_components/appbar.dart';
+import 'package:calorie_mate/general_components/h1.dart';
 import 'package:calorie_mate/screens/authentication/login_signup.dart';
 import 'package:calorie_mate/screens/dashboard/profile/components/background_setting.dart';
 import 'package:calorie_mate/screens/dashboard/profile/settings/security_settings.dart';
@@ -23,36 +24,58 @@ class GeneralSettingsScreen extends StatelessWidget {
                       constraints:
                           BoxConstraints(minHeight: constraints.maxHeight),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 24.0, left: 24.0, right: 24.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 1, horizontal: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             ListTile(
-                              title: Text('Account Settings'),
-                              leading: Icon(FontAwesomeIcons.userCog,
-                                  size: kIconSize),
+                              title: H1(textBody: "Account Settings"),
+                              leading: Icon(
+                                FontAwesomeIcons.userCog,
+                                size: kIconSize,
+                                color: kIconColor,
+                              ),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (_) => AccountSettingScreen())),
                             ),
+                            Divider(
+                              thickness: 1,
+                              height: 0,
+                            ),
                             ListTile(
-                              title: Text('Security Settings'),
-                              leading: Icon(FontAwesomeIcons.userLock,
-                                  size: kIconSize),
+                              title: H1(textBody: 'Security Settings'),
+                              leading: Icon(
+                                FontAwesomeIcons.userLock,
+                                size: kIconSize,
+                                color: kIconColor,
+                              ),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (_) => SecuritySettingsState())),
                             ),
+                            Divider(
+                              thickness: 1,
+                              height: 0,
+                            ),
                             ListTile(
-                                title: Text('Sign out'),
-                                leading: Icon(FontAwesomeIcons.signOutAlt,
-                                    size: kIconSize),
-                                onTap: () async {
-                                  FirebaseAuth.instance.signOut();
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => LoginSignupScreen()));
-                                }),
+                              title: H1(textBody: 'Sign out'),
+                              leading: Icon(
+                                FontAwesomeIcons.signOutAlt,
+                                size: kIconSize,
+                                color: kIconColor,
+                              ),
+                              onTap: () async {
+                                FirebaseAuth.instance.signOut();
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => LoginSignupScreen()));
+                              },
+                            ),
+                            Divider(
+                              thickness: 1,
+                              height: 0,
+                            ),
                           ],
                         ),
                       ),

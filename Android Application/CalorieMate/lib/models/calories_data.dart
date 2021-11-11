@@ -1,14 +1,14 @@
 class CalorieModel {
-  String calories;
-  int quantity;
+  double calories;
+  String name;
   CalorieModel({
     this.calories,
-    this.quantity,
+    this.name,
   });
 
   void printCalories() {
     print(this.calories);
-    print(this.quantity);
+    print(this.name);
   }
 
   // int getCalories() {

@@ -9,25 +9,29 @@ import 'h2.dart';
 import 'h3.dart';
 
 class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
-  AppBarPageName({this.pageName, this.helpAlertTitle, this.helpAlertBody});
+  AppBarPageName(
+      {this.pageName,
+      this.helpAlertTitle,
+      this.helpAlertBody,
+      this.leading = true});
   final pageName;
   String helpAlertTitle;
   String helpAlertBody;
+  bool leading;
 
   @override
   Size get preferredSize => const Size.fromHeight(55);
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       iconTheme: IconThemeData(
-        color: kPrimaryDarkColor, //change your color here
+        color: Colors.white, //change your color here
       ),
-      backgroundColor: Colors.transparent,
-      title: H1(
-        textBody: pageName,
-        color: kTextDarkColor,
-      ),
-      elevation: 0,
+      backgroundColor: kPrimaryAccentColor,
+      title: H1(textBody: pageName, color: Colors.white),
+      titleSpacing: 20,
+      elevation: 2,
+      automaticallyImplyLeading: leading,
       actions: [
         ClipOval(
           child: Material(
@@ -39,7 +43,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
                 height: 46,
                 child: Icon(
                   Icons.help,
-                  color: kPrimaryAccentColor,
+                  color: Colors.white,
                 ),
               ),
               onTap: () {
@@ -88,10 +92,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
               child: SizedBox(
                 width: 56,
                 height: 56,
-                child: Icon(
-                  Icons.home_filled,
-                  color: kPrimaryAccentColor,
-                ),
+                child: Icon(Icons.home_filled, color: Colors.white),
               ),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
@@ -121,12 +122,13 @@ class AppBarWithoutPageName extends StatelessWidget
   Size get preferredSize => const Size.fromHeight(55);
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.light,
+      brightness: Brightness.dark,
       iconTheme: IconThemeData(
         color: kPrimaryDarkColor, //change your color here
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: kPrimaryAccentColor,
       elevation: 0,
+      titleSpacing: 20,
       actions: [
         ClipOval(
           child: Material(
@@ -138,7 +140,7 @@ class AppBarWithoutPageName extends StatelessWidget
                 height: 56,
                 child: Icon(
                   Icons.help,
-                  color: kPrimaryAccentColor,
+                  color: Colors.white,
                 ),
               ),
               onTap: () {
@@ -220,15 +222,16 @@ class AppBarWithoutHome extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(55);
   Widget build(BuildContext context) {
     return AppBar(
-      brightness: Brightness.light,
-      iconTheme: IconThemeData(
-        color: kPrimaryDarkColor, //change your color here
-      ),
-      backgroundColor: Colors.transparent,
+      brightness: Brightness.dark,
+      iconTheme: IconThemeData(color: Colors.white //change your color here
+          ),
+      backgroundColor: kPrimaryAccentColor,
       title: H1(
         textBody: pageName,
-        color: kTextDarkColor,
+        color: Colors.white,
       ),
+      automaticallyImplyLeading: false,
+      titleSpacing: 20,
       elevation: 0,
       actions: [
         ClipOval(
@@ -241,7 +244,7 @@ class AppBarWithoutHome extends StatelessWidget implements PreferredSizeWidget {
                 height: 56,
                 child: Icon(
                   Icons.help,
-                  color: kPrimaryAccentColor,
+                  color: Colors.white,
                 ),
               ),
               onTap: () {

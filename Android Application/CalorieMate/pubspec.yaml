@@ -65,6 +65,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.3.43
   auto_size_text: ^2.1.0
   shared_preferences: ^2.0.7
+  percent_indicator: ^3.4.0
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'

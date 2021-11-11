@@ -3,7 +3,7 @@ import 'package:calorie_mate/models/user.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predictor.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
-import 'package:calorie_mate/screens/dashboard/diary/dairy.dart';
+import 'package:calorie_mate/screens/dashboard/diary/diary.dart';
 import 'package:calorie_mate/screens/dashboard/profile/profile.dart';
 import 'package:calorie_mate/screens/dashboard/statistics/statistics.dart';
 import 'package:calorie_mate/screens/dashboard/tools/tools.dart';
@@ -11,6 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -114,7 +115,7 @@ class _DashBoardState extends State<DashBoard> {
   onTap(int pageIndex) {
     pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 1),
       curve: Curves.linear,
     );
   }
@@ -154,45 +155,47 @@ class _DashBoardState extends State<DashBoard> {
             ),
           ],
         ),
-        child: CupertinoTabBar(
+        child: BottomNavigationBar(
           currentIndex: pageIndex,
           onTap: onTap,
-          activeColor: kPrimaryAccentColor,
-          inactiveColor: kPrimaryLightColor.withOpacity(0.4),
+          selectedItemColor: kPrimaryAccentColor,
+          unselectedItemColor: Colors.black87,
+          showUnselectedLabels: false,
+          selectedFontSize: 12,
+          unselectedFontSize: 10,
+          elevation: 12,
+          selectedIconTheme: IconThemeData(size: 22),
+          unselectedIconTheme: IconThemeData(size: 20),
+          type: BottomNavigationBarType.shifting,
           items: [
             BottomNavigationBarItem(
               label: "Statistics",
               icon: Icon(
                 FontAwesomeIcons.heartbeat,
-                size: kIconSize,
               ),
             ),
             BottomNavigationBarItem(
               label: "Diary",
               icon: Icon(
-                FontAwesomeIcons.book,
-                size: kIconSize,
+                MaterialCommunityIcons.book,
               ),
             ),
             BottomNavigationBarItem(
               label: "Calorie Predictor",
               icon: Icon(
                 FontAwesomeIcons.hamburger,
-                size: kIconSize,
               ),
             ),
             BottomNavigationBarItem(
               label: "Tools",
               icon: Icon(
                 FontAwesomeIcons.tools,
-                size: kIconSize,
               ),
             ),
             BottomNavigationBarItem(
               label: "Profile",
               icon: Icon(
                 FontAwesomeIcons.solidUser,
-                size: kIconSize,
               ),
             ),
           ],

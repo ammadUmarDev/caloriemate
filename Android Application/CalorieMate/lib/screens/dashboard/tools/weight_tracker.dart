@@ -79,7 +79,7 @@ class _WeightTrackerState extends State<WeightTracker> {
         top: true,
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 10, left: 32, right: 32, bottom: 36),
+              const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 20),
           child: Column(
             children: <Widget>[
               Container(
@@ -87,12 +87,12 @@ class _WeightTrackerState extends State<WeightTracker> {
                 height: 280,
                 width: MediaQuery.of(context).size.width - 20,
                 decoration: BoxDecoration(
-                  color: kPrimaryAccentColor,
-                  borderRadius: BorderRadius.circular(20),
+                  color: kPrimaryGreenColor,
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: LineChart(
                   LineChartData(
-                    backgroundColor: kPrimaryAccentColor,
+                    backgroundColor: kPrimaryGreenColor,
                     minX: 0,
                     maxX: 11,
                     minY: 0,
@@ -121,7 +121,7 @@ class _WeightTrackerState extends State<WeightTracker> {
                     ),
                     lineBarsData: [
                       LineChartBarData(
-                        colors: [kPrimaryAccentColor, kTextLightColor],
+                        colors: [kPrimaryGreenColor, kTextLightColor],
                         spots: weightList,
                         belowBarData:
                             BarAreaData(show: true, colors: [Colors.white24]),
@@ -296,7 +296,10 @@ class LineTitles {
           margin: 5,
           reservedSize: 30,
           getTextStyles: (value) => const TextStyle(
-              color: kTextLightColor, fontFamily: 'Montserrat', fontSize: 12),
+              color: kTextLightColor,
+              fontFamily: 'Montserrat',
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
