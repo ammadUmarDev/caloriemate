@@ -59,7 +59,7 @@ class AccountSettingState extends State<AccountSettingScreen> {
                 //Edit Name
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(Icons.edit, color: kIconColor),
+                  icon: Icon(Icons.edit, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -148,7 +148,7 @@ class AccountSettingState extends State<AccountSettingScreen> {
                 //Edit Phone Number
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(Icons.edit, color: kIconColor),
+                  icon: Icon(Icons.edit, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(

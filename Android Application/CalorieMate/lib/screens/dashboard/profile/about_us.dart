@@ -46,16 +46,16 @@ class _AboutScreenState extends State<AboutScreen> {
                           Text(
                             "CalorieMate",
                             style: TextStyle(
-                              fontFamily: "Cantarell",
-                              fontSize: 40.0,
-                              color: Colors.white,
-                            ),
+                                fontFamily: "QuickSand",
+                                fontSize: 40.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 15),
                           Text(
                             "Fitness Advisor",
                             style: TextStyle(
-                              fontFamily: "Cantarell",
+                              fontFamily: "Quicksand",
                               fontSize: 14,
                               color: Colors.white,
                               fontWeight: FontWeight.w700,

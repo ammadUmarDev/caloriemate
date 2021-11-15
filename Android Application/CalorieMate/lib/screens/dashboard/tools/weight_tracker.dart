@@ -87,12 +87,12 @@ class _WeightTrackerState extends State<WeightTracker> {
                 height: 280,
                 width: MediaQuery.of(context).size.width - 20,
                 decoration: BoxDecoration(
-                  color: kPrimaryGreenColor,
+                  color: kCGBlue,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: LineChart(
                   LineChartData(
-                    backgroundColor: kPrimaryGreenColor,
+                    backgroundColor: kCGBlue,
                     minX: 0,
                     maxX: 11,
                     minY: 0,
@@ -121,12 +121,14 @@ class _WeightTrackerState extends State<WeightTracker> {
                     ),
                     lineBarsData: [
                       LineChartBarData(
-                        colors: [kPrimaryGreenColor, kTextLightColor],
+                        colors: [kCGBlue, kTextLightColor],
                         spots: weightList,
                         belowBarData:
                             BarAreaData(show: true, colors: [Colors.white24]),
                         isCurved: true,
                         barWidth: 3,
+                        isStepLineChart: false,
+                        isStrokeCapRound: true,
                         colorStops: [0, 0],
                       ),
                     ],
@@ -136,7 +138,7 @@ class _WeightTrackerState extends State<WeightTracker> {
               //Current Weight
               ShadowBoxList(
                 color: Colors.white,
-                icon: Icon(FontAwesomeIcons.chartLine, color: kIconColor),
+                icon: Icon(FontAwesomeIcons.chartLine, color: kCGBlue),
                 widgetColumn: <Widget>[
                   SizedBox(height: 10),
                   H2(
@@ -158,7 +160,7 @@ class _WeightTrackerState extends State<WeightTracker> {
               //Add Updated Weight
               ShadowBoxList(
                 color: Colors.white,
-                icon: Icon(FontAwesomeIcons.plus, color: kIconColor),
+                icon: Icon(FontAwesomeIcons.plus, color: kCGBlue),
                 widgetColumn: <Widget>[
                   SizedBox(height: 20),
                   H2(
@@ -270,7 +272,7 @@ class LineTitles {
           // reservedSize: 240,
           getTextStyles: (value) => const TextStyle(
             color: kTextLightColor,
-            fontFamily: 'Montserrat',
+            fontFamily: 'Quicksand',
             fontSize: 12,
           ),
           getTitles: (value) {
@@ -297,7 +299,7 @@ class LineTitles {
           reservedSize: 30,
           getTextStyles: (value) => const TextStyle(
               color: kTextLightColor,
-              fontFamily: 'Montserrat',
+              fontFamily: 'Quicksand',
               fontSize: 12,
               fontWeight: FontWeight.bold),
           getTitles: (value) {

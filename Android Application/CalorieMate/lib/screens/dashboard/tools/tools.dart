@@ -4,6 +4,7 @@ import 'package:calorie_mate/general_components/rounded_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'dart:io';
 
 import '../../../constants.dart';
@@ -31,31 +32,21 @@ class _ToolsScreenState extends State<ToolsScreen> {
         top: true,
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 10, left: 32, right: 32, bottom: 36),
+              const EdgeInsets.only(top: 10, left: 32, right: 32, bottom: 40),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Text(
-                    "Tools",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              // Spacer(),
+              // SizedBox(height: 20),
+              Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RoundedIconButton(
                     text: "Intake Recommender",
-                    icon: MaterialCommunityIcons.silverware_variant,
-                    color: kDarkAccentColor,
+                    icon:
+                        SvgPicture.asset("assets/svgs/intake3.svg", height: 90),
+                    // icon: MaterialCommunityIcons.silverware_variant,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () {
                       Navigator.of(context).pushNamed('/IntakeRecommender');
@@ -64,8 +55,11 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   Spacer(),
                   RoundedIconButton(
                     text: "Workout Recommender",
-                    icon: MaterialCommunityIcons.run,
-                    color: kDarkAccentColor,
+                    icon: SvgPicture.asset("assets/svgs/workout2.svg",
+                        height: 90),
+
+                    // icon: MaterialCommunityIcons.run,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () {
                       Navigator.of(context).pushNamed('/WorkoutRecommender');
@@ -79,16 +73,22 @@ class _ToolsScreenState extends State<ToolsScreen> {
                 children: <Widget>[
                   RoundedIconButton(
                     text: "Meal Planner",
-                    icon: MaterialCommunityIcons.food_apple,
-                    color: kDarkAccentColor,
+                    icon: SvgPicture.asset("assets/svgs/mealplan.svg",
+                        height: 90),
+
+                    // icon: MaterialCommunityIcons.food_apple,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () => {},
                   ),
                   Spacer(),
                   RoundedIconButton(
                     text: "Workout Planner",
-                    icon: MaterialCommunityIcons.human_handsup,
-                    color: kDarkAccentColor,
+                    icon: SvgPicture.asset("assets/svgs/workoutplan.svg",
+                        height: 90),
+
+                    // icon: MaterialCommunityIcons.human_handsup,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () {
                       Navigator.of(context).pushNamed('/WorkoutPlanner');
@@ -102,8 +102,11 @@ class _ToolsScreenState extends State<ToolsScreen> {
                 children: <Widget>[
                   RoundedIconButton(
                     text: "Weight Tracker",
-                    icon: MaterialCommunityIcons.scale_bathroom,
-                    color: kDarkAccentColor,
+                    icon:
+                        SvgPicture.asset("assets/svgs/weight.svg", height: 90),
+
+                    // icon: MaterialCommunityIcons.scale_bathroom,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () {
                       Navigator.of(context).pushNamed('/WeightTracker');
@@ -113,8 +116,10 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   Spacer(),
                   RoundedIconButton(
                     text: "BMI Calculator",
-                    icon: MaterialCommunityIcons.calculator,
-                    color: kDarkAccentColor,
+                    icon: SvgPicture.asset("assets/svgs/bmi.svg", height: 90),
+
+                    // icon: MaterialCommunityIcons.calculator,
+                    color: kCGBlue,
                     textColor: Colors.white,
                     press: () {
                       Navigator.of(context).pushNamed('/BMICalculator');

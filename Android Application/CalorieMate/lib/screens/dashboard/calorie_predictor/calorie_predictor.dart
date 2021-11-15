@@ -8,6 +8,7 @@ import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -47,7 +48,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
       ),
       style: AlertStyle(
         overlayColor: Colors.black45,
-        titleStyle: H1TextStyle(color: kPrimaryAccentColor),
+        titleStyle: H1TextStyle(color: kCGBlue),
       ),
       content: Column(
         children: <Widget>[
@@ -62,7 +63,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
       ),
       buttons: [
         DialogButton(
-          color: kPrimaryAccentColor,
+          color: kCGBlue,
           width: 100,
           radius: BorderRadius.circular(10),
           child: Text(
@@ -109,7 +110,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
       ),
       style: AlertStyle(
         overlayColor: Colors.black45,
-        titleStyle: H1TextStyle(color: kPrimaryAccentColor),
+        titleStyle: H1TextStyle(color: kCGBlue),
       ),
       content: Column(
         children: <Widget>[
@@ -124,7 +125,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
       ),
       buttons: [
         DialogButton(
-          color: kPrimaryAccentColor,
+          color: kCGBlue,
           width: 100,
           radius: BorderRadius.circular(10),
           child: Text(
@@ -169,11 +170,11 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
             top: true,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18),
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -184,7 +185,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                         )
                       ],
                       borderRadius: BorderRadius.circular(200),
-                      color: kLightAccentColor,
+                      color: kPrussianBlue,
                     ),
                     child: ClipOval(
                       child: Image.asset("assets/images/cals_woman.jpg"),
@@ -203,7 +204,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
-                          titleStyle: H1TextStyle(color: kPrimaryAccentColor),
+                          titleStyle: H1TextStyle(color: kCGBlue),
                         ),
                         content: Column(
                           children: <Widget>[
@@ -218,7 +219,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                         ),
                         buttons: [
                           DialogButton(
-                            color: kPrimaryAccentColor,
+                            color: kCGBlue,
                             width: 100,
                             radius: BorderRadius.circular(10),
                             child: Text(
@@ -241,7 +242,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                       width: MediaQuery.of(context).size.width - 40,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey,
@@ -252,25 +253,31 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 15),
+                            horizontal: 14.0, vertical: 14.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: MediaQuery.of(context).size.height,
+                              padding: EdgeInsets.all(14),
+                              height: 110,
                               width: 110,
                               decoration: BoxDecoration(
-                                color: kPrimaryAccentColor,
-                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 0.0), //(x,y)
+                                    blurRadius: 1.0,
+                                  ),
+                                ],
+                                color: kYellow,
+                                borderRadius: BorderRadius.circular(60),
                               ),
-                              child: Icon(
-                                MaterialCommunityIcons.crosshairs_gps,
-                                size: 75,
-                                color: kTextLightColor,
-                              ),
+                              child: SvgPicture.asset("assets/svgs/camera.svg",
+                                  width: 100),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0, vertical: 12),
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,7 +314,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
-                          titleStyle: H1TextStyle(color: kPrimaryAccentColor),
+                          titleStyle: H1TextStyle(color: kCGBlue),
                         ),
                         content: Column(
                           children: <Widget>[
@@ -324,7 +331,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                         ),
                         buttons: [
                           DialogButton(
-                            color: kPrimaryAccentColor,
+                            color: kCGBlue,
                             width: 100,
                             radius: BorderRadius.circular(10),
                             child: Text(
@@ -358,25 +365,31 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 15.0),
+                            horizontal: 14.0, vertical: 14.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: MediaQuery.of(context).size.height,
+                              padding: EdgeInsets.all(14),
+                              height: 110,
                               width: 110,
                               decoration: BoxDecoration(
-                                color: kPrimaryAccentColor,
-                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 0.0), //(x,y)
+                                    blurRadius: 1.0,
+                                  ),
+                                ],
+                                color: kYellow,
+                                borderRadius: BorderRadius.circular(60),
                               ),
-                              child: Icon(
-                                FontAwesome.upload,
-                                size: 70,
-                                color: kTextLightColor,
-                              ),
+                              child: SvgPicture.asset("assets/svgs/upload.svg",
+                                  width: 100),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0, vertical: 12.0),
                               child: Container(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

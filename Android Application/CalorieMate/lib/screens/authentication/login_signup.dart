@@ -357,7 +357,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               : "Welcome Back",
                           style: TextStyle(
                             fontSize: 24,
-                            fontFamily: "Montserrat",
+                            fontFamily: "Quicksand",
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0.8,
                             color: Colors.white,

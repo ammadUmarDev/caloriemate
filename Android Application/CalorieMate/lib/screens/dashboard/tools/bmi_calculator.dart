@@ -315,7 +315,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                               '${index + 1}',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                               ),
                                                             ),
                                                           );
@@ -333,7 +333,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                           .none,
                                                                   fontSize: 17,
                                                                   fontFamily:
-                                                                      'Montserrat',
+                                                                      'Quicksand',
                                                                   color: Colors
                                                                       .black87,
                                                                 )))),
@@ -368,7 +368,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                               '$index',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                               ),
                                                             ),
                                                           );
@@ -385,7 +385,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                         .none,
                                                                 fontSize: 17,
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                                 color: Colors
                                                                     .black87,
                                                               ))),
@@ -449,7 +449,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                         child: Text(
                                                                             '${index + 1}',
                                                                             style:
-                                                                                TextStyle(fontFamily: 'Montserrat')));
+                                                                                TextStyle(fontFamily: 'Quicksand')));
                                                                   }))),
                                                       Expanded(
                                                           flex: 1,
@@ -462,7 +462,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                       fontSize:
                                                                           17,
                                                                       fontFamily:
-                                                                          'Montserrat',
+                                                                          'Quicksand',
                                                                       color: Colors
                                                                           .black87)))),
                                                     ],
@@ -522,7 +522,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                           child: Text('ft',
                                               style: TextStyle(
                                                   fontSize: 20,
-                                                  fontFamily: 'Montserrat',
+                                                  fontFamily: 'Quicksand',
                                                   color: Colors.white,
                                                   fontWeight:
                                                       FontWeight.bold))),
@@ -554,7 +554,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                           child: Text('cm',
                                               style: TextStyle(
                                                 fontSize: 20,
-                                                fontFamily: 'Montserrat',
+                                                fontFamily: 'Quicksand',
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
                                               ))),
@@ -657,7 +657,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                           (index) {
                                                                         return Center(
                                                                             child:
-                                                                                Text('${index + 1}', style: TextStyle(fontFamily: 'Montserrat')));
+                                                                                Text('${index + 1}', style: TextStyle(fontFamily: 'Quicksand')));
                                                                       }))),
                                                           Expanded(
                                                               flex: 2,
@@ -670,7 +670,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                           fontSize:
                                                                               17,
                                                                           fontFamily:
-                                                                              'Montserrat',
+                                                                              'Quicksand',
                                                                           color:
                                                                               Colors.black87)))),
                                                         ]));
@@ -723,7 +723,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                         return Center(
                                                                             child: Text('${index + 1}',
                                                                                 style: TextStyle(
-                                                                                  fontFamily: 'Montserrat',
+                                                                                  fontFamily: 'Quicksand',
                                                                                 )));
                                                                       }))),
                                                           Expanded(
@@ -737,7 +737,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                           fontSize:
                                                                               17,
                                                                           fontFamily:
-                                                                              'Montserrat',
+                                                                              'Quicksand',
                                                                           color:
                                                                               Colors.black87)))),
                                                         ]));
@@ -803,7 +803,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                               child: Text('kg',
                                                   style: TextStyle(
                                                       fontSize: 20,
-                                                      fontFamily: 'Montserrat',
+                                                      fontFamily: 'Quicksand',
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold)))))),
@@ -835,7 +835,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                             child: Text('lbs',
                                                 style: TextStyle(
                                                   fontSize: 20,
-                                                  fontFamily: 'Montserrat',
+                                                  fontFamily: 'Quicksand',
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
                                                 ))),
@@ -922,7 +922,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                       '${index + 1}',
                                                                       style: TextStyle(
                                                                           fontFamily:
-                                                                              'Montserrat')));
+                                                                              'Quicksand')));
                                                             }))),
                                                     Expanded(
                                                         flex: 2,
@@ -935,7 +935,7 @@ class _BMICalculatorState extends State<BMICalculator> {
                                                                     fontSize:
                                                                         17,
                                                                     fontFamily:
-                                                                        'Montserrat',
+                                                                        'Quicksand',
                                                                     color: Colors
                                                                         .black87)))),
                                                   ]));

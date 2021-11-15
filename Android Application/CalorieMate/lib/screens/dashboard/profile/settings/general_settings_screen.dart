@@ -34,7 +34,7 @@ class GeneralSettingsScreen extends StatelessWidget {
                               leading: Icon(
                                 FontAwesomeIcons.userCog,
                                 size: kIconSize,
-                                color: kIconColor,
+                                color: kCGBlue,
                               ),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -49,7 +49,7 @@ class GeneralSettingsScreen extends StatelessWidget {
                               leading: Icon(
                                 FontAwesomeIcons.userLock,
                                 size: kIconSize,
-                                color: kIconColor,
+                                color: kCGBlue,
                               ),
                               onTap: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -64,7 +64,7 @@ class GeneralSettingsScreen extends StatelessWidget {
                               leading: Icon(
                                 FontAwesomeIcons.signOutAlt,
                                 size: kIconSize,
-                                color: kIconColor,
+                                color: kCGBlue,
                               ),
                               onTap: () async {
                                 FirebaseAuth.instance.signOut();

@@ -333,7 +333,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                               '${index + 1}',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                               ),
                                                             ),
                                                           );
@@ -351,7 +351,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                           .none,
                                                                   fontSize: 17,
                                                                   fontFamily:
-                                                                      'Montserrat',
+                                                                      'Quicksand',
                                                                   color: Colors
                                                                       .black87,
                                                                 )))),
@@ -386,7 +386,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                               '$index',
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                               ),
                                                             ),
                                                           );
@@ -403,7 +403,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                         .none,
                                                                 fontSize: 17,
                                                                 fontFamily:
-                                                                    'Montserrat',
+                                                                    'Quicksand',
                                                                 color: Colors
                                                                     .black87,
                                                               ))),
@@ -467,7 +467,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                         child: Text(
                                                                             '${index + 1}',
                                                                             style:
-                                                                                TextStyle(fontFamily: 'Montserrat')));
+                                                                                TextStyle(fontFamily: 'Quicksand')));
                                                                   }))),
                                                       Expanded(
                                                           flex: 1,
@@ -480,7 +480,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                       fontSize:
                                                                           17,
                                                                       fontFamily:
-                                                                          'Montserrat',
+                                                                          'Quicksand',
                                                                       color: Colors
                                                                           .black87)))),
                                                     ],
@@ -540,7 +540,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                           child: Text('ft',
                                               style: TextStyle(
                                                   fontSize: 20,
-                                                  fontFamily: 'Montserrat',
+                                                  fontFamily: 'Quicksand',
                                                   color: Colors.white,
                                                   fontWeight:
                                                       FontWeight.bold))),
@@ -572,7 +572,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                           child: Text('cm',
                                               style: TextStyle(
                                                 fontSize: 20,
-                                                fontFamily: 'Montserrat',
+                                                fontFamily: 'Quicksand',
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
                                               ))),
@@ -675,7 +675,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                           (index) {
                                                                         return Center(
                                                                             child:
-                                                                                Text('${index + 1}', style: TextStyle(fontFamily: 'Montserrat')));
+                                                                                Text('${index + 1}', style: TextStyle(fontFamily: 'Quicksand')));
                                                                       }))),
                                                           Expanded(
                                                               flex: 2,
@@ -688,7 +688,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                           fontSize:
                                                                               17,
                                                                           fontFamily:
-                                                                              'Montserrat',
+                                                                              'Quicksand',
                                                                           color:
                                                                               Colors.black87)))),
                                                         ]));
@@ -741,7 +741,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                         return Center(
                                                                             child: Text('${index + 1}',
                                                                                 style: TextStyle(
-                                                                                  fontFamily: 'Montserrat',
+                                                                                  fontFamily: 'Quicksand',
                                                                                 )));
                                                                       }))),
                                                           Expanded(
@@ -755,7 +755,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                           fontSize:
                                                                               17,
                                                                           fontFamily:
-                                                                              'Montserrat',
+                                                                              'Quicksand',
                                                                           color:
                                                                               Colors.black87)))),
                                                         ]));
@@ -821,7 +821,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                               child: Text('kg',
                                                   style: TextStyle(
                                                       fontSize: 20,
-                                                      fontFamily: 'Montserrat',
+                                                      fontFamily: 'Quicksand',
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold)))))),
@@ -853,7 +853,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                             child: Text('lbs',
                                                 style: TextStyle(
                                                   fontSize: 20,
-                                                  fontFamily: 'Montserrat',
+                                                  fontFamily: 'Quicksand',
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
                                                 ))),
@@ -940,7 +940,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                       '${index + 1}',
                                                                       style: TextStyle(
                                                                           fontFamily:
-                                                                              'Montserrat')));
+                                                                              'Quicksand')));
                                                             }))),
                                                     Expanded(
                                                         flex: 2,
@@ -953,7 +953,7 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                                                     fontSize:
                                                                         17,
                                                                     fontFamily:
-                                                                        'Montserrat',
+                                                                        'Quicksand',
                                                                     color: Colors
                                                                         .black87)))),
                                                   ]));

@@ -79,7 +79,7 @@ class _EditInformationState extends State<EditInformation> {
                 //Edit Age
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.calendarAlt, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.calendarAlt, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -96,7 +96,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Age",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kCGBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
@@ -168,7 +168,7 @@ class _EditInformationState extends State<EditInformation> {
                 //Edit Gender
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.venusMars, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.venusMars, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -185,7 +185,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Gender",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kCGBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
@@ -278,7 +278,7 @@ class _EditInformationState extends State<EditInformation> {
                 //Edit Current Weight
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.weight, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.weight, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -297,7 +297,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Current Weight (kg)",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kCGBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
@@ -383,7 +383,7 @@ class _EditInformationState extends State<EditInformation> {
                 //Edit Targetted Weight
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.weight, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.weight, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -402,7 +402,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Targetted Weight (kg)",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kCGBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
@@ -478,7 +478,7 @@ class _EditInformationState extends State<EditInformation> {
                 //Edit Height
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.rulerVertical, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.rulerVertical, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -499,7 +499,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Height (Ft)",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kCGBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,
@@ -579,7 +579,7 @@ class _EditInformationState extends State<EditInformation> {
 
                 ShadowBoxList(
                   color: Colors.white,
-                  icon: Icon(FontAwesomeIcons.hiking, color: kIconColor),
+                  icon: Icon(FontAwesomeIcons.hiking, color: kCGBlue),
                   widgetColumn: <Widget>[
                     SizedBox(height: 10),
                     H2(
@@ -689,7 +689,7 @@ class _EditInformationState extends State<EditInformation> {
                       buttons: [
                         DialogButton(
                           margin: EdgeInsets.symmetric(horizontal: 20),
-                          color: kPrimaryAccentColor,
+                          color: kCGBlue,
                           height: 40,
                           child: Text(
                             "SAVE",

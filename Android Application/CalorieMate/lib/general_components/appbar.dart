@@ -27,7 +27,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: IconThemeData(
         color: Colors.white, //change your color here
       ),
-      backgroundColor: kPrimaryAccentColor,
+      backgroundColor: kNavyBlue,
       title: H1(textBody: pageName, color: Colors.white),
       titleSpacing: 20,
       elevation: 2,
@@ -126,7 +126,7 @@ class AppBarWithoutPageName extends StatelessWidget
       iconTheme: IconThemeData(
         color: kPrimaryDarkColor, //change your color here
       ),
-      backgroundColor: kPrimaryAccentColor,
+      backgroundColor: kNavyBlue,
       elevation: 0,
       titleSpacing: 20,
       actions: [
@@ -225,7 +225,7 @@ class AppBarWithoutHome extends StatelessWidget implements PreferredSizeWidget {
       brightness: Brightness.dark,
       iconTheme: IconThemeData(color: Colors.white //change your color here
           ),
-      backgroundColor: kPrimaryAccentColor,
+      backgroundColor: kNavyBlue,
       title: H1(
         textBody: pageName,
         color: Colors.white,

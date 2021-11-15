@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class RoundedIconButton extends StatelessWidget {
   const RoundedIconButton({
@@ -12,7 +13,7 @@ class RoundedIconButton extends StatelessWidget {
   final String text;
   final Function press;
   final Color color, textColor;
-  final IconData icon;
+  final Widget icon;
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +32,20 @@ class RoundedIconButton extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Spacer(),
-            Icon(
-              icon,
-              color: textColor,
-              size: 90,
-            ),
+            icon,
+            // Icon(
+            //   icon,
+            //   color: textColor,
+            //   size: 90,
+            // ),
             Spacer(),
             Text(
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: textColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Spacer(),

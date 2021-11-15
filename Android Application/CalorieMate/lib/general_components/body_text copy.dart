@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class BodyTextStyle extends TextStyle {
-  final fontFamily = "Montserrat";
+  // final fontFamily = "Montserrat";
   final fontSize = kPSize;
   final Color color;
   BodyTextStyle({this.color = const Color(0xFF35495e)});

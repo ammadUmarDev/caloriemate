@@ -8,10 +8,12 @@ import 'package:calorie_mate/screens/dashboard/profile/profile.dart';
 import 'package:calorie_mate/screens/dashboard/statistics/statistics.dart';
 import 'package:calorie_mate/screens/dashboard/tools/tools.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -144,63 +146,89 @@ class _DashBoardState extends State<DashBoard> {
         onPageChanged: onPageChanged,
         scrollDirection: Axis.horizontal,
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 6,
-              spreadRadius: 0.5,
-              offset: Offset(0, 5),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: pageIndex,
-          onTap: onTap,
-          selectedItemColor: kPrimaryAccentColor,
-          unselectedItemColor: Colors.black87,
-          showUnselectedLabels: false,
-          selectedFontSize: 12,
-          unselectedFontSize: 10,
-          elevation: 12,
-          selectedIconTheme: IconThemeData(size: 22),
-          unselectedIconTheme: IconThemeData(size: 20),
-          type: BottomNavigationBarType.shifting,
-          items: [
-            BottomNavigationBarItem(
-              label: "Statistics",
-              icon: Icon(
-                FontAwesomeIcons.heartbeat,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Diary",
-              icon: Icon(
-                MaterialCommunityIcons.book,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Calorie Predictor",
-              icon: Icon(
-                FontAwesomeIcons.hamburger,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Tools",
-              icon: Icon(
-                FontAwesomeIcons.tools,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Profile",
-              icon: Icon(
-                FontAwesomeIcons.solidUser,
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: CurvedNavigationBar(
+        index: pageIndex,
+        animationDuration: Duration(milliseconds: 300),
+        height: 56,
+        backgroundColor: kBackgroundColor,
+        color: kNavyBlue,
+        buttonBackgroundColor: kNavyBlue,
+        animationCurve: Curves.decelerate,
+        onTap: onTap,
+        items: <Widget>[
+          SvgPicture.asset("assets/svgs/heartbeat.svg", height: 28, width: 28),
+          // Icon(FontAwesomeIcons.heartbeat, color: Colors.white, size: 22),
+          SvgPicture.asset("assets/svgs/diary.svg", height: 28, width: 28),
+          // Image.asset("assets/images/diary2.png", height: 28, width: 28),
+          // Icon(MaterialCommunityIcons.book, color: Colors.white, size: 22),
+          SvgPicture.asset("assets/svgs/calories.svg", height: 32, width: 32),
+          // Image.asset("assets/images/calories.png", height: 36, width: 36),
+          // Icon(FontAwesomeIcons.hamburger, color: Colors.white, size: 22),
+          SvgPicture.asset("assets/svgs/tools.svg", height: 28, width: 28),
+          // Image.asset("assets/images/tools.png", height: 28, width: 28),
+          // Icon(FontAwesomeIcons.tools, color: Colors.white, size: 22),
+          SvgPicture.asset("assets/svgs/user.svg", height: 28, width: 28),
+          // Icon(FontAwesomeIcons.solidUser, color: Colors.white, size: 22),
+        ],
       ),
+
+      // Container(
+      //   decoration: BoxDecoration(
+      //     boxShadow: <BoxShadow>[
+      //       BoxShadow(
+      //         color: Colors.black12,
+      //         blurRadius: 6,
+      //         spreadRadius: 0.5,
+      //         offset: Offset(0, 5),
+      //       ),
+      //     ],
+      //   ),
+      //   child: BottomNavigationBar(
+      //     currentIndex: pageIndex,
+      //     selectedItemColor: kPrimaryAccentColor,
+      //     unselectedItemColor: Colors.black87,
+      //     showUnselectedLabels: false,
+      //     selectedFontSize: 12,
+      //     unselectedFontSize: 10,
+      //     elevation: 12,
+      //     selectedIconTheme: IconThemeData(size: 22),
+      //     unselectedIconTheme: IconThemeData(size: 20),
+      //     type: BottomNavigationBarType.shifting,
+      //     onTap: onTap,
+      //     items: [
+      //       BottomNavigationBarItem(
+      //         label: "Statistics",
+      //         icon: Icon(
+      //           FontAwesomeIcons.heartbeat,
+      //         ),
+      //       ),
+      //       BottomNavigationBarItem(
+      //         label: "Diary",
+      //         icon: Icon(
+      //           MaterialCommunityIcons.book,
+      //         ),
+      //       ),
+      //       BottomNavigationBarItem(
+      //         label: "Calorie Predictor",
+      //         icon: Icon(
+      //           FontAwesomeIcons.hamburger,
+      //         ),
+      //       ),
+      //       BottomNavigationBarItem(
+      //         label: "Tools",
+      //         icon: Icon(
+      //           FontAwesomeIcons.tools,
+      //         ),
+      //       ),
+      //       BottomNavigationBarItem(
+      //         label: "Profile",
+      //         icon: Icon(
+      //           FontAwesomeIcons.solidUser,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

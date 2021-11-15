@@ -4,7 +4,7 @@ import '../constants.dart';
 
 class H2TextStyle extends TextStyle {
   H2TextStyle({this.color});
-  final fontFamily = "Montserrat";
+  // final fontFamily = "Montserrat";
   final fontSize = kH2Size;
   final Color color;
   final fontWeight = FontWeight.w600;

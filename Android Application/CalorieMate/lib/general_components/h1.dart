@@ -4,7 +4,7 @@ import '../constants.dart';
 
 class H1TextStyle extends TextStyle {
   H1TextStyle({this.color});
-  final fontFamily = "Montserrat";
+  // final fontFamily = "Montserrat";
   final fontSize = kH1Size;
   final Color color;
   final fontWeight = FontWeight.w600;
@@ -13,7 +13,8 @@ class H1TextStyle extends TextStyle {
 class H1 extends StatelessWidget {
   H1({
     this.textBody,
-    this.color = kTextDarkColor, Padding child,
+    this.color = kTextDarkColor,
+    Padding child,
   });
   final String textBody;
   final Color color;

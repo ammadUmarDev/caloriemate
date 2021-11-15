@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: "Montserrat",
+          fontFamily: "Quicksand",
         ),
         // initialRoute: LoginSignupScreen.id,
         initialRoute: FirebaseAuth.instance.currentUser != null
