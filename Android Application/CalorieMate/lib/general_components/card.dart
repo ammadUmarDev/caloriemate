@@ -12,24 +12,24 @@ class SelectionCard extends StatelessWidget {
   final Color color, textColor;
   final Widget cardChild;
   final Function onPress;
-  final IconData icon;
+  final Widget icon;
   final String text;
 
   @override
   Widget build(BuildContext context) {
+    final double pageHeight = MediaQuery.of(context).size.height.toDouble();
+    final double pageWidth = MediaQuery.of(context).size.width.toDouble();
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        width: 175,
-        height: 200,
+        // width: 175,
+        // height: 200,
+        width: pageWidth * 0.436,
+        height: pageHeight * 0.25,
         child: Column(
           children: <Widget>[
             Spacer(),
-            Icon(
-              icon,
-              color: textColor,
-              size: 90,
-            ),
+            icon,
             Spacer(),
             Text(
               text,
@@ -47,6 +47,15 @@ class SelectionCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 4.0,
+              spreadRadius: 1.5,
+              offset: Offset(0, 3.0),
+              // shadow direction: bottom right
+            )
+          ],
         ),
       ),
     );

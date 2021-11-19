@@ -2,6 +2,7 @@ import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/general_components/text_Field_outlined.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -46,14 +47,17 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
-                    primary: kPrimaryAccentColor,
+                    primary: kYellow,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: Text(
                     "Get Recommendation",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                   onPressed: () {
                     if (bodyGoalTextField.getReturnValue() != null) {
@@ -108,13 +112,15 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundColor: kPrimaryAccentColor,
+                            backgroundColor: kYellow,
                             maxRadius: 36,
                             child: ClipOval(
-                              child: Image.asset(
-                                "assets/images/dumbell.png",
-                                width: 50,
-                              ),
+                              child: SvgPicture.asset("assets/svgs/dumbell.svg",
+                                  width: 52),
+                              // Image.asset(
+                              //   "assets/images/dumbell.png",
+                              //   width: 50,
+                              // ),
                             ),
                           ),
                         ],
@@ -134,7 +140,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: kPrimaryAccentColor,
+                                    color: kNavyBlue,
                                     fontSize: 18),
                               ),
                             ),
@@ -156,7 +162,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                           Text(
                             ls[index].duration,
                             style: TextStyle(
-                                color: kPrimaryAccentColor,
+                                color: kNavyBlue,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -168,7 +174,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                           Text(
                             ls[index].reps,
                             style: TextStyle(
-                                color: kPrimaryAccentColor,
+                                color: kNavyBlue,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -189,11 +195,15 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
 
   TextFieldOutlined bodyGoalTextField = TextFieldOutlined(
     textFieldText: 'Body Goal(kg)',
-    textFieldIcon: Icon(
-      MaterialCommunityIcons.bullseye_arrow,
-      size: 22,
-      color: kIconColor,
+    textFieldIcon: SvgPicture.asset(
+      "assets/svgs/target.svg",
+      width: 20,
     ),
+    // Icon(
+    //   MaterialCommunityIcons.bullseye_arrow,
+    //   size: 22,
+    //   color: kIconColor,
+    // ),
     keyboardType: TextInputType.number,
     isValidEntry: (entry) {
       if (entry.toString().isEmpty &&

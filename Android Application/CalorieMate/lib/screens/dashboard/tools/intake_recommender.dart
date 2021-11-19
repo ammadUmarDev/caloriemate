@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -195,6 +196,8 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
 
   @override
   Widget build(BuildContext context) {
+    final double pageHeight = MediaQuery.of(context).size.height.toDouble();
+    final double pageWidth = MediaQuery.of(context).size.width.toDouble();
     return Scaffold(
       appBar: AppBarPageName(
           pageName: "Intake Recommender",
@@ -207,14 +210,15 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
                 child: Column(
                   children: <Widget>[
                     //Gender Picker
                     Row(
                       children: <Widget>[
                         SizedBox(
-                          height: 150,
+                          height: pageHeight * 0.18,
                           child: SelectionCard(
                             onPress: () {
                               setState(() {
@@ -224,14 +228,15 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                             color: selectedGender == Gender.male
                                 ? kActiveCardColour
                                 : kInactiveCardColour,
-                            icon: FontAwesomeIcons.mars,
+                            icon: SvgPicture.asset("assets/svgs/male.svg",
+                                width: 80),
                             text: 'MALE',
                             textColor: Colors.white,
                           ),
                         ),
                         Spacer(),
                         SizedBox(
-                          height: 150,
+                          height: pageHeight * 0.18,
                           child: SelectionCard(
                             onPress: () {
                               setState(() {
@@ -241,7 +246,8 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                             color: selectedGender == Gender.female
                                 ? kActiveCardColour
                                 : kInactiveCardColour,
-                            icon: FontAwesomeIcons.venus,
+                            icon: SvgPicture.asset("assets/svgs/female.svg",
+                                width: 80),
                             text: 'FEMALE',
                             textColor: Colors.white,
                           ),
@@ -251,10 +257,19 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                     //HeightPicker
                     Container(
                       padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 16),
                       decoration: BoxDecoration(
-                        color: kDarkAccentColor,
+                        color: kCGBlue,
                         borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4.0,
+                            spreadRadius: 1.5,
+                            offset: Offset(0, 3.0),
+                            // shadow direction: bottom right
+                          )
+                        ],
                       ),
                       child: Column(
                         children: <Widget>[
@@ -271,19 +286,21 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                     ),
                                   ),
                                   SizedBox(width: 5),
-                                  Icon(
-                                    // MaterialCommunityIcons.ruler,
-                                    FontAwesomeIcons.rulerVertical,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
+                                  SvgPicture.asset("assets/svgs/height.svg",
+                                      width: 36)
+                                  // Icon(
+                                  //   // MaterialCommunityIcons.ruler,
+                                  //   FontAwesomeIcons.rulerVertical,
+                                  //   color: Colors.white,
+                                  //   size: 30,
+                                  // ),
                                 ],
                               ),
                             ],
                           ),
                           Divider(
                             color: Colors.white,
-                            height: 24,
+                            height: 20,
                             thickness: 3,
                           ),
                           Row(children: <Widget>[
@@ -497,8 +514,8 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                 cursorColor: Colors.white,
                                 decoration: InputDecoration(
                                     hintText: selectedUnit == HeightUnit.ft
-                                        ? "__' __\""
-                                        : '__',
+                                        ? "_' _\""
+                                        : '_',
                                     hintStyle: TextStyle(color: Colors.white),
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -584,13 +601,22 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                     Row(children: <Widget>[
                       //WeightPicker
                       Container(
-                          width: 175,
-                          height: 220,
+                          width: pageWidth * 0.436,
+                          height: pageHeight * 0.26,
                           padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: 16),
                           decoration: BoxDecoration(
-                            color: kDarkAccentColor,
+                            color: kCGBlue,
                             borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 1.5,
+                                offset: Offset(0, 3.0),
+                                // shadow direction: bottom right
+                              )
+                            ],
                           ),
                           child: Column(children: <Widget>[
                             Row(
@@ -606,12 +632,14 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                                       ),
                                     ),
                                     SizedBox(width: 5),
-                                    Icon(
-                                      // MaterialCommunityIcons.ruler,
-                                      FontAwesomeIcons.weight,
-                                      color: Colors.white,
-                                      size: 26,
-                                    ),
+                                    SvgPicture.asset("assets/svgs/weight2.svg",
+                                        width: 30),
+                                    // Icon(
+                                    //   // MaterialCommunityIcons.ruler,
+                                    //   FontAwesomeIcons.weight,
+                                    //   color: Colors.white,
+                                    //   size: 26,
+                                    // ),
                                   ],
                                 ),
                               ],
@@ -863,32 +891,45 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                       Spacer(),
                       //AgePicker
                       Container(
-                          width: 175,
-                          height: 220,
+                          width: pageWidth * 0.436,
+                          height: pageHeight * 0.26,
                           padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.only(top: 20),
+                          margin: EdgeInsets.only(top: 16),
                           decoration: BoxDecoration(
-                            color: kDarkAccentColor,
+                            color: kCGBlue,
                             borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 1.5,
+                                offset: Offset(0, 3.0),
+                                // shadow direction: bottom right
+                              )
+                            ],
                           ),
                           child: Column(children: <Widget>[
                             Row(children: [
-                              Row(children: [
-                                Text(
-                                  "Age",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
+                              Row(
+                                children: [
+                                  Text(
+                                    "Age",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(
-                                    // MaterialCommunityIcons.,
-                                    FontAwesomeIcons.solidCalendar,
-                                    color: Colors.white,
-                                    size: 30)
-                              ])
+                                  SizedBox(width: 5),
+                                  SvgPicture.asset("assets/svgs/age.svg",
+                                      width: 30),
+                                  // Icon(
+                                  //     // MaterialCommunityIcons.,
+                                  //     FontAwesomeIcons.solidCalendar,
+                                  //     color: Colors.white,
+                                  //     size: 30),
+                                ],
+                              )
                             ]),
                             Divider(
                                 color: Colors.white, height: 24, thickness: 3),
@@ -989,9 +1030,10 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
                     ]),
                     //Edit Physical Activity Level
                     ShadowBoxList(
-                      color: kPrimaryAccentColor,
-                      icon:
-                          Icon(FontAwesomeIcons.hiking, color: kTextLightColor),
+                      color: kCGBlue,
+                      icon: SvgPicture.asset("assets/svgs/physical.svg",
+                          width: 44),
+                      // Icon(FontAwesomeIcons.hiking, color: kTextLightColor),
                       widgetColumn: <Widget>[
                         SizedBox(height: 10),
                         H2(
@@ -1135,8 +1177,8 @@ class _IntakeRecommenderState extends State<IntakeRecommender> {
 
                     //CalculateButton
                     ArgonButton(
-                      height: 54,
-                      width: 180,
+                      height: 60,
+                      width: 300,
                       roundLoadingShape: true,
                       child: Text("Calculate",
                           style: H1TextStyle(color: kTextLightColor)),

@@ -51,6 +51,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
 
     Widget signupButton = ButtonErims(
+      color: kYellow,
+      textColor: Colors.black87,
       onTap: (startLoading, stopLoading, btnState) async {
         if (btnState == ButtonState.Idle) {
           startLoading();
@@ -142,6 +144,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     );
 
     Widget loginButton = ButtonErims(
+      color: kYellow,
+      textColor: Colors.black87,
       onTap: (startLoading, stopLoading, btnState) async {
         if (btnState == ButtonState.Idle) {
           startLoading();
@@ -326,12 +330,18 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    kLightAccentColor,
-                    kLightAccentColor,
-                    kLightAccentColor,
-                    kLightAccentColor,
-                    kLightAccentColor,
-                    kLightAccentColor
+                    kNavyBlue,
+                    kNavyBlue,
+                    kNavyBlue,
+                    kNavyBlue,
+                    kNavyBlue,
+                  ],
+                  stops: [
+                    0.1,
+                    0.3,
+                    0.5,
+                    0.7,
+                    0.9,
                   ],
                 ),
               ),
@@ -341,7 +351,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 65,
+                      height: 100,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/images/CMLogoDark.png"),
@@ -441,7 +451,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 60,
-                                    color: kPrimaryDarkColor,
+                                    color: kNavyBlue,
                                   )
                               ],
                             ),
@@ -468,7 +478,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 75,
-                                    color: kPrimaryDarkColor,
+                                    color: kNavyBlue,
                                   )
                               ],
                             ),
@@ -625,7 +635,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           ),
           style: AlertStyle(
             overlayColor: Colors.black45,
-            titleStyle: H2TextStyle(color: kPrimaryAccentColor),
+            titleStyle: H2TextStyle(color: kNavyBlue),
           ),
           content: Column(
             children: <Widget>[

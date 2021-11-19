@@ -26,7 +26,7 @@ class TextFieldOutlined extends StatefulWidget {
     }
   }
   Function onChanged;
-  final Icon textFieldIcon;
+  final Widget textFieldIcon;
   final String textFieldText;
   final bool obscure;
   final TextInputType keyboardType;
@@ -41,7 +41,7 @@ class TextFieldOutlined extends StatefulWidget {
 }
 
 class _TextFieldOutlinedState extends State<TextFieldOutlined> {
-  Color color = kPrimaryAccentColor;
+  Color color = kNavyBlue;
   String warningMessage = '';
 
   bool _togglePassword;
@@ -65,11 +65,11 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
           // color: kTextLightColor,
           child: TextFormField(
             style: H2TextStyle(),
-            cursorColor: kPrimaryAccentColor,
+            cursorColor: kNavyBlue,
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: kPrimaryAccentColor, width: 1.5),
+                borderSide: BorderSide(color: kNavyBlue, width: 1.5),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black26, width: 1.5),
@@ -105,9 +105,9 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
                 print(warningMessage);
                 if (warningMessage == '') {
                   widget.retValue = value;
-                  color = kPrimaryAccentColor;
+                  color = kNavyBlue;
                 } else {
-                  color = kPrimaryAccentColor;
+                  color = kNavyBlue;
                 }
               });
             },

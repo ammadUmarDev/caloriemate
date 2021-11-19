@@ -28,12 +28,12 @@ class _DiaryScreenState extends State<DiaryScreen> {
         top: true,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: pageWidth * 0.02),
+            padding: EdgeInsets.symmetric(horizontal: pageWidth * 0.00),
             child: Column(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  height: pageHeight * 0.2,
+                  height: pageHeight * 0.23,
                   width: pageWidth,
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -45,11 +45,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       )
                     ],
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+                        // topLeft: Radius.circular(20),
+                        // topRight: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
-                    color: Colors.white,
+                    color: kNavyBlue,
                   ),
                   child: Column(
                     children: <Widget>[
@@ -59,9 +59,9 @@ class _DiaryScreenState extends State<DiaryScreen> {
                           Text(
                             "Today",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -81,21 +81,25 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   "Goal",
                                   style: TextStyle(
                                     fontSize: 18,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
                                 Text(
                                   "2000 kCal",
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: kDarkAccentColor),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    // color: kPrimaryGreenColor,
+                                  ),
                                 ),
-                                SizedBox(height: pageHeight * 0.028),
+                                SizedBox(height: pageHeight * 0.04),
                                 Text(
                                   "Left",
                                   style: TextStyle(
                                     fontSize: 18,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -104,7 +108,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
-                                    color: kDarkAccentColor,
+                                    color: Colors.white,
+                                    // color: kPrimaryGreenColor,
                                   ),
                                 ),
                               ],
@@ -114,16 +119,20 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 CircularPercentIndicator(
-                                  radius: pageHeight * 0.14,
-                                  lineWidth: 10.0,
+                                  radius: pageHeight * 0.16,
+                                  lineWidth: 11.0,
                                   percent: 0.7,
                                   animation: true,
                                   animationDuration: 1000,
                                   circularStrokeCap: CircularStrokeCap.round,
                                   curve: Curves.ease,
-                                  center: new Text("1200 kCal"),
-                                  progressColor: kPrimaryGreenColor,
-                                  backgroundColor: kAlphaGreenColor,
+                                  center: new Text(
+                                    "1200 kCal",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                  progressColor: kYellow,
+                                  backgroundColor: kYellow.withAlpha(120),
                                 ),
                               ],
                             ),
@@ -134,7 +143,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: pageHeight * 0.03),
+                  margin: EdgeInsets.only(top: pageHeight * 0.02),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   height: pageHeight * 0.13,
                   width: pageWidth,
@@ -165,7 +174,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: kDarkAccentColor,
+                                  color: kNavyBlue,
                                 ),
                               ),
                             ],
@@ -198,15 +207,18 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 3,
-                                primary: kCGBlue,
+                                primary: kYellow,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                               child: Text(
-                                "Add Food",
+                                "ADD FOOD",
                                 style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
                               ),
                               onPressed: () {},
                             ),
@@ -217,7 +229,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: pageHeight * 0.03),
+                  margin: EdgeInsets.only(top: pageHeight * 0.02),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   height: pageHeight * 0.13,
                   width: pageWidth,
@@ -248,7 +260,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: kDarkAccentColor,
+                                  color: kNavyBlue,
                                 ),
                               ),
                             ],
@@ -281,15 +293,18 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 3,
-                                primary: kCGBlue,
+                                primary: kYellow,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                               child: Text(
-                                "Add Food",
+                                "ADD FOOD",
                                 style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
                               ),
                               onPressed: () {},
                             ),
@@ -300,7 +315,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: pageHeight * 0.03),
+                  margin: EdgeInsets.only(top: pageHeight * 0.02),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   height: pageHeight * 0.13,
                   width: pageWidth,
@@ -331,7 +346,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: kDarkAccentColor,
+                                  color: kNavyBlue,
                                 ),
                               ),
                             ],
@@ -364,15 +379,18 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 3,
-                                primary: kCGBlue,
+                                primary: kYellow,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                               child: Text(
-                                "Add Food",
+                                "ADD FOOD",
                                 style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
                               ),
                               onPressed: () {},
                             ),
@@ -383,7 +401,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: pageHeight * 0.03),
+                  margin: EdgeInsets.only(top: pageHeight * 0.02),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   height: pageHeight * 0.13,
                   width: pageWidth,
@@ -414,7 +432,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: kDarkAccentColor,
+                                  color: kNavyBlue,
                                 ),
                               ),
                             ],
@@ -447,15 +465,18 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 3,
-                                primary: kCGBlue,
+                                primary: kYellow,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                               child: Text(
-                                "Add Food",
+                                "ADD FOOD",
                                 style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
                               ),
                               onPressed: () {},
                             ),

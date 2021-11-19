@@ -13,6 +13,7 @@ import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -78,21 +79,23 @@ class _WeightTrackerState extends State<WeightTracker> {
       body: SafeArea(
         top: true,
         child: Padding(
-          padding:
-              const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 20),
+          padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 10),
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 20, bottom: 20, right: 20),
-                height: 280,
-                width: MediaQuery.of(context).size.width - 20,
+                padding:
+                    EdgeInsets.only(top: 20, bottom: 30, right: 36, left: 0),
+                height: 300,
+                width: MediaQuery.of(context).size.width - 0,
                 decoration: BoxDecoration(
-                  color: kCGBlue,
-                  borderRadius: BorderRadius.circular(16),
+                  color: kNavyBlue,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
                 ),
                 child: LineChart(
                   LineChartData(
-                    backgroundColor: kCGBlue,
+                    backgroundColor: kNavyBlue,
                     minX: 0,
                     maxX: 11,
                     minY: 0,
@@ -136,125 +139,140 @@ class _WeightTrackerState extends State<WeightTracker> {
                 ),
               ),
               //Current Weight
-              ShadowBoxList(
-                color: Colors.white,
-                icon: Icon(FontAwesomeIcons.chartLine, color: kCGBlue),
-                widgetColumn: <Widget>[
-                  SizedBox(height: 10),
-                  H2(
-                      textBody: userObj.currentWeight == null
-                          ? "Desired Weight: unset"
-                          : "Desired Weight: " +
-                              (userObj.targettedWeight).toString() +
-                              " kg"),
-                  SizedBox(height: 5),
-                  H2(
-                      textBody: userObj.currentWeight == null
-                          ? "Current Weight: unset"
-                          : "Current Weight: " +
-                              (userObj.currentWeight).toString() +
-                              " kg"),
-                  SizedBox(height: 10),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ShadowBoxList(
+                  color: Colors.white,
+                  icon: Icon(FontAwesomeIcons.chartLine, color: kCGBlue),
+                  widgetColumn: <Widget>[
+                    SizedBox(height: 10),
+                    H2(
+                        textBody: userObj.currentWeight == null
+                            ? "Desired Weight: unset"
+                            : "Desired Weight: " +
+                                (userObj.targettedWeight).toString() +
+                                " kg"),
+                    SizedBox(height: 5),
+                    H2(
+                        textBody: userObj.currentWeight == null
+                            ? "Current Weight: unset"
+                            : "Current Weight: " +
+                                (userObj.currentWeight).toString() +
+                                " kg"),
+                    SizedBox(height: 10),
+                  ],
+                ),
               ),
               //Add Updated Weight
-              ShadowBoxList(
-                color: Colors.white,
-                icon: Icon(FontAwesomeIcons.plus, color: kCGBlue),
-                widgetColumn: <Widget>[
-                  SizedBox(height: 20),
-                  H2(
-                    textBody: "Add Updated Weight",
-                  ),
-                  SizedBox(height: 20),
-                ],
-                onTapFunction: () {
-                  Alert(
-                      context: context,
-                      title: "Edit Current Weight (kg)",
-                      closeIcon: Icon(
-                        FontAwesomeIcons.timesCircle,
-                        color: kPrimaryLightColor,
-                      ),
-                      style: AlertStyle(
-                        overlayColor: Colors.black45,
-                        titleStyle: H2TextStyle(color: kTextDarkColor),
-                      ),
-                      content: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RoundedInputField(
-                            hintText: "Enter your current weight",
-                            keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
-                            onChanged: (value) => {this.currentWeight = value},
-                            icon: FontAwesomeIcons.weight,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ButtonErims(
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              if (btnState == ButtonState.Idle) {
-                                startLoading();
-                                var retChangeCurrentWeight =
-                                    changeCurrentWeight(
-                                        userObj, double.parse(currentWeight));
-                                List<double> weightHist = [];
-                                // weightHist = [double.parse(currentWeight)];
-                                weightHist.add(double.parse(currentWeight));
-                                var retUpdateWeightHistory =
-                                    updateWeightHistory(userObj, weightHist);
-                                bool retChangeCurrentWeightCheck;
-                                bool retUpdateWeightHistoryCheck;
-                                await retChangeCurrentWeight.then((value) =>
-                                    retChangeCurrentWeightCheck = value);
-                                await retUpdateWeightHistory.then((value) =>
-                                    retUpdateWeightHistoryCheck = value);
-                                if (retChangeCurrentWeightCheck == true &&
-                                    retUpdateWeightHistoryCheck == true) {
-                                  setState(() {
-                                    initializeValues();
-                                    userObj.currentWeight =
-                                        double.parse(currentWeight);
-                                    // userObj.weightHistory.add(weightHist[0]);
-                                    Provider.of<General_Provider>(context,
-                                            listen: false)
-                                        .set_user(userObj);
-                                    SnackBar sc = SnackBar(
-                                      content: Text(
-                                        "Current Weight Edited Successfully",
-                                        style: H3TextStyle(),
-                                      ),
-                                    );
-                                    _scaffoldKey.currentState.showSnackBar(sc);
-                                    Navigator.pop(context);
-                                    stopLoading();
-                                  });
-                                }
-                              } else {
-                                stopLoading();
-                              }
-                            },
-                            labelText: "SAVE",
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                      buttons: [
-                        DialogButton(
-                          color: Colors.white,
-                          height: 0,
-                          child: SizedBox(height: 0),
-                          onPressed: () {},
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ShadowBoxList(
+                  color: Colors.white,
+                  icon: Icon(FontAwesomeIcons.plus, color: kCGBlue),
+                  widgetColumn: <Widget>[
+                    SizedBox(height: 20),
+                    H2(
+                      textBody: "Add Updated Weight",
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                  onTapFunction: () {
+                    Alert(
+                        context: context,
+                        title: "Edit Current Weight (kg)",
+                        closeIcon: Icon(
+                          FontAwesomeIcons.timesCircle,
+                          color: kPrimaryLightColor,
                         ),
-                      ]).show();
-                },
+                        style: AlertStyle(
+                          overlayColor: Colors.black45,
+                          titleStyle: H2TextStyle(color: kTextDarkColor),
+                        ),
+                        content: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            RoundedInputField(
+                              hintText: "Enter your current weight",
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              onChanged: (value) =>
+                                  {this.currentWeight = value},
+                              icon: FontAwesomeIcons.weight,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ButtonErims(
+                              onTap:
+                                  (startLoading, stopLoading, btnState) async {
+                                if (btnState == ButtonState.Idle) {
+                                  startLoading();
+                                  var retChangeCurrentWeight =
+                                      changeCurrentWeight(
+                                          userObj, double.parse(currentWeight));
+                                  List<double> weightHist = [];
+                                  // weightHist = [double.parse(currentWeight)];
+                                  weightHist.add(double.parse(currentWeight));
+                                  var retUpdateWeightHistory =
+                                      updateWeightHistory(userObj, weightHist);
+                                  bool retChangeCurrentWeightCheck;
+                                  bool retUpdateWeightHistoryCheck;
+                                  await retChangeCurrentWeight.then((value) =>
+                                      retChangeCurrentWeightCheck = value);
+                                  await retUpdateWeightHistory.then((value) =>
+                                      retUpdateWeightHistoryCheck = value);
+                                  if (retChangeCurrentWeightCheck == true &&
+                                      retUpdateWeightHistoryCheck == true) {
+                                    setState(() {
+                                      initializeValues();
+                                      userObj.currentWeight =
+                                          double.parse(currentWeight);
+                                      // userObj.weightHistory.add(weightHist[0]);
+                                      Provider.of<General_Provider>(context,
+                                              listen: false)
+                                          .set_user(userObj);
+                                      SnackBar sc = SnackBar(
+                                        content: Text(
+                                          "Current Weight Edited Successfully",
+                                          style: H3TextStyle(),
+                                        ),
+                                      );
+                                      _scaffoldKey.currentState
+                                          .showSnackBar(sc);
+                                      Navigator.pop(context);
+                                      stopLoading();
+                                    });
+                                  }
+                                } else {
+                                  stopLoading();
+                                }
+                              },
+                              labelText: "SAVE",
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                        buttons: [
+                          DialogButton(
+                            color: Colors.white,
+                            height: 0,
+                            child: SizedBox(height: 0),
+                            onPressed: () {},
+                          ),
+                        ]).show();
+                  },
+                ),
               ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 40, left: 16, right: 16, bottom: 0),
+                child: SvgPicture.asset("assets/svgs/tracker.svg",
+                    width: MediaQuery.of(context).size.width - 12),
+              )
             ],
           ),
         ),
@@ -296,11 +314,11 @@ class LineTitles {
         leftTitles: SideTitles(
           showTitles: true,
           margin: 5,
-          reservedSize: 30,
+          reservedSize: 40,
           getTextStyles: (value) => const TextStyle(
               color: kTextLightColor,
               fontFamily: 'Quicksand',
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: FontWeight.bold),
           getTitles: (value) {
             switch (value.toInt()) {

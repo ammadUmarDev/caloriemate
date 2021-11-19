@@ -32,7 +32,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
         top: true,
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 10, left: 32, right: 32, bottom: 40),
+              const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 20),
           child: Column(
             children: [
               // SizedBox(height: 20),

@@ -40,15 +40,18 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
         backgroundColor: kBackgroundColor,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: FloatingActionButton(
-            child: Icon(
-              MaterialIcons.add,
-              color: kTextLightColor,
-              size: 36,
+          child: SizedBox(
+            height: 56,
+            child: FloatingActionButton(
+              child: Icon(
+                MaterialIcons.add,
+                color: kNavyBlue,
+                size: 40,
+              ),
+              elevation: 3,
+              backgroundColor: kYellow,
+              onPressed: () {},
             ),
-            elevation: 3,
-            backgroundColor: kPrimaryAccentColor,
-            onPressed: () {},
           ),
         ),
         body: SafeArea(
@@ -74,19 +77,19 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                     buttons: [
                       DialogButton(
                         margin: EdgeInsets.symmetric(horizontal: 60),
-                        color: kPrimaryAccentColor,
+                        color: kYellow,
                         height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               "DONE",
-                              style: TextStyle(color: kTextLightColor),
+                              style: TextStyle(color: kNavyBlue,fontWeight: FontWeight.bold),
                             ),
                             SizedBox(width: 5),
                             Icon(
                               MaterialIcons.check_circle,
-                              color: kTextLightColor,
+                              color: kNavyBlue,
                             ),
                           ],
                         ),
@@ -129,13 +132,16 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 CircleAvatar(
-                                  backgroundColor: kPrimaryAccentColor,
+                                  backgroundColor: kYellow,
                                   maxRadius: 28,
                                   child: ClipOval(
-                                    child: Image.asset(
-                                      "assets/images/dumbell.png",
-                                      width: 40,
-                                    ),
+                                    child: SvgPicture.asset(
+                                        "assets/svgs/dumbell.svg",
+                                        width: 44),
+                                    // Image.asset(
+                                    //   "assets/images/dumbell.png",
+                                    //   width: 40,
+                                    // ),
                                   ),
                                 ),
                                 Spacer(),
@@ -149,7 +155,7 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: kPrimaryAccentColor,
+                                          color: kNavyBlue,
                                           fontSize: 18),
                                     ),
                                   ),
@@ -169,7 +175,7 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                                 Text(
                                   items[index].duration,
                                   style: TextStyle(
-                                      color: kPrimaryAccentColor,
+                                      color: kNavyBlue,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -181,7 +187,7 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                                 Text(
                                   items[index].reps,
                                   style: TextStyle(
-                                      color: kPrimaryAccentColor,
+                                      color: kNavyBlue,
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -197,10 +203,12 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
-                                    Icon(
-                                      FontAwesomeIcons.award,
-                                      color: kPrimaryAccentColor,
-                                    ),
+                                    SvgPicture.asset("assets/svgs/medal.svg",
+                                        width: 26),
+                                    // Icon(
+                                    //   FontAwesomeIcons.award,
+                                    //   color: kPrimaryAccentColor,
+                                    // ),
                                     SizedBox(width: 4),
 
                                     Text(
@@ -213,10 +221,12 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                                 Spacer(),
                                 Row(
                                   children: <Widget>[
-                                    Icon(
-                                      MaterialIcons.schedule,
-                                      color: kPrimaryAccentColor,
-                                    ),
+                                    SvgPicture.asset("assets/svgs/clock.svg",
+                                        width: 26),
+                                    // Icon(
+                                    //   MaterialIcons.schedule,
+                                    //   color: kPrimaryAccentColor,
+                                    // ),
                                     SizedBox(width: 4),
                                     Text(
                                       items[index].dateTime.hour.toString() +
@@ -238,10 +248,12 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                                 Spacer(),
                                 Row(
                                   children: <Widget>[
-                                    Icon(
-                                      MaterialIcons.today,
-                                      color: kPrimaryAccentColor,
-                                    ),
+                                    SvgPicture.asset("assets/svgs/calendar.svg",
+                                        width: 24),
+                                    // Icon(
+                                    //   MaterialIcons.today,
+                                    //   color: kPrimaryAccentColor,
+                                    // ),
                                     SizedBox(width: 4),
                                     Text(
                                       items[index].dateTime.day.toString() +

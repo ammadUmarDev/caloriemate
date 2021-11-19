@@ -59,17 +59,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding:
                       const EdgeInsets.only(right: 20, top: 10, bottom: 10),
                   child: CircleAvatar(
-                    child: SvgPicture.asset("assets/svgs/user.svg", width: 54),
-                    // ClipOval(
-                    //   child:
-                    //   Image.asset(
-                    //     userImagePath,
-                    //     width: 60,
-                    //   ),
-                    // ),
-                    maxRadius: 42,
-                    // backgroundImage: AssetImage(userImagePath),
-                    backgroundColor: kYellow,
+                    backgroundColor: kNavyBlue,
+                    maxRadius: 43.5,
+                    child: CircleAvatar(
+                      child:
+                          SvgPicture.asset("assets/svgs/user.svg", width: 54),
+                      // ClipOval(
+                      //   child:
+                      //   Image.asset(
+                      //     userImagePath,
+                      //     width: 60,
+                      //   ),
+                      // ),
+                      maxRadius: 42,
+                      // backgroundImage: AssetImage(userImagePath),
+                      backgroundColor: kYellow,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -260,7 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //   color: kCGBlue,
                   // ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kCGBlue, size: kIconSize),
+                      color: kNavyBlue, size: kIconSize),
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => GeneralSettingsScreen())),
                 )),
@@ -274,7 +279,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //   color: kCGBlue,
                   // ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kCGBlue, size: kIconSize),
+                      color: kNavyBlue, size: kIconSize),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => FaqScreen())),
                 )),
@@ -288,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //   color: kCGBlue,
                   // ),
                   trailing: Icon(Icons.chevron_right,
-                      color: kCGBlue, size: kIconSize),
+                      color: kNavyBlue, size: kIconSize),
                   onTap: () => Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => AboutScreen())),
                 )),

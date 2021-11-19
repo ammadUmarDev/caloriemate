@@ -73,7 +73,7 @@ class _EditInformationState extends State<EditInformation> {
         top: true,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10, right: 20, left: 20),
+            padding: EdgeInsets.only(top: 0, bottom: 10, right: 12, left: 12),
             child: Column(
               children: <Widget>[
                 //Edit Age

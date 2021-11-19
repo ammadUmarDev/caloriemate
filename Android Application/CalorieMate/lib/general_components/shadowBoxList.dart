@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class ShadowBoxList extends StatelessWidget {
-  final Icon icon;
+  final Widget icon;
   final widgetColumn;
   final Function onTapFunction;
   final Color color;
@@ -12,7 +12,7 @@ class ShadowBoxList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, right: 0, left: 00),
+      padding: const EdgeInsets.only(top: 15, right: 0, left: 0),
       child: GestureDetector(
         child: Container(
           padding: const EdgeInsets.all(10.0),

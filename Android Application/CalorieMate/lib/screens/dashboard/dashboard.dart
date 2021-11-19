@@ -150,7 +150,7 @@ class _DashBoardState extends State<DashBoard> {
         index: pageIndex,
         animationDuration: Duration(milliseconds: 300),
         height: 56,
-        backgroundColor: kBackgroundColor,
+        backgroundColor: Colors.transparent,
         color: kNavyBlue,
         buttonBackgroundColor: kNavyBlue,
         animationCurve: Curves.decelerate,

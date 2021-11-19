@@ -1,3 +1,4 @@
+import 'package:calorie_mate/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,14 +18,19 @@ class RoundedIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double pageHeight = MediaQuery.of(context).size.height.toDouble();
+    final double pageWidth = MediaQuery.of(context).size.width.toDouble();
+
     return Container(
-      height: 182,
-      width: 156,
+      // height: 212,
+      // width: 180,
+      height: pageHeight * 0.25,
+      width: pageWidth * 0.436,
       child: ElevatedButton(
         onPressed: press,
         style: ElevatedButton.styleFrom(
           primary: color,
-          // elevation: 3,
+          elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -44,7 +50,7 @@ class RoundedIconButton extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: textColor,
-                fontSize: 15,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),

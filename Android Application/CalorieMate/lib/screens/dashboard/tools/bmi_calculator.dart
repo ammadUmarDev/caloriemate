@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../constants.dart';
@@ -171,6 +172,8 @@ class _BMICalculatorState extends State<BMICalculator> {
 
   @override
   Widget build(BuildContext context) {
+    final double pageHeight = MediaQuery.of(context).size.height.toDouble();
+    final double pageWidth = MediaQuery.of(context).size.width.toDouble();
     return Scaffold(
       appBar: AppBarPageName(
           pageName: "BMI Calculator",
@@ -184,19 +187,8 @@ class _BMICalculatorState extends State<BMICalculator> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Calculate Your BMI",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -210,7 +202,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                           color: selectedGender == Gender.male
                               ? kActiveCardColour
                               : kInactiveCardColour,
-                          icon: FontAwesomeIcons.mars,
+                          icon: SvgPicture.asset("assets/svgs/male.svg",
+                              width: 95),
                           text: 'MALE',
                           textColor: Colors.white,
                         ),
@@ -224,7 +217,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                           color: selectedGender == Gender.female
                               ? kActiveCardColour
                               : kInactiveCardColour,
-                          icon: FontAwesomeIcons.venus,
+                          icon: SvgPicture.asset("assets/svgs/female.svg",
+                              width: 95),
                           text: 'FEMALE',
                           textColor: Colors.white,
                         ),
@@ -232,11 +226,21 @@ class _BMICalculatorState extends State<BMICalculator> {
                     ),
                     //HeightPicker
                     Container(
+                      height: 160,
                       padding: EdgeInsets.all(20),
                       margin: EdgeInsets.only(top: 20),
                       decoration: BoxDecoration(
-                        color: kDarkAccentColor,
+                        color: kCGBlue,
                         borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4.0,
+                            spreadRadius: 1.5,
+                            offset: Offset(0, 3.0),
+                            // shadow direction: bottom right
+                          )
+                        ],
                       ),
                       child: Column(
                         children: <Widget>[
@@ -253,19 +257,22 @@ class _BMICalculatorState extends State<BMICalculator> {
                                     ),
                                   ),
                                   SizedBox(width: 5),
-                                  Icon(
-                                    // MaterialCommunityIcons.ruler,
-                                    FontAwesomeIcons.rulerVertical,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
+                                  SvgPicture.asset("assets/svgs/height.svg",
+                                      width: 36),
+
+                                  // Icon(
+                                  //   // MaterialCommunityIcons.ruler,
+                                  //   FontAwesomeIcons.rulerVertical,
+                                  //   color: Colors.white,
+                                  //   size: 30,
+                                  // ),
                                 ],
                               ),
                             ],
                           ),
                           Divider(
                             color: Colors.white,
-                            height: 24,
+                            height: 20,
                             thickness: 3,
                           ),
                           Row(children: <Widget>[
@@ -479,8 +486,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                                 cursorColor: Colors.white,
                                 decoration: InputDecoration(
                                     hintText: selectedUnit == HeightUnit.ft
-                                        ? "__' __\""
-                                        : '__',
+                                        ? "_' _\""
+                                        : '_',
                                     hintStyle: TextStyle(color: Colors.white),
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -566,13 +573,24 @@ class _BMICalculatorState extends State<BMICalculator> {
                     Row(children: <Widget>[
                       //WeightPicker
                       Container(
-                          width: 175,
-                          height: 220,
+                          // width: 175,
+                          // height: 220,
+                          width: pageWidth * 0.436,
+                          height: pageHeight * 0.26,
                           padding: EdgeInsets.all(20),
                           margin: EdgeInsets.only(top: 20),
                           decoration: BoxDecoration(
-                            color: kDarkAccentColor,
+                            color: kCGBlue,
                             borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 1.5,
+                                offset: Offset(0, 3.0),
+                                // shadow direction: bottom right
+                              )
+                            ],
                           ),
                           child: Column(children: <Widget>[
                             Row(
@@ -588,12 +606,14 @@ class _BMICalculatorState extends State<BMICalculator> {
                                       ),
                                     ),
                                     SizedBox(width: 5),
-                                    Icon(
-                                      // MaterialCommunityIcons.ruler,
-                                      FontAwesomeIcons.weight,
-                                      color: Colors.white,
-                                      size: 26,
-                                    ),
+                                    SvgPicture.asset("assets/svgs/weight2.svg",
+                                        width: 30),
+                                    // Icon(
+                                    //   // MaterialCommunityIcons.ruler,
+                                    //   FontAwesomeIcons.weight,
+                                    //   color: Colors.white,
+                                    //   size: 26,
+                                    // ),
                                   ],
                                 ),
                               ],
@@ -845,32 +865,47 @@ class _BMICalculatorState extends State<BMICalculator> {
                       Spacer(),
                       //AgePicker
                       Container(
-                          width: 175,
-                          height: 220,
+                          width: pageWidth * 0.436,
+                          height: pageHeight * 0.26,
+                          // width: 175,
+                          // height: 220,
                           padding: EdgeInsets.all(20),
                           margin: EdgeInsets.only(top: 20),
                           decoration: BoxDecoration(
-                            color: kDarkAccentColor,
+                            color: kCGBlue,
                             borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 1.5,
+                                offset: Offset(0, 3.0),
+                                // shadow direction: bottom right
+                              )
+                            ],
                           ),
                           child: Column(children: <Widget>[
                             Row(children: [
-                              Row(children: [
-                                Text(
-                                  "Age",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
+                              Row(
+                                children: [
+                                  Text(
+                                    "Age",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 24,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(
-                                    // MaterialCommunityIcons.,
-                                    FontAwesomeIcons.solidCalendar,
-                                    color: Colors.white,
-                                    size: 30)
-                              ])
+                                  SizedBox(width: 5),
+                                  SvgPicture.asset("assets/svgs/age.svg",
+                                      width: 30),
+                                  // Icon(
+                                  //     // MaterialCommunityIcons.,
+                                  //     FontAwesomeIcons.solidCalendar,
+                                  //     color: Colors.white,
+                                  //     size: 30),
+                                ],
+                              ),
                             ]),
                             Divider(
                                 color: Colors.white, height: 24, thickness: 3),
@@ -972,8 +1007,8 @@ class _BMICalculatorState extends State<BMICalculator> {
                     SizedBox(height: 20),
                     //CalculateButton
                     ArgonButton(
-                      height: 54,
-                      width: 180,
+                      height: 60,
+                      width: 300,
                       roundLoadingShape: true,
                       child: Text("Calculate",
                           style: H1TextStyle(color: kTextLightColor)),

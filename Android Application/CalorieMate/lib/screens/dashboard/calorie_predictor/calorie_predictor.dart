@@ -184,7 +184,7 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                           offset: Offset(0, 1),
                         )
                       ],
-                      borderRadius: BorderRadius.circular(200),
+                      borderRadius: BorderRadius.circular(1000),
                       color: kPrussianBlue,
                     ),
                     child: ClipOval(

@@ -8,10 +8,16 @@ import 'h3.dart';
 
 // ignore: must_be_immutable
 class ButtonErims extends StatefulWidget {
-  ButtonErims({@required this.onTap, @required this.labelText});
+  ButtonErims(
+      {@required this.onTap,
+      @required this.labelText,
+      this.color,
+      this.textColor});
 
   dynamic Function(Function, Function, ButtonState) onTap;
   String labelText;
+  Color color;
+  Color textColor;
 
   @override
   _ButtonErimsState createState() => _ButtonErimsState();
@@ -25,7 +31,12 @@ class _ButtonErimsState extends State<ButtonErims> {
       roundLoadingShape: true,
       width: MediaQuery.of(context).size.width * 0.45,
       onTap: widget.onTap,
-      child: Text(widget.labelText, style: H3TextStyle(color: kTextLightColor)),
+      child: Text(widget.labelText,
+          style: TextStyle(
+            color:
+                widget.textColor != null ? widget.textColor : kTextLightColor,
+            fontWeight: FontWeight.bold,
+          )),
       loader: Container(
         padding: EdgeInsets.all(10),
         child: SpinKitRotatingCircle(
@@ -33,7 +44,8 @@ class _ButtonErimsState extends State<ButtonErims> {
         ),
       ),
       borderRadius: 12.0,
-      color: kPrimaryAccentColor,
+      // color: kPrimaryAccentColor,
+      color: widget.color != null ? widget.color : kPrimaryAccentColor,
       borderSide: BorderSide(
         color: Colors.transparent,
         width: 2.0,
