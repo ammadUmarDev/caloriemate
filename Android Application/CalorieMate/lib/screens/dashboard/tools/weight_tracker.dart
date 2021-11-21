@@ -79,7 +79,7 @@ class _WeightTrackerState extends State<WeightTracker> {
       body: SafeArea(
         top: true,
         child: Padding(
-          padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Column(
             children: <Widget>[
               Container(

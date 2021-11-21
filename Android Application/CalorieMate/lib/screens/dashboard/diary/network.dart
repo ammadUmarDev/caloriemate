@@ -8,6 +8,7 @@ List<FoodCalories> parsePost(String responseBody) {
   var foods = list.map((model) => FoodCalories.fromJson(model)).toList();
   return foods;
 }
-Future<List<FoodCalories>> fetchData() async{
-  final response = await http.get(url)
-} 
+
+Future<List<FoodCalories>> fetchData() async {
+  // final response = await http.get(url)
+}

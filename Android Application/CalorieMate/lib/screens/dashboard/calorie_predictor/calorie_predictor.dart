@@ -191,224 +191,217 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
                       child: Image.asset("assets/images/cals_woman.jpg"),
                     ),
                   ),
-                  SizedBox(height: 15),
-                  InkWell(
-                    splashColor: Colors.grey,
-                    onTap: () {
-                      Alert(
-                        context: context,
-                        title: "Top View",
-                        closeIcon: Icon(
-                          FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
-                        ),
-                        style: AlertStyle(
-                          overlayColor: Colors.black45,
-                          titleStyle: H1TextStyle(color: kCGBlue),
-                        ),
-                        content: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10,
-                            ),
-                            H2(textBody: "Capture the top view of the food"),
-                            SizedBox(
-                              height: 10,
+                  SizedBox(height: 10),
+                  Material(
+                    elevation: 3,
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white,
+                    child: InkWell(
+                      // splashColor: kYellow.withAlpha(50),
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        Alert(
+                          context: context,
+                          title: "Top View",
+                          closeIcon: Icon(
+                            FontAwesomeIcons.timesCircle,
+                            color: kPrimaryLightColor,
+                          ),
+                          style: AlertStyle(
+                            overlayColor: Colors.black45,
+                            titleStyle: H1TextStyle(color: kCGBlue),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              H2(textBody: "Capture the top view of the food"),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: kCGBlue,
+                              width: 100,
+                              radius: BorderRadius.circular(10),
+                              child: Text(
+                                'GO',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: kH1Size),
+                              ),
+                              onPressed: () {
+                                getTopImageFromCamera();
+                                Navigator.pop(context);
+                              },
                             ),
                           ],
-                        ),
-                        buttons: [
-                          DialogButton(
-                            color: kCGBlue,
-                            width: 100,
-                            radius: BorderRadius.circular(10),
-                            child: Text(
-                              'GO',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: kH1Size),
-                            ),
-                            onPressed: () {
-                              getTopImageFromCamera();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ).show();
-                    },
-                    child: Container(
-                      height: 140,
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.0, 0.0), //(x,y)
-                            blurRadius: 1.0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14.0, vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.all(14),
-                              height: 110,
-                              width: 110,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    offset: Offset(0.0, 0.0), //(x,y)
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
-                                color: kYellow,
-                                borderRadius: BorderRadius.circular(60),
-                              ),
-                              child: SvgPicture.asset("assets/svgs/camera.svg",
-                                  width: 100),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 12),
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    H1(
-                                      textBody: "Capture Image",
-                                      color: Colors.black87,
-                                    ),
-                                    SizedBox(height: 5),
-                                    H3(
-                                      textBody:
-                                          "Use camera to capture\nimage and detect\ncalories",
-                                      color: Colors.black38,
+                        ).show();
+                      },
+                      child: Container(
+                        height: 140,
+                        width: MediaQuery.of(context).size.width - 40,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14.0, vertical: 14.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(14),
+                                height: 110,
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(0.0, 0.0), //(x,y)
+                                      blurRadius: 1.0,
                                     ),
                                   ],
+                                  color: kYellow,
+                                  borderRadius: BorderRadius.circular(60),
+                                ),
+                                child: SvgPicture.asset(
+                                    "assets/svgs/camera.svg",
+                                    width: 100),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 12),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      H1(
+                                        textBody: "Capture Image",
+                                        color: Colors.black87,
+                                      ),
+                                      SizedBox(height: 5),
+                                      H3(
+                                        textBody:
+                                            "Use camera to capture\nimage and detect\ncalories",
+                                        color: Colors.black38,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
-                  InkWell(
-                    splashColor: Colors.grey,
-                    onTap: () {
-                      Alert(
-                        context: context,
-                        title: "Top View",
-                        closeIcon: Icon(
-                          FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
-                        ),
-                        style: AlertStyle(
-                          overlayColor: Colors.black45,
-                          titleStyle: H1TextStyle(color: kCGBlue),
-                        ),
-                        content: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10,
-                            ),
-                            H2(
-                              textBody: "Upload the top view of the food",
-                            ),
-                            SizedBox(
-                              height: 10,
+                  SizedBox(height: 8),
+                  Material(
+                    elevation: 3,
+                    borderRadius: BorderRadius.circular(16),
+                    child: InkWell(
+                      // splashColor: Colors.grey,
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () {
+                        Alert(
+                          context: context,
+                          title: "Top View",
+                          closeIcon: Icon(
+                            FontAwesomeIcons.timesCircle,
+                            color: kPrimaryLightColor,
+                          ),
+                          style: AlertStyle(
+                            overlayColor: Colors.black45,
+                            titleStyle: H1TextStyle(color: kCGBlue),
+                          ),
+                          content: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              H2(
+                                textBody: "Upload the top view of the food",
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                          buttons: [
+                            DialogButton(
+                              color: kCGBlue,
+                              width: 100,
+                              radius: BorderRadius.circular(10),
+                              child: Text(
+                                'GO',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: kH1Size),
+                              ),
+                              onPressed: () {
+                                getTopImageFromGallery();
+                                Navigator.pop(context);
+                              },
                             ),
                           ],
-                        ),
-                        buttons: [
-                          DialogButton(
-                            color: kCGBlue,
-                            width: 100,
-                            radius: BorderRadius.circular(10),
-                            child: Text(
-                              'GO',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: kH1Size),
-                            ),
-                            onPressed: () {
-                              getTopImageFromGallery();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ).show();
-                    },
-                    child: Container(
-                      height: 140,
-                      width: MediaQuery.of(context).size.width - 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(0.0, 0.0),
-                            blurRadius: 1.0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14.0, vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.all(14),
-                              height: 110,
-                              width: 110,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    offset: Offset(0.0, 0.0), //(x,y)
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
-                                color: kYellow,
-                                borderRadius: BorderRadius.circular(60),
-                              ),
-                              child: SvgPicture.asset("assets/svgs/upload.svg",
-                                  width: 100),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 12.0),
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    H1(
-                                      textBody: "Upload Image",
-                                      color: Colors.black87,
-                                    ),
-                                    SizedBox(height: 5),
-                                    H3(
-                                      textBody:
-                                          "Upload an image from\ngallery and detect\ncalories",
-                                      color: Colors.black38,
+                        ).show();
+                      },
+                      child: Container(
+                        height: 140,
+                        width: MediaQuery.of(context).size.width - 40,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14.0, vertical: 14.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(14),
+                                height: 110,
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(0.0, 0.0), //(x,y)
+                                      blurRadius: 1.0,
                                     ),
                                   ],
+                                  color: kYellow,
+                                  borderRadius: BorderRadius.circular(60),
+                                ),
+                                child: SvgPicture.asset(
+                                    "assets/svgs/upload.svg",
+                                    width: 100),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 12.0),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      H1(
+                                        textBody: "Upload Image",
+                                        color: Colors.black87,
+                                      ),
+                                      SizedBox(height: 5),
+                                      H3(
+                                        textBody:
+                                            "Upload an image from\ngallery and detect\ncalories",
+                                        color: Colors.black38,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

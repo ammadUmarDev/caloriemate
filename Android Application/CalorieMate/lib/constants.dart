@@ -13,7 +13,7 @@ const kAlphaGreenColor = Color.fromARGB(70, 0, 228, 95);
 
 const kTextDarkColor = Colors.black87;
 const kTextLightColor = Color(0xFFFFFFFF);
-const kBackgroundColor = Color(0xffF5F5F5);
+const kBackgroundColor = Color(0xffF3F3F3);
 
 const kNavyBlue = Color.fromARGB(255, 22, 33, 56);
 const kHunterGreen = Color.fromARGB(255, 62, 86, 65);

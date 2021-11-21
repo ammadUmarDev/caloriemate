@@ -35,6 +35,15 @@ class FoodCalories {
         calories: json["calories"],
       );
 
+  FoodCalories.fromJsonLocal(Map<String, dynamic> json) {
+    id = json["id"];
+    name = json["name"];
+    portion = json["portion"];
+    amount = json["amount"];
+    portionName = json["portion_name"];
+    calories = json["calories"];
+  }
+
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,

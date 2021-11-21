@@ -30,7 +30,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: kNavyBlue,
       title: H1(textBody: pageName, color: Colors.white),
       titleSpacing: 20,
-      elevation: 2,
+      elevation: 1,
       automaticallyImplyLeading: leading,
       actions: [
         ClipOval(
