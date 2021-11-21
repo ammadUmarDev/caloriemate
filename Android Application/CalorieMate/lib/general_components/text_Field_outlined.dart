@@ -69,10 +69,10 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: kNavyBlue, width: 1.5),
+                borderSide: BorderSide(color: kNavyBlue, width: 1.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black26, width: 1.5),
+                borderSide: BorderSide(color: Colors.black26, width: 1.0),
                 borderRadius: BorderRadius.circular(12),
               ),
               labelText: widget.textFieldText,

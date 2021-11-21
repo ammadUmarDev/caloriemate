@@ -1,6 +1,8 @@
 import 'package:calorie_mate/general_components/appbar.dart';
+import 'package:calorie_mate/screens/dashboard/diary/search_foods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../constants.dart';
@@ -24,6 +26,22 @@ class _DiaryScreenState extends State<DiaryScreen> {
         leading: false,
       ),
       backgroundColor: kBackgroundColor,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          MaterialIcons.add,
+          color: Colors.white,
+          size: 36,
+        ),
+        elevation: 3,
+        backgroundColor: kCGBlue,
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => SearchFoods(),
+            ),
+          );
+        },
+      ),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(

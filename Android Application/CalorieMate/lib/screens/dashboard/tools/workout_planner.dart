@@ -40,18 +40,15 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
         backgroundColor: kBackgroundColor,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 56,
-            child: FloatingActionButton(
-              child: Icon(
-                MaterialIcons.add,
-                color: kNavyBlue,
-                size: 40,
-              ),
-              elevation: 3,
-              backgroundColor: kYellow,
-              onPressed: () {},
+          child: FloatingActionButton(
+            child: Icon(
+              MaterialIcons.add,
+              color: kNavyBlue,
+              size: 40,
             ),
+            elevation: 3,
+            backgroundColor: kYellow,
+            onPressed: () {},
           ),
         ),
         body: SafeArea(
@@ -84,7 +81,9 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
                           children: [
                             Text(
                               "DONE",
-                              style: TextStyle(color: kNavyBlue,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: kNavyBlue,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(width: 5),
                             Icon(

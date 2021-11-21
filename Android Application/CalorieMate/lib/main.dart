@@ -6,6 +6,7 @@ import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predict
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_results.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:calorie_mate/screens/dashboard/dashboard.dart';
+import 'package:calorie_mate/screens/dashboard/diary/search_foods.dart';
 import 'package:calorie_mate/screens/dashboard/profile/edit_information.dart';
 import 'package:calorie_mate/screens/dashboard/tools/bmi_calculator.dart';
 import 'package:calorie_mate/screens/dashboard/tools/intake_recommender.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
           IntakeRecommender.id: (context) => IntakeRecommender(),
           WorkoutPlanner.id: (context) => WorkoutPlanner(),
           WorkoutRecommender.id: (context) => WorkoutRecommender(),
+          SearchFoods.id: (context) => SearchFoods(),
         },
       ),
     );

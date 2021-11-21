@@ -317,6 +317,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // backgroundColor: Color(0xFFE9EEF5),
+      backgroundColor: kBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -451,7 +452,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 60,
-                                    color: kNavyBlue,
+                                    color: kYellowDark,
                                   )
                               ],
                             ),
@@ -478,7 +479,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     margin: EdgeInsets.only(top: 3),
                                     height: 2,
                                     width: 75,
-                                    color: kNavyBlue,
+                                    color: kYellowDark,
                                   )
                               ],
                             ),
