@@ -1,5 +1,8 @@
 import 'package:calorie_mate/general_components/appbar.dart';
+import 'package:calorie_mate/models/diaryData.dart';
+import 'package:calorie_mate/providers/diary_firebase.dart';
 import 'package:calorie_mate/screens/dashboard/diary/search_foods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -13,10 +16,13 @@ class DiaryScreen extends StatefulWidget {
 }
 
 class _DiaryScreenState extends State<DiaryScreen> {
+  // List<DiaryData> diaryData = [];
+
   @override
   Widget build(BuildContext context) {
     final double pageHeight = MediaQuery.of(context).size.height.toDouble();
     final double pageWidth = MediaQuery.of(context).size.width.toDouble();
+
     return Scaffold(
       appBar: AppBarPageName(
         pageName: "Diary",
@@ -37,7 +43,9 @@ class _DiaryScreenState extends State<DiaryScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => SearchFoods(),
+              builder: (_) => SearchFoods(
+                type: "quick",
+              ),
             ),
           );
         },
@@ -238,7 +246,15 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => SearchFoods(
+                                      type: "breakfast",
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -324,7 +340,15 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => SearchFoods(
+                                      type: "lunch",
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -410,7 +434,15 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => SearchFoods(
+                                      type: "dinner",
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -496,7 +528,15 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   color: Colors.black87,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => SearchFoods(
+                                      type: "snacks",
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

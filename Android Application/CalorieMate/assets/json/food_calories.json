@@ -1,12 +1,5 @@
 [
-  {
-    "id": "12350000",
-    "name": "Sour cream dip",
-    "portion": "1",
-    "amount": ".25000",
-    "portion_name": "cup",
-    "calories": "133.65000"
-  },
+
   {
     "id": "13110100",
     "name": "Ice cream, regular",
@@ -16110,5 +16103,13 @@
     "amount": "1.00000",
     "portion_name": "cup",
     "calories": "114.00000"
+  },  
+  {
+    "id": "12350000",
+    "name": "Sour cream dip",
+    "portion": "1",
+    "amount": ".25000",
+    "portion_name": "cup",
+    "calories": "133.65000"
   }
 ]
