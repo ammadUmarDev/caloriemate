@@ -132,11 +132,21 @@ class _SearchFoodsState extends State<SearchFoods> {
               type: AlertType.none,
               context: context,
               title: "Add to Diary?",
+              desc: name +
+                  "\n" +
+                  amount.toStringAsFixed(2) +
+                  " " +
+                  portionName +
+                  "\n" +
+                  calories.toStringAsFixed(0) +
+                  " calories",
               closeIcon: Icon(
                 FontAwesomeIcons.timesCircle,
                 color: kPrimaryLightColor,
               ),
               style: AlertStyle(
+                  titleStyle: TextStyle(fontWeight: FontWeight.bold),
+                  descStyle: TextStyle(fontSize: 15),
                   overlayColor: Colors.black45,
                   alertAlignment: Alignment.bottomCenter),
               buttons: [
