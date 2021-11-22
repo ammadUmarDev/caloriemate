@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
           IntakeRecommender.id: (context) => IntakeRecommender(),
           WorkoutPlanner.id: (context) => WorkoutPlanner(),
           WorkoutRecommender.id: (context) => WorkoutRecommender(),
-          SearchFoods.id: (context) => SearchFoods(),
+          // SearchFoods.id: (context) => SearchFoods(),
         },
       ),
     );

@@ -96,6 +96,20 @@ Future<bool> changePhoneNumber(UserModel u, String newPhoneNumber) async {
   return check;
 }
 
+//User BodyFoal Change
+Future<bool> updateBodyGoal(UserModel u, String goal) async {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+  bool check = false;
+  await users
+      .doc(u.userID)
+      .update({'Body_Goal': goal})
+      .then((value) => check = true)
+      .catchError((error) => print("Failed to update user: $error"));
+
+  return check;
+}
+
 //User Age Change
 Future<bool> changeAge(UserModel u, int newAge) async {
   FirebaseFirestore db = FirebaseFirestore.instance;

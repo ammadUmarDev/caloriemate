@@ -1,5 +1,6 @@
 import 'package:calorie_mate/general_components/body_text%20copy.dart';
 import 'package:calorie_mate/models/user.dart';
+import 'package:calorie_mate/providers/firebase_functions.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_predictor.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
@@ -32,7 +33,36 @@ class _DashBoardState extends State<DashBoard> {
 
   User signInUser = FirebaseAuth.instance.currentUser;
 
+  int feetToCm(int ft, int inches) {
+    int height;
+    int inchesTotal = (ft * 12) + inches;
+    height = (inchesTotal * 2.54).toInt();
+    print(height);
+    return height;
+  }
+
+  String calculateBMR(String gender, double weight, int height, int age) {
+    double bmr;
+    if (gender == "Male") {
+      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    }
+
+    if (gender == "Female") {
+      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    return bmr.toStringAsFixed(1);
+  }
+
   Future<void> getUserInfo() async {
+    int ft;
+    int inches;
+    double weight;
+    int age;
+    int height;
+    String bodyGoal;
+    String gender;
+
     if (signInUser != null) {
       final currentUserId = signInUser.uid;
       print(currentUserId);
@@ -57,6 +87,7 @@ class _DashBoardState extends State<DashBoard> {
             targettedWeight: documentSnapshot.data()["Targetted_Weight"],
             heightFt: documentSnapshot.data()["Height_Ft"],
             heightIn: documentSnapshot.data()["Height_In"],
+            bodyGoal: documentSnapshot.data()["Body_Goal"],
             physicalActivityLevel:
                 documentSnapshot.data()["Physical_Activity_Level"].toString(),
             createdDate: documentSnapshot.data()["Created_Date"].toString(),
@@ -67,6 +98,25 @@ class _DashBoardState extends State<DashBoard> {
       });
       if (retGetUserObjFirebase != null) {
         try {
+          ft = retGetUserObjFirebase.heightFt;
+          inches = retGetUserObjFirebase.heightIn;
+          age = retGetUserObjFirebase.age;
+          weight = retGetUserObjFirebase.currentWeight;
+          gender = retGetUserObjFirebase.gender;
+
+          if (gender != null &&
+              weight != null &&
+              age != null &&
+              ft != null &&
+              inches != null) {
+            setState(() {
+              height = feetToCm(ft, inches);
+              bodyGoal = calculateBMR(gender, weight, height, age);
+              retGetUserObjFirebase.bodyGoal = bodyGoal;
+              updateBodyGoal(retGetUserObjFirebase, bodyGoal);
+            });
+          }
+
           print("dsdsad" + retGetUserObjFirebase.userID);
           Provider.of<General_Provider>(context, listen: false)
               .set_user(retGetUserObjFirebase);
@@ -74,11 +124,6 @@ class _DashBoardState extends State<DashBoard> {
             Provider.of<General_Provider>(context, listen: false)
                 .set_firebase_user(signInUser);
             print("User Signed In, Proceeding to Dashboard");
-            // Navigator.push(context, MaterialPageRoute(
-            //   builder: (context) {
-            //     return DashBoard();
-            //   },
-            // ));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');
@@ -171,64 +216,6 @@ class _DashBoardState extends State<DashBoard> {
           // Icon(FontAwesomeIcons.solidUser, color: Colors.white, size: 22),
         ],
       ),
-
-      // Container(
-      //   decoration: BoxDecoration(
-      //     boxShadow: <BoxShadow>[
-      //       BoxShadow(
-      //         color: Colors.black12,
-      //         blurRadius: 6,
-      //         spreadRadius: 0.5,
-      //         offset: Offset(0, 5),
-      //       ),
-      //     ],
-      //   ),
-      //   child: BottomNavigationBar(
-      //     currentIndex: pageIndex,
-      //     selectedItemColor: kPrimaryAccentColor,
-      //     unselectedItemColor: Colors.black87,
-      //     showUnselectedLabels: false,
-      //     selectedFontSize: 12,
-      //     unselectedFontSize: 10,
-      //     elevation: 12,
-      //     selectedIconTheme: IconThemeData(size: 22),
-      //     unselectedIconTheme: IconThemeData(size: 20),
-      //     type: BottomNavigationBarType.shifting,
-      //     onTap: onTap,
-      //     items: [
-      //       BottomNavigationBarItem(
-      //         label: "Statistics",
-      //         icon: Icon(
-      //           FontAwesomeIcons.heartbeat,
-      //         ),
-      //       ),
-      //       BottomNavigationBarItem(
-      //         label: "Diary",
-      //         icon: Icon(
-      //           MaterialCommunityIcons.book,
-      //         ),
-      //       ),
-      //       BottomNavigationBarItem(
-      //         label: "Calorie Predictor",
-      //         icon: Icon(
-      //           FontAwesomeIcons.hamburger,
-      //         ),
-      //       ),
-      //       BottomNavigationBarItem(
-      //         label: "Tools",
-      //         icon: Icon(
-      //           FontAwesomeIcons.tools,
-      //         ),
-      //       ),
-      //       BottomNavigationBarItem(
-      //         label: "Profile",
-      //         icon: Icon(
-      //           FontAwesomeIcons.solidUser,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

@@ -48,7 +48,6 @@ class _SearchFoodsState extends State<SearchFoods> {
     return formatted;
   }
 
-
   @override
   void initState() {
     readJsonData().then((value) {
@@ -231,6 +230,7 @@ class _SearchFoodsState extends State<SearchFoods> {
                         ],
                       ).show();
                     });
+
                     Navigator.pop(context);
                   },
                 ),
