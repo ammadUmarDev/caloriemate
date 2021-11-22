@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -129,9 +130,11 @@ class _SearchFoodsState extends State<SearchFoods> {
         child: InkWell(
           onTap: () {
             Alert(
-              type: AlertType.none,
+              // type: AlertType.none,
               context: context,
               title: "Add to Diary?",
+              image: SvgPicture.asset("assets/svgs/addDiary.svg",
+                  width: 72, height: 72),
               desc: name +
                   "\n" +
                   amount.toStringAsFixed(2) +
@@ -207,14 +210,17 @@ class _SearchFoodsState extends State<SearchFoods> {
                     );
                     createLog(logData).whenComplete(() {
                       Alert(
-                        type: AlertType.success,
+                        // type: AlertType.success,
                         context: context,
                         title: "Added Successfully!",
+                        image: SvgPicture.asset("assets/svgs/success.svg",
+                            width: 72, height: 72),
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
                           color: kPrimaryLightColor,
                         ),
                         style: AlertStyle(
+                            titleStyle: TextStyle(fontWeight: FontWeight.bold),
                             overlayColor: Colors.black45,
                             alertAlignment: Alignment.bottomCenter),
                         buttons: [

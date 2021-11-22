@@ -45,8 +45,15 @@ Stream<List<DiaryData>> getDiaryLogsByUserToday(String userId) {
 }
 
 Future<DocumentReference> createLog(DiaryData log) async {
-  DocumentReference ref = await collection.add(log.toDocument());
-  return ref;
+  DocumentReference ref1 = db.collection("diaryLogs").doc();
+  String docID = ref1.id;
+  log.id = docID;
+
+  await collection.doc(docID).set(log.toDocument());
+
+  // DocumentReference ref = await collection.add(log.toDocument());
+
+  return ref1;
 }
 
 Future<DocumentReference> deleteLog(String id) async {
@@ -55,8 +62,8 @@ Future<DocumentReference> deleteLog(String id) async {
   return ref;
 }
 
-Future<DocumentReference> updateLog(String id, DiaryData task) async {
+Future<DocumentReference> updateLog(String id, DiaryData log) async {
   DocumentReference ref = collection.doc(id);
-  await ref.update(task.toDocument());
+  await ref.update(log.toDocument());
   return ref;
 }
