@@ -27,6 +27,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
   Stream taskDiary;
   List<DiaryData> diaryList = [];
 
+  List<DiaryData> breakfastDiary = [];
+  List<DiaryData> lunchDiary = [];
+  List<DiaryData> dinnerDiary = [];
+  List<DiaryData> snacksDiary = [];
+
   String countCalories(List<DiaryData> ls) {
     double caloriesToday = 0;
 
@@ -91,8 +96,29 @@ class _DiaryScreenState extends State<DiaryScreen> {
               return Center(child: CircularProgressIndicator());
             }
             diaryList = snapshot.data;
+            breakfastDiary = diaryList
+                .where((element) => element.type == "breakfast")
+                .toList();
+            lunchDiary =
+                diaryList.where((element) => element.type == "lunch").toList();
+            dinnerDiary =
+                diaryList.where((element) => element.type == "dinner").toList();
+            snacksDiary =
+                diaryList.where((element) => element.type == "snacks").toList();
+
+            // print("+=======================+");
+            // for (int i = 0; i < breakfastDiary.length; i++) {
+            //   print(breakfastDiary[i].name);
+            // }
+
             String calsConsumed = countCalories(diaryList);
             double calsConsumedDouble = double.parse(calsConsumed);
+
+            String calsBreakfast = countCalories(breakfastDiary);
+            String calsLunch = countCalories(lunchDiary);
+            String calsDinner = countCalories(dinnerDiary);
+            String calsSnacks = countCalories(snacksDiary);
+
             return SafeArea(
               top: true,
               child: SingleChildScrollView(
@@ -226,8 +252,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       Container(
                         margin: EdgeInsets.only(top: pageHeight * 0.02),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        height: pageHeight * 0.13,
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        // height: pageHeight * 0.13,
                         width: pageWidth,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -265,22 +291,32 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "500 kCal",
+                                      calsBreakfast + " kCal",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: kPrimaryGreenColor,
+                                        color: kNavyBlue,
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
+                            // SizedBox(height: 4),
                             Divider(
-                              thickness: 0.3,
-                              color: Colors.black38,
+                              thickness: 0.5,
+                              height: 10,
+                              color: Colors.black45,
                             ),
-                            Spacer(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: breakfastDiary.length,
+                              itemBuilder: (context, index) {
+                                return _listItem(index, breakfastDiary);
+                              },
+                            ),
+                            SizedBox(height: 6),
                             Row(
                               children: <Widget>[
                                 SizedBox(
@@ -321,8 +357,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       Container(
                         margin: EdgeInsets.only(top: pageHeight * 0.02),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        height: pageHeight * 0.13,
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        // height: pageHeight * 0.13,
                         width: pageWidth,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -360,11 +396,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "400 kCal",
+                                      calsLunch + " kCal",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: kPrimaryGreenColor,
+                                        color: kNavyBlue,
                                       ),
                                     ),
                                   ],
@@ -372,10 +408,19 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               ],
                             ),
                             Divider(
-                              thickness: 0.3,
-                              color: Colors.black38,
+                              thickness: 0.5,
+                              height: 10,
+                              color: Colors.black45,
                             ),
-                            Spacer(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: lunchDiary.length,
+                              itemBuilder: (context, index) {
+                                return _listItem(index, lunchDiary);
+                              },
+                            ),
+                            SizedBox(height: 6),
                             Row(
                               children: <Widget>[
                                 SizedBox(
@@ -416,8 +461,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       Container(
                         margin: EdgeInsets.only(top: pageHeight * 0.02),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        height: pageHeight * 0.13,
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        // height: pageHeight * 0.13,
                         width: pageWidth,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -455,11 +500,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "300 kCal",
+                                      calsDinner + " kCal",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: kPrimaryGreenColor,
+                                        color: kNavyBlue,
                                       ),
                                     ),
                                   ],
@@ -467,10 +512,19 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               ],
                             ),
                             Divider(
-                              thickness: 0.3,
-                              color: Colors.black38,
+                              thickness: 0.5,
+                              color: Colors.black45,
+                              height: 10,
                             ),
-                            Spacer(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: dinnerDiary.length,
+                              itemBuilder: (context, index) {
+                                return _listItem(index, dinnerDiary);
+                              },
+                            ),
+                            SizedBox(height: 6),
                             Row(
                               children: <Widget>[
                                 SizedBox(
@@ -511,8 +565,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       Container(
                         margin: EdgeInsets.only(top: pageHeight * 0.02),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                        height: pageHeight * 0.13,
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        // height: pageHeight * 0.13,
                         width: pageWidth,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -550,11 +604,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "0 kCal",
+                                      calsSnacks + " kCal",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: kPrimaryGreenColor,
+                                        color: kNavyBlue,
                                       ),
                                     ),
                                   ],
@@ -562,10 +616,18 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               ],
                             ),
                             Divider(
-                              thickness: 0.3,
-                              color: Colors.black38,
+                              thickness: 0.5,
+                              color: Colors.black45,
                             ),
-                            Spacer(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: snacksDiary.length,
+                              itemBuilder: (context, index) {
+                                return _listItem(index, snacksDiary);
+                              },
+                            ),
+                            SizedBox(height: 6),
                             Row(
                               children: <Widget>[
                                 SizedBox(
@@ -610,5 +672,43 @@ class _DiaryScreenState extends State<DiaryScreen> {
             );
           }),
     );
+  }
+
+  Widget _listItem(int index, List<DiaryData> ls) {
+    return Card(
+        color: kPrimaryGreenColor,
+        elevation: 2,
+        margin: EdgeInsets.only(bottom: 4),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Row(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    ls[index].name,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    double.parse(ls[index].calories).toStringAsFixed(0),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
