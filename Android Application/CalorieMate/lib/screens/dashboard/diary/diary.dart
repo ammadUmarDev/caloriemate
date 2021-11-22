@@ -4,6 +4,7 @@ import 'package:calorie_mate/models/user.dart';
 import 'package:calorie_mate/providers/diary_firebase.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/diary/search_foods.dart';
+import 'package:calorie_mate/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,12 @@ class _DiaryScreenState extends State<DiaryScreen> {
   List<DiaryData> dinnerDiary = [];
   List<DiaryData> snacksDiary = [];
 
+  DateTime date = DateTime.now();
+  String dateToDisplay;
+
+  DateTime dateToday = DateTime.now();
+  String dateTodayToDisplay;
+
   String countCalories(List<DiaryData> ls) {
     double caloriesToday = 0;
 
@@ -64,7 +71,14 @@ class _DiaryScreenState extends State<DiaryScreen> {
     goal = double.parse(user.bodyGoal).toStringAsFixed(0);
     goalInt = int.parse(goal);
 
-    taskDiary = getDiaryLogsByUserToday(FirebaseAuth.instance.currentUser.uid);
+    // dateToDisplay = convertDateTimeDisplay(date.toString());
+    dateToDisplay = Utils().convertDateTimeDisplayTwo(date.toString());
+    dateTodayToDisplay =
+        Utils().convertDateTimeDisplayTwo(dateToday.toString());
+
+    taskDiary =
+        getDiaryLogsByUserToday(FirebaseAuth.instance.currentUser.uid, date);
+
     return Scaffold(
       appBar: AppBarPageName(
         pageName: "Diary",
@@ -91,11 +105,6 @@ class _DiaryScreenState extends State<DiaryScreen> {
             snacksDiary =
                 diaryList.where((element) => element.type == "snacks").toList();
 
-            // print("+=======================+");
-            // for (int i = 0; i < breakfastDiary.length; i++) {
-            //   print(breakfastDiary[i].name);
-            // }
-
             String calsConsumed = countCalories(diaryList);
             double calsConsumedDouble = double.parse(calsConsumed);
 
@@ -110,9 +119,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      height: pageHeight * 0.23,
+                      padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      height: pageHeight * 0.24,
                       width: pageWidth,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -131,14 +139,60 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       child: Column(
                         children: <Widget>[
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(67.0),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        date = date
+                                            .subtract(const Duration(days: 1));
+                                      });
+                                    },
+                                    iconSize: 28,
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      // MaterialCommunityIcons.arrow_left_box,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               Text(
-                                "Today",
+                                dateToDisplay == dateTodayToDisplay
+                                    ? "Today"
+                                    : dateToDisplay,
+                                // "Today",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
+                                ),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        date =
+                                            date.add(const Duration(days: 1));
+                                      });
+                                    },
+                                    iconSize: 28,
+                                    icon: Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

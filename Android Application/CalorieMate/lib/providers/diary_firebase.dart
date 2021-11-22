@@ -27,9 +27,9 @@ String convertDateTimeDisplay(String date) {
   return formatted;
 }
 
-Stream<List<DiaryData>> getDiaryLogsByUserToday(String userId) {
+Stream<List<DiaryData>> getDiaryLogsByUserToday(String userId, DateTime date) {
   // List<DiaryData> diaryData = [];
-  String dateNow = convertDateTimeDisplay(DateTime.now().toString());
+  String dateNow = convertDateTimeDisplay(date.toString());
   return collection
       .where("userId", isEqualTo: userId)
       .where("date", isEqualTo: dateNow)
