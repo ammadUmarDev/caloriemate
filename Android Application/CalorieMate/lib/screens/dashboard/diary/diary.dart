@@ -72,9 +72,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
     goalInt = int.parse(goal);
 
     // dateToDisplay = convertDateTimeDisplay(date.toString());
-    dateToDisplay = Utils().convertDateTimeDisplayTwo(date.toString());
-    dateTodayToDisplay =
-        Utils().convertDateTimeDisplayTwo(dateToday.toString());
+    dateToDisplay = Utils().convertDateTimeDisplay(date.toString());
+    dateTodayToDisplay = Utils().convertDateTimeDisplay(dateToday.toString());
 
     taskDiary =
         getDiaryLogsByUserToday(FirebaseAuth.instance.currentUser.uid, date);
@@ -120,7 +119,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      height: pageHeight * 0.24,
+                      height: pageHeight * 0.242,
                       width: pageWidth,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -378,6 +377,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                       MaterialPageRoute(
                                         builder: (_) => SearchFoods(
                                           type: "breakfast",
+                                          date: date,
                                         ),
                                       ),
                                     );
@@ -482,6 +482,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                       MaterialPageRoute(
                                         builder: (_) => SearchFoods(
                                           type: "lunch",
+                                          date: date,
                                         ),
                                       ),
                                     );
@@ -586,6 +587,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                       MaterialPageRoute(
                                         builder: (_) => SearchFoods(
                                           type: "dinner",
+                                          date: date,
                                         ),
                                       ),
                                     );
@@ -689,6 +691,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                       MaterialPageRoute(
                                         builder: (_) => SearchFoods(
                                           type: "snacks",
+                                          date: date,
                                         ),
                                       ),
                                     );
@@ -783,7 +786,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      double.parse(ls[index].calories).toStringAsFixed(0),
+                      double.parse(ls[index].calories).toStringAsFixed(0) +
+                          " kCal",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

@@ -21,10 +21,12 @@ import '../../../utils.dart';
 
 class SearchFoods extends StatefulWidget {
   final String type;
+  final DateTime date;
 
   const SearchFoods({
     Key key,
     @required this.type,
+    @required this.date,
   }) : super(key: key);
 
   static final String id = '/SearchFoods';
@@ -204,7 +206,7 @@ class _SearchFoodsState extends State<SearchFoods> {
                       amount: itemsDisplay[index].amount,
                       portionName: itemsDisplay[index].portionName,
                       calories: itemsDisplay[index].calories,
-                      date: convertDateTimeDisplay(DateTime.now().toString()),
+                      date: convertDateTimeDisplay(widget.date.toString()),
                       time: TimeOfDay.now(),
                       type: widget.type,
                     );
