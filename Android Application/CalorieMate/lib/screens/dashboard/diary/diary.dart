@@ -53,6 +53,19 @@ class _DiaryScreenState extends State<DiaryScreen> {
     return caloriesToday.toStringAsFixed(0);
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: date,
+      firstDate: DateTime(2020, 1),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != date)
+      setState(() {
+        date = picked;
+      });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -119,7 +132,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                      height: pageHeight * 0.242,
+                      height: pageHeight * 0.248,
                       width: pageWidth,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -157,22 +170,37 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                     },
                                     iconSize: 28,
                                     icon: Icon(
-                                      Icons.arrow_back,
+                                      Icons.chevron_left,
                                       // MaterialCommunityIcons.arrow_left_box,
                                       color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
-                              Text(
-                                dateToDisplay == dateTodayToDisplay
-                                    ? "Today"
-                                    : dateToDisplay,
-                                // "Today",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: InkWell(
+                                    onTap: () {
+                                      _selectDate(context);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6),
+                                      child: Text(
+                                        dateToDisplay == dateTodayToDisplay
+                                            ? "Today"
+                                            : dateToDisplay,
+                                        // "Today",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               ClipRRect(
@@ -188,7 +216,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                     },
                                     iconSize: 28,
                                     icon: Icon(
-                                      Icons.arrow_forward,
+                                      Icons.chevron_right,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -196,9 +224,14 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               ),
                             ],
                           ),
+                          Divider(
+                            height: 0,
+                            color: Colors.white60,
+                            thickness: 0.25,
+                          ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: pageWidth * 0.05),
+                            padding:
+                                EdgeInsets.only(left: 12, right: 12, top: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,422 +316,433 @@ class _DiaryScreenState extends State<DiaryScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: pageHeight * 0.02),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      // height: pageHeight * 0.13,
-                      width: pageWidth,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 1.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(1.0, 1.0), //bottom right
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        color: Colors.white,
-                      ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Text(
-                                    "Breakfast",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: kNavyBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    calsBreakfast + " kCal",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: kCGBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          // SizedBox(height: 4),
-                          Divider(
-                            thickness: 0.5,
-                            height: 10,
-                            color: Colors.black45,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: breakfastDiary.length,
-                            itemBuilder: (context, index) {
-                              return _listItem(index, breakfastDiary);
-                            },
-                          ),
-                          SizedBox(height: 6),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                height: pageHeight * 0.042,
-                                width: pageWidth * 0.32,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 3,
-                                    primary: kYellow,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "ADD FOOD",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => SearchFoods(
-                                          type: "breakfast",
-                                          date: date,
+                          Container(
+                            margin: EdgeInsets.only(top: pageHeight * 0.02),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                            // height: pageHeight * 0.13,
+                            width: pageWidth,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 1.0,
+                                  spreadRadius: 1.0,
+                                  offset: Offset(1.0, 1.0), //bottom right
+                                )
+                              ],
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "Breakfast",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: kNavyBlue,
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          calsBreakfast + " kCal",
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCGBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // SizedBox(height: 4),
+                                Divider(
+                                  thickness: 0.5,
+                                  height: 10,
+                                  color: Colors.black45,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: breakfastDiary.length,
+                                  itemBuilder: (context, index) {
+                                    return _listItem(index, breakfastDiary);
                                   },
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: pageHeight * 0.02),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      // height: pageHeight * 0.13,
-                      width: pageWidth,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 1.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(1.0, 1.0), //bottom right
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Text(
-                                    "Lunch",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: kNavyBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    calsLunch + " kCal",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: kCGBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            thickness: 0.5,
-                            height: 10,
-                            color: Colors.black45,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: lunchDiary.length,
-                            itemBuilder: (context, index) {
-                              return _listItem(index, lunchDiary);
-                            },
-                          ),
-                          SizedBox(height: 6),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                height: pageHeight * 0.042,
-                                width: pageWidth * 0.32,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 3,
-                                    primary: kYellow,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "ADD FOOD",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => SearchFoods(
-                                          type: "lunch",
-                                          date: date,
+                                SizedBox(height: 6),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: pageHeight * 0.042,
+                                      width: pageWidth * 0.32,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 3,
+                                          primary: kYellow,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
+                                        child: Text(
+                                          "ADD FOOD",
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (_) => SearchFoods(
+                                                type: "breakfast",
+                                                date: date,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: pageHeight * 0.02),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                            // height: pageHeight * 0.13,
+                            width: pageWidth,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 1.0,
+                                  spreadRadius: 1.0,
+                                  offset: Offset(1.0, 1.0), //bottom right
+                                )
+                              ],
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "Lunch",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: kNavyBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          calsLunch + " kCal",
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCGBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 0.5,
+                                  height: 10,
+                                  color: Colors.black45,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: lunchDiary.length,
+                                  itemBuilder: (context, index) {
+                                    return _listItem(index, lunchDiary);
                                   },
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: pageHeight * 0.02),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      // height: pageHeight * 0.13,
-                      width: pageWidth,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 1.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(1.0, 1.0), //bottom right
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Text(
-                                    "Dinner",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: kNavyBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    calsDinner + " kCal",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: kCGBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            thickness: 0.5,
-                            color: Colors.black45,
-                            height: 10,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: dinnerDiary.length,
-                            itemBuilder: (context, index) {
-                              return _listItem(index, dinnerDiary);
-                            },
-                          ),
-                          SizedBox(height: 6),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                height: pageHeight * 0.042,
-                                width: pageWidth * 0.32,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 3,
-                                    primary: kYellow,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "ADD FOOD",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => SearchFoods(
-                                          type: "dinner",
-                                          date: date,
+                                SizedBox(height: 6),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: pageHeight * 0.042,
+                                      width: pageWidth * 0.32,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 3,
+                                          primary: kYellow,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
+                                        child: Text(
+                                          "ADD FOOD",
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (_) => SearchFoods(
+                                                type: "lunch",
+                                                date: date,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: pageHeight * 0.02),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                            // height: pageHeight * 0.13,
+                            width: pageWidth,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 1.0,
+                                  spreadRadius: 1.0,
+                                  offset: Offset(1.0, 1.0), //bottom right
+                                )
+                              ],
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "Dinner",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: kNavyBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          calsDinner + " kCal",
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCGBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 0.5,
+                                  color: Colors.black45,
+                                  height: 10,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: dinnerDiary.length,
+                                  itemBuilder: (context, index) {
+                                    return _listItem(index, dinnerDiary);
                                   },
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: pageHeight * 0.02),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      // height: pageHeight * 0.13,
-                      width: pageWidth,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 1.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(1.0, 1.0), //bottom right
-                          )
-                        ],
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Text(
-                                    "Snacks",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: kNavyBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    calsSnacks + " kCal",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: kCGBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            thickness: 0.5,
-                            color: Colors.black45,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: snacksDiary.length,
-                            itemBuilder: (context, index) {
-                              return _listItem(index, snacksDiary);
-                            },
-                          ),
-                          SizedBox(height: 6),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                height: pageHeight * 0.042,
-                                width: pageWidth * 0.32,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 3,
-                                    primary: kYellow,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "ADD FOOD",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) => SearchFoods(
-                                          type: "snacks",
-                                          date: date,
+                                SizedBox(height: 6),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: pageHeight * 0.042,
+                                      width: pageWidth * 0.32,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 3,
+                                          primary: kYellow,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
+                                        child: Text(
+                                          "ADD FOOD",
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (_) => SearchFoods(
+                                                type: "dinner",
+                                                date: date,
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: pageHeight * 0.02),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                            // height: pageHeight * 0.13,
+                            width: pageWidth,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 1.0,
+                                  spreadRadius: 1.0,
+                                  offset: Offset(1.0, 1.0), //bottom right
+                                )
+                              ],
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "Snacks",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: kNavyBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          calsSnacks + " kCal",
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            color: kCGBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 0.5,
+                                  color: Colors.black45,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: snacksDiary.length,
+                                  itemBuilder: (context, index) {
+                                    return _listItem(index, snacksDiary);
                                   },
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 6),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: pageHeight * 0.042,
+                                      width: pageWidth * 0.32,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 3,
+                                          primary: kYellow,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "ADD FOOD",
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (_) => SearchFoods(
+                                                type: "snacks",
+                                                date: date,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

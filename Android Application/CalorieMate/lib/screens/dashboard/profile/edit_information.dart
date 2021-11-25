@@ -61,7 +61,8 @@ class _EditInformationState extends State<EditInformation> {
   ];
 
   Future<bool> _onBackPressed() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => DashBoard()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => DashBoard(pageNumber: 4)));
     true;
   }
 
@@ -104,7 +105,7 @@ class _EditInformationState extends State<EditInformation> {
                           title: "Edit Age",
                           closeIcon: Icon(
                             FontAwesomeIcons.timesCircle,
-                            color: kCGBlue,
+                            color: kNavyBlue,
                           ),
                           style: AlertStyle(
                             overlayColor: Colors.black45,
@@ -193,7 +194,7 @@ class _EditInformationState extends State<EditInformation> {
                           title: "Edit Gender",
                           closeIcon: Icon(
                             FontAwesomeIcons.timesCircle,
-                            color: kCGBlue,
+                            color: kNavyBlue,
                           ),
                           style: AlertStyle(
                             overlayColor: Colors.black45,
@@ -250,7 +251,7 @@ class _EditInformationState extends State<EditInformation> {
                           ),
                           buttons: [
                             DialogButton(
-                              color: kPrimaryAccentColor,
+                              color: kCGBlue,
                               height: 40,
                               child: Text(
                                 "SAVE",
@@ -305,7 +306,7 @@ class _EditInformationState extends State<EditInformation> {
                           title: "Edit Current Weight (kg)",
                           closeIcon: Icon(
                             FontAwesomeIcons.timesCircle,
-                            color: kCGBlue,
+                            color: kNavyBlue,
                           ),
                           style: AlertStyle(
                             overlayColor: Colors.black45,
@@ -411,7 +412,7 @@ class _EditInformationState extends State<EditInformation> {
                           title: "Edit Targetted Weight (kg)",
                           closeIcon: Icon(
                             FontAwesomeIcons.timesCircle,
-                            color: kCGBlue,
+                            color: kNavyBlue,
                           ),
                           style: AlertStyle(
                             overlayColor: Colors.black45,
@@ -510,7 +511,7 @@ class _EditInformationState extends State<EditInformation> {
                           title: "Edit Height (Ft)",
                           closeIcon: Icon(
                             FontAwesomeIcons.timesCircle,
-                            color: kCGBlue,
+                            color: kNavyBlue,
                           ),
                           style: AlertStyle(
                             overlayColor: Colors.black45,
@@ -610,7 +611,7 @@ class _EditInformationState extends State<EditInformation> {
                         title: "Edit Physical Activity Level",
                         closeIcon: Icon(
                           FontAwesomeIcons.timesCircle,
-                          color: kPrimaryLightColor,
+                          color: kNavyBlue,
                         ),
                         style: AlertStyle(
                           overlayColor: Colors.black45,

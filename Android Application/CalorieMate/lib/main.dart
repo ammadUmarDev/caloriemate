@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Quicksand",
+          primaryColor: kNavyBlue,
         ),
         // initialRoute: LoginSignupScreen.id,
         initialRoute: FirebaseAuth.instance.currentUser != null
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
             : LoginSignupScreen.id,
         routes: {
           LoginSignupScreen.id: (context) => LoginSignupScreen(),
-          DashBoard.id: (context) => DashBoard(),
+          DashBoard.id: (context) => DashBoard(pageNumber: 2),
           CaloriePredictorScreen.id: (context) => CaloriePredictorScreen(),
           LoadingScreen.id: (context) => LoadingScreen(),
           CalorieResults.id: (context) => CalorieResults(),

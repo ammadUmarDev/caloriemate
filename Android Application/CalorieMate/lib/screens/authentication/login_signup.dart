@@ -114,7 +114,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       print("User Created, Proceeding to Dashboard");
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return DashBoard();
+                          return DashBoard(pageNumber: 2);
                         },
                       ));
                       stopLoading();
@@ -226,7 +226,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       print("User Signed In, Proceeding to Dashboard");
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return DashBoard();
+                          return DashBoard(pageNumber: 2);
                         },
                       ));
                     } on FirebaseAuthException catch (e) {

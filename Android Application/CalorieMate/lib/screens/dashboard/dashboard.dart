@@ -21,6 +21,13 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 
 class DashBoard extends StatefulWidget {
+  final int pageNumber;
+
+  const DashBoard({
+    Key key,
+    @required this.pageNumber,
+  }) : super(key: key);
+
   static final String id = '/DashBoard';
 
   @override
@@ -29,7 +36,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   PageController pageController;
-  int pageIndex = 0;
+  int pageIndex;
 
   User signInUser = FirebaseAuth.instance.currentUser;
 
@@ -41,7 +48,8 @@ class _DashBoardState extends State<DashBoard> {
     return height;
   }
 
-  String calculateBMR(String gender, double weight, int height, int age) {
+  String calculateBMR(
+      String gender, double weight, int height, int age, String activityLevel) {
     double bmr;
     if (gender == "Male") {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -49,6 +57,22 @@ class _DashBoardState extends State<DashBoard> {
 
     if (gender == "Female") {
       bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    if (activityLevel == "Sedentary") {
+      bmr = bmr * 0.9;
+    }
+
+    if (activityLevel == "Light") {
+      bmr = bmr * 1.1;
+    }
+
+    if (activityLevel == "Moderate") {
+      bmr = bmr * 1.3;
+    }
+
+    if (activityLevel == "Vigorous") {
+      bmr = bmr * 1.5;
     }
 
     return bmr.toStringAsFixed(1);
@@ -62,6 +86,7 @@ class _DashBoardState extends State<DashBoard> {
     int height;
     String bodyGoal;
     String gender;
+    String activityLevel;
 
     if (signInUser != null) {
       final currentUserId = signInUser.uid;
@@ -103,6 +128,7 @@ class _DashBoardState extends State<DashBoard> {
           age = retGetUserObjFirebase.age;
           weight = retGetUserObjFirebase.currentWeight;
           gender = retGetUserObjFirebase.gender;
+          activityLevel = retGetUserObjFirebase.physicalActivityLevel;
 
           if (gender != null &&
               weight != null &&
@@ -111,7 +137,8 @@ class _DashBoardState extends State<DashBoard> {
               inches != null) {
             setState(() {
               height = feetToCm(ft, inches);
-              bodyGoal = calculateBMR(gender, weight, height, age);
+              bodyGoal =
+                  calculateBMR(gender, weight, height, age, activityLevel);
               retGetUserObjFirebase.bodyGoal = bodyGoal;
               updateBodyGoal(retGetUserObjFirebase, bodyGoal);
             });
@@ -145,7 +172,8 @@ class _DashBoardState extends State<DashBoard> {
   Future<void> initState() {
     super.initState();
     getUserInfo();
-    pageController = PageController();
+    pageIndex = widget.pageNumber;
+    pageController = PageController(initialPage: widget.pageNumber);
   }
 
   void dispose() {
@@ -160,9 +188,10 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   onTap(int pageIndex) {
+    // pageController.jumpToPage(pageIndex);
     pageController.animateToPage(
       pageIndex,
-      duration: Duration(milliseconds: 1),
+      duration: Duration(milliseconds: 200),
       curve: Curves.linear,
     );
   }

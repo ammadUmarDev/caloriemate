@@ -32,7 +32,7 @@ const double kPSize = 12.5;
 
 const double kIconSize = 20;
 // const kIconColor = Colors.black87;
-const kIconColor = kDarkAccentColor;
+const kIconColor = kCGBlue;
 
 const kActiveCardColour = Color.fromRGBO(220, 35, 21, 1.0);
 const kInactiveCardColour = Color.fromARGB(255, 50, 150, 255);

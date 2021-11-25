@@ -45,7 +45,7 @@ class _ButtonErimsState extends State<ButtonErims> {
       ),
       borderRadius: 12.0,
       // color: kPrimaryAccentColor,
-      color: widget.color != null ? widget.color : kPrimaryAccentColor,
+      color: widget.color != null ? widget.color : kCGBlue,
       borderSide: BorderSide(
         color: Colors.transparent,
         width: 2.0,
