@@ -46,7 +46,7 @@ class _AboutScreenState extends State<AboutScreen> {
                           Text(
                             "CalorieMate",
                             style: TextStyle(
-                                fontFamily: "QuickSand",
+                                fontFamily: "Quicksand",
                                 fontSize: 40.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),

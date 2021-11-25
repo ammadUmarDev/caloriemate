@@ -68,6 +68,7 @@ dependencies:
   percent_indicator: ^3.4.0
   curved_navigation_bar: ^1.0.1
   flutter_flexible_toast: ^0.1.4
+  jiffy: ^4.1.0
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'
@@ -103,6 +104,10 @@ flutter:
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand-Regular.ttf
+    - family: Quicksand-Bold
+      fonts:
+        - asset: assets/fonts/Quicksand-Bold.ttf
+
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

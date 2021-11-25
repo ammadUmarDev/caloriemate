@@ -97,7 +97,7 @@ class AppBarPageName extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return DashBoard();
+                    return DashBoard(pageNumber: 0);
                   },
                 ));
               },
@@ -197,7 +197,7 @@ class AppBarWithoutPageName extends StatelessWidget
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return DashBoard();
+                    return DashBoard(pageNumber: 0);
                   },
                 ));
               },

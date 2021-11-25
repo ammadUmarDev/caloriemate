@@ -208,6 +208,7 @@ class _DashBoardState extends State<DashBoard> {
 
   Scaffold buildHomeScreen() {
     return Scaffold(
+      extendBody: true,
       body: PageView(
         children: <Widget>[
           StatisticsScreen(),
@@ -223,12 +224,13 @@ class _DashBoardState extends State<DashBoard> {
       bottomNavigationBar: CurvedNavigationBar(
         index: pageIndex,
         animationDuration: Duration(milliseconds: 300),
-        height: 56,
+        height: 58,
         backgroundColor: Colors.transparent,
         color: kNavyBlue,
         buttonBackgroundColor: kNavyBlue,
-        animationCurve: Curves.decelerate,
+        animationCurve: Curves.easeInOut,
         onTap: onTap,
+        // letIndexChange: (index) => true,
         items: <Widget>[
           SvgPicture.asset("assets/svgs/heartbeat.svg", height: 28, width: 28),
           // Icon(FontAwesomeIcons.heartbeat, color: Colors.white, size: 22),

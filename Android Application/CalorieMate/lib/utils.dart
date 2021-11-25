@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:calorie_mate/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:jiffy/src/enums/units.dart';
 
 enum TaskPageStatus {
   all,
@@ -105,27 +108,31 @@ class Utils {
     return "";
   }
 
-  static void showToast({@required String message, bool success = true}) {
+  static void showToast({@required String message, bool success}) {
     FlutterFlexibleToast.showToast(
       message: message,
-      toastLength: Toast.LENGTH_LONG,
+      toastLength: Toast.LENGTH_SHORT,
       toastGravity: ToastGravity.BOTTOM,
       icon: ICON.SUCCESS,
-      radius: 10,
-      elevation: 0,
+      radius: 100,
+      elevation: 3,
       imageSize: 16,
       textColor: Colors.white,
-      backgroundColor: success ? Colors.greenAccent : Colors.red,
+      backgroundColor: success ? kPrimaryGreenColor : kActiveCardColour,
       timeInSeconds: 2,
     );
   }
 
   String convertDateTimeDisplay(String date) {
     final DateFormat displayFormater = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
-    final DateFormat serverFormater = DateFormat('dd/MM/yyyy');
+    // final DateFormat serverFormater = DateFormat('EE dd MMM, yyyy');
+    final DateFormat serverFormater = DateFormat('EEEE, dd MMM, yyyy');
     final DateTime displayDate = displayFormater.parse(date);
     final String formatted = serverFormater.format(displayDate);
-    return formatted;
+
+    String jif = Jiffy(date).format("EEEE, MMM do, yyyy");
+
+    return jif;
   }
 
   static bool compareDate(DateTime date1, DateTime date2) {
