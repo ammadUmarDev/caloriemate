@@ -50,7 +50,7 @@ class RoundedIconButton extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: textColor,
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -249,8 +249,10 @@ class _WeightTrackerState extends State<WeightTracker> {
                                             style: H3TextStyle(),
                                           ),
                                         );
-                                        _scaffoldKey.currentState
+                                        ScaffoldMessenger.of(context)
                                             .showSnackBar(sc);
+                                        // _scaffoldKey.currentState
+                                        //     .showSnackBar(sc);
                                         Navigator.pop(context);
                                         stopLoading();
                                       });

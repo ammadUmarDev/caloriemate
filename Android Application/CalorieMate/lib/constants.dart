@@ -25,6 +25,12 @@ const kCGBlue = Color.fromARGB(255, 50, 150, 255);
 const kYellow = Color(0xffFFD400);
 const kYellowDark = Color(0xffFFBE11);
 
+const kViolet = Color(0xff5975ED);
+const kRed = Color(0xffF05A5B);
+const kMustard = Color(0xffF3A864);
+const kLightBlue = Color(0xff66B4ED);
+const kPastelGreen = Color(0xff77DD77);
+
 const double kH1Size = 17;
 const double kH2Size = 15;
 const double kH3Size = 12.5;

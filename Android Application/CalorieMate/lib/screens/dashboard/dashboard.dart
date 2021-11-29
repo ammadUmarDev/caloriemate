@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calorie_mate/general_components/body_text%20copy.dart';
 import 'package:calorie_mate/models/user.dart';
 import 'package:calorie_mate/providers/firebase_functions.dart';
@@ -78,6 +80,12 @@ class _DashBoardState extends State<DashBoard> {
     return bmr.toStringAsFixed(1);
   }
 
+  double calculateBMI(double weight, int height) {
+    double bmi;
+    bmi = weight / pow(height / 100, 2);
+    return bmi;
+  }
+
   Future<void> getUserInfo() async {
     int ft;
     int inches;
@@ -87,6 +95,8 @@ class _DashBoardState extends State<DashBoard> {
     String bodyGoal;
     String gender;
     String activityLevel;
+
+    double bmi;
 
     if (signInUser != null) {
       final currentUserId = signInUser.uid;
@@ -140,6 +150,11 @@ class _DashBoardState extends State<DashBoard> {
               bodyGoal =
                   calculateBMR(gender, weight, height, age, activityLevel);
               retGetUserObjFirebase.bodyGoal = bodyGoal;
+
+              bmi = calculateBMI(weight, height);
+              retGetUserObjFirebase.latestBMIScore = bmi;
+
+              updateBMI(retGetUserObjFirebase, bmi);
               updateBodyGoal(retGetUserObjFirebase, bodyGoal);
             });
           }
@@ -228,7 +243,7 @@ class _DashBoardState extends State<DashBoard> {
         backgroundColor: Colors.transparent,
         color: kNavyBlue,
         buttonBackgroundColor: kNavyBlue,
-        animationCurve: Curves.easeInOut,
+        animationCurve: Curves.decelerate,
         onTap: onTap,
         // letIndexChange: (index) => true,
         items: <Widget>[
