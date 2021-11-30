@@ -93,6 +93,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     taskDiary =
         getDiaryLogsByUserToday(FirebaseAuth.instance.currentUser.uid, date);
 
+    // diaryList = taskDiary.toList() as List<DiaryData>;
+
     taskDiary2 = getDiaryLogsByUserToday(FirebaseAuth.instance.currentUser.uid,
         date.subtract(Duration(days: 1)));
 
@@ -226,27 +228,55 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                           calsConsumedDouble7 =
                                                                               double.parse(calsConsumed7);
 
-                                                                          calsList.add(FlSpot(
+                                                                          calsList =
+                                                                              [];
+
+                                                                          // calsList
+                                                                          //     .clear();
+
+                                                                          calsList.insert(
                                                                               0,
-                                                                              calsConsumedDouble7));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(0, calsConsumedDouble7));
+                                                                          calsList.insert(
                                                                               1,
-                                                                              calsConsumedDouble6));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(1, calsConsumedDouble6));
+                                                                          calsList.insert(
                                                                               2,
-                                                                              calsConsumedDouble5));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(2, calsConsumedDouble5));
+                                                                          calsList.insert(
                                                                               3,
-                                                                              calsConsumedDouble4));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(3, calsConsumedDouble4));
+                                                                          calsList.insert(
                                                                               4,
-                                                                              calsConsumedDouble3));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(4, calsConsumedDouble3));
+                                                                          calsList.insert(
                                                                               5,
-                                                                              calsConsumedDouble2));
-                                                                          calsList.add(FlSpot(
+                                                                              FlSpot(5, calsConsumedDouble2));
+                                                                          calsList.insert(
                                                                               6,
-                                                                              calsConsumedDouble));
+                                                                              FlSpot(6, calsConsumedDouble));
+
+                                                                          // calsList.add(FlSpot(
+                                                                          //     0,
+                                                                          //     calsConsumedDouble7));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     1,
+                                                                          //     calsConsumedDouble6));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     2,
+                                                                          //     calsConsumedDouble5));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     3,
+                                                                          //     calsConsumedDouble4));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     4,
+                                                                          //     calsConsumedDouble3));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     5,
+                                                                          //     calsConsumedDouble2));
+                                                                          // calsList.add(FlSpot(
+                                                                          //     6,
+                                                                          //     calsConsumedDouble));
                                                                         }
                                                                         return !snapshot.hasData
                                                                             ? Center(
