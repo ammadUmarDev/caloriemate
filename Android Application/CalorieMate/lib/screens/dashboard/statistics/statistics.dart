@@ -403,7 +403,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                                               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
                                                                                               child: Column(
                                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                                                 children: <Widget>[
                                                                                                   CircleAvatar(
                                                                                                     backgroundColor: Colors.white24,
@@ -443,7 +443,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                                               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
                                                                                               child: Column(
                                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                                                 children: <Widget>[
                                                                                                   CircleAvatar(
                                                                                                     backgroundColor: Colors.white24,
@@ -512,7 +512,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                                               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
                                                                                               child: Column(
                                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                                                 children: <Widget>[
                                                                                                   CircleAvatar(
                                                                                                     backgroundColor: Colors.white24,
@@ -565,7 +565,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                                               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
                                                                                               child: Column(
                                                                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                                                 children: <Widget>[
                                                                                                   CircleAvatar(
                                                                                                     backgroundColor: Colors.white24,
