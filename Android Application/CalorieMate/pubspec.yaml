@@ -69,6 +69,8 @@ dependencies:
   curved_navigation_bar: ^1.0.1
   flutter_flexible_toast: ^0.1.4
   jiffy: ^4.1.0
+  introduction_screen: ^2.1.0
+  horizontal_blocked_scroll_physics: ^4.0.0
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'

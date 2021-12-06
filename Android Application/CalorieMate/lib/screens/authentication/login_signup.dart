@@ -1,4 +1,5 @@
 import 'package:calorie_mate/general_components/h1.dart';
+import 'package:calorie_mate/onboarding/onboarding.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../../general_components/text_Field_outlined.dart';
 import '../../models/user.dart';
 import '../../providers/firebase_functions.dart';
 import '../../providers/general_provider.dart';
+import '../../utils.dart';
 import '../dashboard/dashboard.dart';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -114,7 +116,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       print("User Created, Proceeding to Dashboard");
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return DashBoard(pageNumber: 2);
+                          // return DashBoard(pageNumber: 2);
+                          return Onboarding();
                         },
                       ));
                       stopLoading();
@@ -135,6 +138,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             }
           } catch (e) {
             print(e);
+            stopLoading();
+            Utils.showToast(message: "User Already Exists", success: false);
           }
         } else {
           stopLoading();
@@ -247,6 +252,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             }
           } catch (e) {
             print(e);
+            stopLoading();
+            Utils.showToast(message: "Invalid Credentials", success: false);
           }
         } else {
           stopLoading();

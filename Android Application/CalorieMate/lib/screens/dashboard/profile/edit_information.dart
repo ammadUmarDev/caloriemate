@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../../constants.dart';
 
-enum Gender { Male, Female, Other }
+enum Gender { Male, Female }
 enum PhysicalActivityLevel { Sedentary, Light, Moderate, Vigorous }
 
 extension ParseToString on Gender {
@@ -51,6 +51,7 @@ class _EditInformationState extends State<EditInformation> {
 
   UserModel userObj;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   LinearGradient mainButton = LinearGradient(
       colors: [Color(0xFF2b580c), Color(0xFF2b580c), Color(0xFF2b580c)],
       begin: FractionalOffset.topCenter,
@@ -232,17 +233,17 @@ class _EditInformationState extends State<EditInformation> {
                                         },
                                       ),
                                       H3(textBody: "Female"),
-                                      Radio<Gender>(
-                                        value: Gender.Other,
-                                        groupValue: _gender,
-                                        onChanged: (Gender value) {
-                                          setState(() {
-                                            _gender = value;
-                                            print(_gender.toShortString());
-                                          });
-                                        },
-                                      ),
-                                      H3(textBody: "Other"),
+                                      // Radio<Gender>(
+                                      //   value: Gender.Other,
+                                      //   groupValue: _gender,
+                                      //   onChanged: (Gender value) {
+                                      //     setState(() {
+                                      //       _gender = value;
+                                      //       print(_gender.toShortString());
+                                      //     });
+                                      //   },
+                                      // ),
+                                      // H3(textBody: "Other"),
                                     ],
                                   ),
                                 ],
@@ -696,6 +697,8 @@ class _EditInformationState extends State<EditInformation> {
                                         H3(textBody: "Vigorous"),
                                       ],
                                     ),
+                                  
+                                  
                                   ],
                                 ),
                               ],
