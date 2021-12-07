@@ -186,7 +186,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                       Column(
                         children: <Widget>[
                           Text(
-                            "60 mins",
+                            "60",
                             style: TextStyle(
                                 color: kNavyBlue,
                                 fontSize: 24,
