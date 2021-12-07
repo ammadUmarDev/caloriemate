@@ -1,13 +1,19 @@
+import 'dart:convert';
+
 import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/general_components/text_Field_outlined.dart';
+import 'package:calorie_mate/models/user.dart';
+import 'package:calorie_mate/models/workout.dart';
+import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../constants.dart';
-import 'models/workout.dart';
 import 'models/workoutItems.dart';
 
 class WorkoutRecommender extends StatefulWidget {
@@ -18,11 +24,21 @@ class WorkoutRecommender extends StatefulWidget {
 }
 
 class _WorkoutRecommenderState extends State<WorkoutRecommender> {
+  UserModel user;
   int goal;
-
-  final List<Workout> workouts = List.from(workoutItems);
+  //final List<Workout> workouts = List.from(workoutItems);
   final listKey = GlobalKey<AnimatedListState>();
   Expanded workoutRecommendationsList;
+  bool showRecommendationList = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = Provider.of<General_Provider>(context, listen: false).get_user();
+    if (user == null) {
+      print("user obj is null");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +59,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
               SizedBox(height: 16),
               SizedBox(
                 height: 52,
-                width: 216,
+                width: 250,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
@@ -53,25 +69,35 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                     ),
                   ),
                   child: Text(
-                    "Get Recommendation",
+                    "Get Random Recommendation",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (bodyGoalTextField.getReturnValue() != null) {
+                      goal = int.parse(bodyGoalTextField.getReturnValue());
+                      final response = await http.get(Uri.parse('http://2498-34-125-20-125.ngrok.io/generateRandomWorkouts'));
+                      final parsed = json.decode(response.body);
+                      final results = parsed["results"];
+                      List<Workout> workouts = [];
+                      for (var i = 0; i < results.length; i++) {
+                        workouts.add(Workout.fromJson(results[i]));
+                      }
+                      //final workouts = Workout.fromJson(parsedJson);
+                      print (workouts);
                       setState(() {
-                        goal = int.parse(bodyGoalTextField.getReturnValue());
                         workoutRecommendationsList =
                             buildWorkoutRecommendations(context, workouts);
+                        showRecommendationList = true;
                       });
                     }
                   },
                 ),
               ),
               SizedBox(height: 16),
-              if (workoutRecommendationsList != null) workoutRecommendationsList
+              if (showRecommendationList) workoutRecommendationsList
             ],
           ),
         ),
@@ -113,10 +139,10 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                         children: <Widget>[
                           CircleAvatar(
                             backgroundColor: kYellow,
-                            maxRadius: 36,
+                            maxRadius: 25,
                             child: ClipOval(
                               child: SvgPicture.asset("assets/svgs/dumbell.svg",
-                                  width: 52),
+                                  width: 40),
                               // Image.asset(
                               //   "assets/images/dumbell.png",
                               //   width: 50,
@@ -136,7 +162,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                               alignment: Alignment.centerLeft,
                               fit: BoxFit.scaleDown,
                               child: Text(
-                                ls[index].name,
+                                ls[index].exercise,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -147,7 +173,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            "Burns: " + ls[index].calories + " calories",
+                            "Burns: " + (ls[index].burnKg*user.currentWeight).round().toString() + " calories",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -160,7 +186,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                       Column(
                         children: <Widget>[
                           Text(
-                            ls[index].duration,
+                            "60 mins",
                             style: TextStyle(
                                 color: kNavyBlue,
                                 fontSize: 24,
@@ -172,7 +198,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                           ),
                           Spacer(),
                           Text(
-                            ls[index].reps,
+                            "1",
                             style: TextStyle(
                                 color: kNavyBlue,
                                 fontSize: 24,
