@@ -160,7 +160,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                     if (value == null) return;
                     setState(() {
                       _myActivities = value;
-                      if (value.length < 5)
+                      if (value.length != 5)
                         enableGetRecommendation = false;
                       else
                         enableGetRecommendation = true;
