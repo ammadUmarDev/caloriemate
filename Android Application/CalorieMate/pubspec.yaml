@@ -71,6 +71,7 @@ dependencies:
   jiffy: ^4.1.0
   introduction_screen: ^2.1.0
   horizontal_blocked_scroll_physics: ^4.0.0
+  multiselect_formfield: ^0.1.6
 
 flutter_icons:
   image_path: 'assets/images/CMIcon.png'

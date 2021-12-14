@@ -4,11 +4,13 @@ import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/general_components/text_Field_outlined.dart';
 import 'package:calorie_mate/models/user.dart';
 import 'package:calorie_mate/models/workout.dart';
+import 'package:calorie_mate/providers/firebase_functions.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:http/http.dart' as http;
@@ -26,19 +28,38 @@ class WorkoutRecommender extends StatefulWidget {
 class _WorkoutRecommenderState extends State<WorkoutRecommender> {
   UserModel user;
   int goal;
+  List _myActivities;
+  String _myActivitiesResult;
+  final formKey = new GlobalKey<FormState>();
+
   //final List<Workout> workouts = List.from(workoutItems);
   final listKey = GlobalKey<AnimatedListState>();
   Expanded workoutRecommendationsList;
   bool showRecommendationList = false;
+  bool enableGetRecommendation = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getServerUrl(context);
+    _myActivities = [];
+    _myActivitiesResult = '';
     user = Provider.of<General_Provider>(context, listen: false).get_user();
     if (user == null) {
       print("user obj is null");
     }
   }
+
+  _saveForm() {
+    var form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      setState(() {
+        _myActivitiesResult = _myActivities.toString();
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +76,105 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
               const EdgeInsets.only(top: 16, left: 32, right: 32, bottom: 0),
           child: Column(
             children: <Widget>[
-              bodyGoalTextField,
+              Container(
+                padding: EdgeInsets.all(5),
+                child: MultiSelectFormField(
+                  autovalidate: true,
+                  chipBackGroundColor: Colors.blue,
+                  chipLabelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  dialogTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                  checkBoxActiveColor: Colors.blue,
+                  checkBoxCheckColor: Colors.white,
+                  dialogShapeBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                  title: Text(
+                    "Select Completed Workouts",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.length != 5) {
+                      // setState(() {
+                      //   enableGetRecommendation = false;
+                      // });
+                      return 'Please select 5 completed workouts to \nEnable Get Recommendation';
+                    }
+                    return null;
+                  },
+                  dataSource: [
+                    {
+                      "display": "Walking 5.0 mph",
+                      "value": "174",
+                    },
+                    {
+                      "display": "Marching, rapidly, military",
+                      "value": "158",
+                    },
+                    {
+                      "display": "Sailing, competition	",
+                      "value": "184",
+                    },
+                    {
+                      "display": "Table tennis, ping pong",
+                      "value": "130",
+                    },
+                    {
+                      "display": "Aerobics, low impact	",
+                      "value": "25",
+                    },
+                    {
+                      "display": "Playing racquetball	",
+                      "value": "112",
+                    },
+                    {
+                      "display": "Jumping rope, slow",
+                      "value": "117",
+                    },
+                    {
+                      "display": "Stationary cycling, moderate",
+                      "value": "10",
+                    },
+                    {
+                      "display": "Running, general",
+                      "value": "49",
+                    },
+                    {
+                      "display": "Pushing a cart",
+                      "value": "161",
+                    },
+                    {
+                      "display": "Whitewater rafting, kayaking, canoeing",
+                      "value": "193",
+                    },
+                    {
+                      "display": "Carrying 5kg upstairs",
+                      "value": "143",
+                    },
+                  ],
+                  textField: 'display',
+                  valueField: 'value',
+                  okButtonLabel: 'OK',
+                  cancelButtonLabel: 'CANCEL',
+                  hintWidget: Text('Please choose five'),
+                  initialValue: _myActivities,
+                  onSaved: (value) {
+                    if (value == null) return;
+                    setState(() {
+                      _myActivities = value;
+                      if (value.length < 5)
+                        enableGetRecommendation = false;
+                      else
+                        enableGetRecommendation = true;
+                    });
+                  },
+                ),
+              ),
+              // Container(
+              //   padding: EdgeInsets.all(8),
+              //   child: ElevatedButton(
+              //     child: Text('Save'),
+              //     onPressed: _saveForm,
+              //   ),
+              // ),
               SizedBox(height: 16),
               SizedBox(
                 height: 52,
@@ -63,7 +182,51 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 3,
-                    primary: kYellow,
+                    primary: (enableGetRecommendation && _myActivities.length != 0? kYellow : Colors.black26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "Get Recommendation",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  onPressed: () async {
+                    if (enableGetRecommendation && _myActivities.length != 0) {
+                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+                      print(serverURL.toString()+'/generateRecommendWorkouts');
+                      final response = await http.post(Uri.parse(serverURL.toString()+'/generateRecommendWorkouts'),
+                          body:jsonEncode(<String, String>{
+                            'ids': _myActivities.toString(),
+                          }));
+                      final parsed = json.decode(response.body);
+                      final results = parsed["results"];
+                      List<Workout> workouts = [];
+                      for (var i = 0; i < results.length; i++) {
+                        workouts.add(Workout.fromJson(results[i]));
+                      }
+                      //final workouts = Workout.fromJson(parsedJson);
+                      print (workouts);
+                      setState(() {
+                        workoutRecommendationsList =
+                            buildWorkoutRecommendations(context, workouts);
+                        showRecommendationList = true;
+                      });
+                    }
+                  },
+                ),
+              ),
+              SizedBox(height: 16),
+              SizedBox(
+                height: 52,
+                width: 250,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    primary: (_myActivities.length == 0? kYellow : Colors.black26),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -76,9 +239,10 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                         color: Colors.black),
                   ),
                   onPressed: () async {
-                    if (bodyGoalTextField.getReturnValue() != null) {
-                      goal = int.parse(bodyGoalTextField.getReturnValue());
-                      final response = await http.get(Uri.parse('http://2498-34-125-20-125.ngrok.io/generateRandomWorkouts'));
+                    if (_myActivities.length == 0) {
+                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+                      print(serverURL.toString()+'/generateRandomWorkouts');
+                      final response = await http.get(Uri.parse(serverURL.toString()+'/generateRandomWorkouts'));
                       final parsed = json.decode(response.body);
                       final results = parsed["results"];
                       List<Workout> workouts = [];

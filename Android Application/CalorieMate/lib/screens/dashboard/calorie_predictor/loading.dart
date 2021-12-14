@@ -1,4 +1,5 @@
 import 'package:calorie_mate/constants.dart';
+import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_results.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../../../models/calories_data.dart';
 class ServerResponse {
@@ -40,8 +42,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     CalorieModel object = CalorieModel();
 
     // await for data
-    //await Future.delayed(Duration(seconds: 10));
-    final response = await http.get(Uri.parse('http://d69d-34-86-79-140.ngrok.io/generateResults'));
+    await Future.delayed(Duration(seconds: 5));
+    final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+    print(serverURL.toString()+'/generateResults');
+    final response = await http.get(Uri.parse(serverURL.toString()+'/generateResults'));
     print(response.statusCode);
     print(response.body);
     // databaseReference.once().then((DataSnapshot data) {

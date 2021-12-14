@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 class General_Provider extends ChangeNotifier {
   UserModel user;
   User firebaseUser;
+  String serverUrl;
 
   UserModel get_user() {
     if (user == null) {
@@ -26,5 +27,16 @@ class General_Provider extends ChangeNotifier {
 
   void set_firebase_user(User u) {
     this.firebaseUser = u;
+  }
+
+  String get_serverUrl() {
+    if (serverUrl == null) {
+      print("serverUrl has not been set yet");
+    }
+    return serverUrl;
+  }
+
+  void set_serverUrl(String serverUrl) {
+    this.serverUrl = serverUrl;
   }
 }

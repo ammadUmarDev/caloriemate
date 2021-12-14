@@ -1,14 +1,17 @@
 //Password Change
 import 'dart:io';
-
 import 'package:calorie_mate/models/diaryData.dart';
 import 'package:calorie_mate/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:validators/sanitizers.dart';
 import 'package:calorie_mate/models/logDiary.dart';
 import 'package:calorie_mate/models/diaryItem.dart';
 import 'package:calorie_mate/models/diaryData.dart';
+
+import 'general_provider.dart';
 
 //Check Internet Availability
 Future<bool> internetCheck() async {
@@ -275,6 +278,20 @@ Future<bool> changePhysicalActivityLevel(
       .catchError((error) => print("Failed to update user: $error"));
 
   return check;
+}
+
+Future<bool> getServerUrl(BuildContext context) {
+  FirebaseFirestore.instance
+      .collection('config')
+      .doc("configDoc")
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      print('Document exists on the database');
+      Provider.of<General_Provider>(context, listen: false).set_serverUrl(documentSnapshot.data()["serverURL"]);
+      return true;
+    }
+  });
 }
 
 // //get my diaries
