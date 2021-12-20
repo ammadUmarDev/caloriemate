@@ -280,7 +280,7 @@ Future<bool> changePhysicalActivityLevel(
   return check;
 }
 
-Future<bool> getServerUrl(BuildContext context) {
+Future<bool> getWorkoutRecommenderSeverURL(BuildContext context) {
   FirebaseFirestore.instance
       .collection('config')
       .doc("configDoc")
@@ -288,7 +288,22 @@ Future<bool> getServerUrl(BuildContext context) {
       .then((DocumentSnapshot documentSnapshot) {
     if (documentSnapshot.exists) {
       print('Document exists on the database');
-      Provider.of<General_Provider>(context, listen: false).set_serverUrl(documentSnapshot.data()["serverURL"]);
+      print(documentSnapshot.data());
+      Provider.of<General_Provider>(context, listen: false).set_workoutRecommenderSeverURL(documentSnapshot.data()["workoutRecommenderSeverURL"]);
+      return true;
+    }
+  });
+}
+
+Future<bool> getCaloriePredictorSeverURL(BuildContext context) {
+  FirebaseFirestore.instance
+      .collection('config')
+      .doc("configDoc")
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      print('Document exists on the database');
+      Provider.of<General_Provider>(context, listen: false).set_caloriePredictorSeverURL(documentSnapshot.data()["caloriePredictorSeverURL"]);
       return true;
     }
   });

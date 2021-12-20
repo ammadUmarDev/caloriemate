@@ -1,4 +1,4 @@
-class Workout {
+class WorkoutPlanned {
   final String name;
   final DateTime dateTime;
   final String calories;
@@ -6,6 +6,6 @@ class Workout {
   final String reps;
   final bool status;
 
-  Workout(this.name, this.dateTime, this.calories, this.duration, this.reps,
+  WorkoutPlanned(this.name, this.dateTime, this.calories, this.duration, this.reps,
       this.status);
 }

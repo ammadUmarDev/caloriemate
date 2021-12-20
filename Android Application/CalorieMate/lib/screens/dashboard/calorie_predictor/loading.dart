@@ -1,4 +1,5 @@
 import 'package:calorie_mate/constants.dart';
+import 'package:calorie_mate/providers/firebase_functions.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/calorie_results.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -43,25 +44,36 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     // await for data
     await Future.delayed(Duration(seconds: 5));
-    final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+    final serverURL = Provider.of<General_Provider>(context, listen: false).get_caloriePredictorSeverURL();
     print(serverURL.toString()+'/generateResults');
-    final response = await http.get(Uri.parse(serverURL.toString()+'/generateResults'));
-    print(response.statusCode);
-    print(response.body);
-    // databaseReference.once().then((DataSnapshot data) {
-    //   setState(() {
-    //     object.calories = '${data.value}';
-    //   });
-    // });
-    final jsonResponse = ServerResponse.fromJson(jsonDecode(response.body));
-    object.name = jsonResponse.name;
-    object.calories = jsonResponse.calories;
+    final response = await http.get(Uri.parse(serverURL.toString()+'/predictCalories'));
+    final parsed = json.decode(response.body);
+    final predictedName = parsed["name"];
+    final predictedVolume = parsed["volume"];
+    final predictedWeight = parsed["weight"];
+    final predictedCalories = parsed["calories"];
+    final error = parsed["ErrorMessage"];
+    // print(response.statusCode);
+    // print(response.body);
+    // // databaseReference.once().then((DataSnapshot data) {
+    // //   setState(() {
+    // //     object.calories = '${data.value}';
+    // //   });
+    // // });
+    // final jsonResponse = ServerResponse.fromJson(jsonDecode(response.body));
+    // object.name = jsonResponse.name;
+    // object.calories = jsonResponse.calories;
 
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => CalorieResults(
-            predictedCalories: object.calories,
-            predictedName: object.name),
+            predictedName: predictedName,
+            predictedVolume: predictedVolume,
+            predictedWeight: predictedWeight,
+            predictedCalories: predictedCalories,
+            error: error,
+
+        ),
       ),
     );
   }
@@ -69,6 +81,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     setupCaloriePrediction();
+    getWorkoutRecommenderSeverURL(context);
+    getCaloriePredictorSeverURL(context);
     super.initState();
   }
 

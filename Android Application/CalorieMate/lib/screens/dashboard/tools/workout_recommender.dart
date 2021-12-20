@@ -6,6 +6,7 @@ import 'package:calorie_mate/models/user.dart';
 import 'package:calorie_mate/models/workout.dart';
 import 'package:calorie_mate/providers/firebase_functions.dart';
 import 'package:calorie_mate/providers/general_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +17,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../constants.dart';
+import 'models/workoutPlanned.dart';
 import 'models/workoutItems.dart';
 
 class WorkoutRecommender extends StatefulWidget {
@@ -41,7 +43,8 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getServerUrl(context);
+    getWorkoutRecommenderSeverURL(context);
+    getCaloriePredictorSeverURL(context);
     _myActivities = [];
     _myActivitiesResult = '';
     user = Provider.of<General_Provider>(context, listen: false).get_user();
@@ -196,7 +199,7 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                   ),
                   onPressed: () async {
                     if (enableGetRecommendation && _myActivities.length != 0) {
-                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_workoutRecommenderSeverURL();
                       print(serverURL.toString()+'/generateRecommendWorkouts');
                       final response = await http.post(Uri.parse(serverURL.toString()+'/generateRecommendWorkouts'),
                           body:jsonEncode(<String, String>{
@@ -205,15 +208,21 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                       final parsed = json.decode(response.body);
                       final results = parsed["results"];
                       List<Workout> workouts = [];
+                      List<WorkoutPlanned> workoutsPlanned = [];
+                      UserModel u = Provider.of<General_Provider>(context, listen: false).get_user();
                       for (var i = 0; i < results.length; i++) {
+                        Workout workoutObj = Workout.fromJson(results[i]);
                         workouts.add(Workout.fromJson(results[i]));
+                        workoutsPlanned.add(WorkoutPlanned(workoutObj.exercise,DateTime.now(),(workoutObj.burnKg*u.currentWeight).toStringAsFixed(1), "60", "1", false));
                       }
-                      //final workouts = Workout.fromJson(parsedJson);
+                      Provider.of<General_Provider>(context, listen: false).set_workoutsPlanned(workoutsPlanned);
+
                       print (workouts);
                       setState(() {
                         workoutRecommendationsList =
                             buildWorkoutRecommendations(context, workouts);
                         showRecommendationList = true;
+
                       });
                     }
                   },
@@ -240,16 +249,20 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                   ),
                   onPressed: () async {
                     if (_myActivities.length == 0) {
-                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_serverUrl();
+                      final serverURL = Provider.of<General_Provider>(context, listen: false).get_workoutRecommenderSeverURL();
                       print(serverURL.toString()+'/generateRandomWorkouts');
                       final response = await http.get(Uri.parse(serverURL.toString()+'/generateRandomWorkouts'));
                       final parsed = json.decode(response.body);
                       final results = parsed["results"];
                       List<Workout> workouts = [];
+                      List<WorkoutPlanned> workoutsPlanned = [];
+                      UserModel u = Provider.of<General_Provider>(context, listen: false).get_user();
                       for (var i = 0; i < results.length; i++) {
-                        workouts.add(Workout.fromJson(results[i]));
+                        Workout workoutObj = Workout.fromJson(results[i]);
+                        workouts.add(workoutObj);
+                        workoutsPlanned.add(WorkoutPlanned(workoutObj.exercise,DateTime.now(),(workoutObj.burnKg*u.currentWeight).toStringAsFixed(1), "60", "1", false));
                       }
-                      //final workouts = Workout.fromJson(parsedJson);
+                      Provider.of<General_Provider>(context, listen: false).set_workoutsPlanned(workoutsPlanned);
                       print (workouts);
                       setState(() {
                         workoutRecommendationsList =

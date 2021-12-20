@@ -4,6 +4,7 @@ import 'package:calorie_mate/general_components/appbar.dart';
 import 'package:calorie_mate/general_components/h1.dart';
 import 'package:calorie_mate/general_components/h2.dart';
 import 'package:calorie_mate/general_components/h3.dart';
+import 'package:calorie_mate/providers/firebase_functions.dart';
 import 'package:calorie_mate/screens/dashboard/calorie_predictor/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,14 @@ class CaloriePredictorScreen extends StatefulWidget {
 
 class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
   // FoodImage foodImages;
+
+  @override
+  void initState() {
+    super.initState();
+    getWorkoutRecommenderSeverURL(context);
+    getCaloriePredictorSeverURL(context);
+
+  }
 
   File topView;
   File sideView;

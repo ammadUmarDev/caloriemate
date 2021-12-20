@@ -10,7 +10,7 @@ import 'package:calorie_mate/screens/dashboard/diary/search_foods.dart';
 import 'package:calorie_mate/screens/dashboard/profile/edit_information.dart';
 import 'package:calorie_mate/screens/dashboard/tools/bmi_calculator.dart';
 import 'package:calorie_mate/screens/dashboard/tools/intake_recommender.dart';
-import 'package:calorie_mate/screens/dashboard/tools/models/workout.dart';
+import 'package:calorie_mate/screens/dashboard/tools/models/workoutPlanned.dart';
 import 'package:calorie_mate/screens/dashboard/tools/weight_tracker.dart';
 import 'package:calorie_mate/screens/dashboard/tools/workout_planner.dart';
 import 'package:calorie_mate/screens/dashboard/tools/workout_recommender.dart';

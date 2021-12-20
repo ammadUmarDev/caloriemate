@@ -1,13 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:calorie_mate/general_components/appbar.dart';
+import 'package:calorie_mate/providers/general_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../constants.dart';
-import 'models/workout.dart';
+import 'models/workoutPlanned.dart';
 import 'models/workoutItems.dart';
 
 class WorkoutPlanner extends StatefulWidget {
@@ -18,9 +20,8 @@ class WorkoutPlanner extends StatefulWidget {
 }
 
 class _WorkoutPlannerState extends State<WorkoutPlanner> {
-  final List<Workout> items = List.from(workoutItems);
+  List<WorkoutPlanned> items;
   final listKey = GlobalKey<AnimatedListState>();
-
   // void removeItem(int index) {
   //   final removedItem = items[index];
 
@@ -30,6 +31,18 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
   //       (context, animation) => WorkoutItemWidget(
   //           item: removedItem, animation: animation, onClicked: () {}));
   // }
+  @override
+  void initState() {
+    super.initState();
+    //List.from(workoutItems);
+    setState(() {
+      items = Provider.of<General_Provider>(context, listen: false).get_workoutsPlanned();
+      print(items);
+      if (items == null){
+        items = List.from(workoutItems);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(

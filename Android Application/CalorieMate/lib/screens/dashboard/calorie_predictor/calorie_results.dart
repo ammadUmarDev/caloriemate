@@ -13,33 +13,32 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class CalorieResults extends StatefulWidget {
   static final String id = '/CalorieResults';
 
-  double predictedCalories;
+
   String predictedName;
+  double predictedVolume;
+  double predictedWeight;
+  double predictedCalories;
+  String error;
 
   CalorieResults({
     // Key key,
-    this.predictedCalories,
     this.predictedName,
+    this.predictedVolume,
+    this.predictedWeight,
+    this.predictedCalories,
+    this.error,
   });
   // : super(key: key);
 
   @override
-  _CalorieResultsState createState() =>
-      _CalorieResultsState(predictedCalories, predictedName);
+  _CalorieResultsState createState() =>_CalorieResultsState();
 }
 
 class _CalorieResultsState extends State<CalorieResults> {
-  double calories;
-  String name;
-
-  _CalorieResultsState(this.calories, this.name);
 
   @override
   void initState() {
     super.initState();
-    calories = widget.predictedCalories;
-    print(widget.predictedCalories);
-    print(calories);
   }
 
   @override
@@ -101,11 +100,35 @@ class _CalorieResultsState extends State<CalorieResults> {
                         Row(
                           children: <Widget>[
                             H2(
-                              textBody: "Estimated Item Type: ",
+                              textBody: "Predicted Item Type: ",
                               color: kPrimaryDarkColor,
                             ),
                             H2(
-                              textBody: "$name",
+                              textBody: widget.predictedName,
+                              color: kTextDarkColor,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            H2(
+                              textBody: "Predicted Weight: ",
+                              color: kPrimaryDarkColor,
+                            ),
+                            H2(
+                              textBody: widget.predictedWeight.toStringAsFixed(1),
+                              color: kTextDarkColor,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            H2(
+                              textBody: "Predicted Volume: ",
+                              color: kPrimaryDarkColor,
+                            ),
+                            H2(
+                              textBody: widget.predictedVolume.toStringAsFixed(1),
                               color: kTextDarkColor,
                             ),
                           ],
@@ -117,7 +140,15 @@ class _CalorieResultsState extends State<CalorieResults> {
                               color: kPrimaryDarkColor,
                             ),
                             H2(
-                              textBody: "$calories Kcal",
+                              textBody: widget.predictedCalories.toStringAsFixed(1) +" Kcal",
+                              color: kTextDarkColor,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            H2(
+                              textBody: widget.error,
                               color: kTextDarkColor,
                             ),
                           ],
