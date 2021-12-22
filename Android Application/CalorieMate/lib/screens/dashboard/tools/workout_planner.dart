@@ -68,7 +68,7 @@ class _WorkoutPlannerState extends State<WorkoutPlanner> {
           top: true,
           child: AnimatedList(
             key: listKey,
-            initialItemCount: workoutItems.length,
+            initialItemCount: workoutItems.length-1,
             itemBuilder: (context, index, animation) {
               return GestureDetector(
                 onTap: () {

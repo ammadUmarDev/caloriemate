@@ -13,6 +13,26 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import '../../../models/calories_data.dart';
+
+class CalorieResult {
+  String name;
+  double volume;
+  double weight;
+  double calories;
+  String ErrorMessage;
+
+  CalorieResult(this.name, this.volume, this.weight, this.calories, this.ErrorMessage);
+
+  factory CalorieResult.fromJson(dynamic json) {
+    return CalorieResult(json['name'] as String, json['volume'] as double, json['weight'] as double, json['calories'] as double, json['ErrorMessage'] as String);
+  }
+
+  @override
+  String toString() {
+    return '{ ${this.name}, ${this.volume}, ${this.weight}, ${this.calories}, ${this.ErrorMessage} }';
+  }
+}
+
 class ServerResponse {
   final String name;
   final double calories;
@@ -39,20 +59,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
       FirebaseDatabase.instance.reference().child('result').child('calories');
 
   void setupCaloriePrediction() async {
+    await Future.delayed(Duration(seconds: 10));
     // some instance
     CalorieModel object = CalorieModel();
-
-    // await for data
-    await Future.delayed(Duration(seconds: 5));
     final serverURL = Provider.of<General_Provider>(context, listen: false).get_caloriePredictorSeverURL();
     print(serverURL.toString()+'/generateResults');
     final response = await http.get(Uri.parse(serverURL.toString()+'/predictCalories'));
+    print(response);
     final parsed = json.decode(response.body);
-    final predictedName = parsed["name"];
-    final predictedVolume = parsed["volume"];
-    final predictedWeight = parsed["weight"];
-    final predictedCalories = parsed["calories"];
-    final error = parsed["ErrorMessage"];
+    print(parsed);
+    print(parsed.runtimeType);
+    final calorieResult = CalorieResult.fromJson(jsonDecode(parsed));
+    print(parsed[5]);
+    final predictedName = calorieResult.name;
+    print(predictedName);
+    final predictedWeight = calorieResult.weight;
+    print(predictedWeight);
+    final predictedCalories = calorieResult.calories;
+    print(predictedCalories);
+    final error = calorieResult.ErrorMessage;
+    print(error);
     // print(response.statusCode);
     // print(response.body);
     // // databaseReference.once().then((DataSnapshot data) {
@@ -68,7 +94,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       MaterialPageRoute(
         builder: (context) => CalorieResults(
             predictedName: predictedName,
-            predictedVolume: predictedVolume,
             predictedWeight: predictedWeight,
             predictedCalories: predictedCalories,
             error: error,

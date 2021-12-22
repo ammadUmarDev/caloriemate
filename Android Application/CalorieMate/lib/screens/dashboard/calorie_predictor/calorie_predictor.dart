@@ -45,9 +45,13 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
     setState(() {
       topView = File(topImage.path);
       //upload image to storage in firebase
-      Reference reference = _storage.ref().child("images/topView.jpg");
-      UploadTask uploadTask = reference.putFile(topView);
     });
+    Reference reference = _storage.ref().child("images/topView.jpg");
+    try {
+      await reference.putFile(topView);
+    } catch (e) {
+      print(e);
+    };
     Alert(
       context: context,
       title: "Side View",
@@ -93,11 +97,15 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
 
   Future getSideImageFromCamera() async {
     final sideImage = await imagePicker.getImage(source: ImageSource.camera);
-    setState(() {
+    setState(() async {
       sideView = File(sideImage.path);
-      Reference reference = _storage.ref().child("images/sideView.jpg");
-      UploadTask uploadTask = reference.putFile(sideView);
     });
+    Reference reference = _storage.ref().child("images/sideView.jpg");
+    try {
+      await reference.putFile(sideView);
+    } catch (e) {
+      print(e);
+    };
     Navigator.of(context).pushNamed('/LoadingScreen');
   }
 
@@ -105,11 +113,15 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
 
   Future getTopImageFromGallery() async {
     final topImage = await imagePicker.getImage(source: ImageSource.gallery);
-    setState(() {
+    setState(() async {
       topView = File(topImage.path);
-      Reference reference = _storage.ref().child("images/topView.jpg");
-      UploadTask uploadTask = reference.putFile(topView);
     });
+    Reference reference = _storage.ref().child("images/topView.jpg");
+    try {
+      await reference.putFile(topView);
+    } catch (e) {
+      print(e);
+    };
     Alert(
       context: context,
       title: "Side View",
@@ -155,11 +167,15 @@ class _CaloriePredictorScreenState extends State<CaloriePredictorScreen> {
 
   Future getSideImageFromGallery() async {
     final sideImage = await imagePicker.getImage(source: ImageSource.gallery);
-    setState(() {
+    setState(() async {
       sideView = File(sideImage.path);
-      Reference reference = _storage.ref().child("images/sideView.jpg");
-      UploadTask uploadTask = reference.putFile(sideView);
     });
+    Reference reference = _storage.ref().child("images/sideView.jpg");
+    try {
+      await reference.putFile(sideView);
+    } catch (e) {
+      print(e);
+    };
     Navigator.of(context).pushNamed('/LoadingScreen');
   }
 

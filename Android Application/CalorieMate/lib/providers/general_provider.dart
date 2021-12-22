@@ -9,6 +9,18 @@ class General_Provider extends ChangeNotifier {
   String workoutRecommenderSeverURL;
   String caloriePredictorSeverURL;
   List<WorkoutPlanned> workoutsPlanned;
+  double totalCaloriesBunrt;
+
+  double get_totalCaloriesBunrt() {
+    if (totalCaloriesBunrt == null) {
+      print("totalCaloriesBunrt has not been set yet");
+    }
+    return totalCaloriesBunrt;
+  }
+
+  void set_totalCaloriesBunrt(double totalCaloriesBunrt) {
+    this.totalCaloriesBunrt = totalCaloriesBunrt;
+  }
 
   UserModel get_user() {
     if (user == null) {

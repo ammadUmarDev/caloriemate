@@ -15,7 +15,6 @@ class CalorieResults extends StatefulWidget {
 
 
   String predictedName;
-  double predictedVolume;
   double predictedWeight;
   double predictedCalories;
   String error;
@@ -23,7 +22,6 @@ class CalorieResults extends StatefulWidget {
   CalorieResults({
     // Key key,
     this.predictedName,
-    this.predictedVolume,
     this.predictedWeight,
     this.predictedCalories,
     this.error,
@@ -57,7 +55,6 @@ class _CalorieResultsState extends State<CalorieResults> {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Container(
-                  height: 375,
                   width: MediaQuery.of(context).size.width - 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -73,6 +70,8 @@ class _CalorieResultsState extends State<CalorieResults> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         H1(
                           textBody: "Results",
@@ -98,144 +97,82 @@ class _CalorieResultsState extends State<CalorieResults> {
                           height: 20,
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            H2(
+                            H1(
                               textBody: "Predicted Item Type: ",
                               color: kPrimaryDarkColor,
                             ),
-                            H2(
+                            H1(
                               textBody: widget.predictedName,
                               color: kTextDarkColor,
                             ),
                           ],
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            H2(
+                            H1(
                               textBody: "Predicted Weight: ",
                               color: kPrimaryDarkColor,
                             ),
-                            H2(
+                            H1(
                               textBody: widget.predictedWeight.toStringAsFixed(1),
                               color: kTextDarkColor,
                             ),
                           ],
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            H2(
-                              textBody: "Predicted Volume: ",
-                              color: kPrimaryDarkColor,
-                            ),
-                            H2(
-                              textBody: widget.predictedVolume.toStringAsFixed(1),
-                              color: kTextDarkColor,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            H2(
+                            H1(
                               textBody: "Estimated Energy: ",
                               color: kPrimaryDarkColor,
                             ),
-                            H2(
+                            H1(
                               textBody: widget.predictedCalories.toStringAsFixed(1) +" Kcal",
                               color: kTextDarkColor,
                             ),
                           ],
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             H2(
                               textBody: widget.error,
-                              color: kTextDarkColor,
+                              color: Colors.red,
                             ),
                           ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        SizedBox(height: 20),
-                        Row(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Alert(
-                                  context: context,
-                                  title: "Coming Soon",
-                                  closeIcon: Icon(
-                                    FontAwesomeIcons.timesCircle,
-                                    color: kPrimaryLightColor,
-                                  ),
-                                  style: AlertStyle(
-                                    overlayColor: Colors.black45,
-                                    titleStyle:
-                                        H2TextStyle(color: kPrimaryAccentColor),
-                                  ),
-                                  content: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      H3(
-                                          textBody:
-                                              "Stay tuned for the next update :)"),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
-                                  buttons: [
-                                    DialogButton(
-                                      color: Colors.white,
-                                      height: 0,
-                                      child: SizedBox(height: 0),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ).show();
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.add_circle_outline_outlined,
-                                    color: kIconColor,
-                                    size: 38,
-                                  ),
-                                  H3(
-                                    textBody: "Add to Diary",
-                                  ),
-                                ],
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CaloriePredictorScreen()),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.repeat,
+                                size: 38,
+                                color: kIconColor,
                               ),
-                            ),
-                            SizedBox(width: 24),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CaloriePredictorScreen()),
-                                  (Route<dynamic> route) => false,
-                                );
-                              },
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.repeat,
-                                    size: 38,
-                                    color: kIconColor,
-                                  ),
-                                  H3(
-                                    textBody: "Retry",
-                                  ),
-                                ],
+                              H3(
+                                textBody: "Retry",
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),

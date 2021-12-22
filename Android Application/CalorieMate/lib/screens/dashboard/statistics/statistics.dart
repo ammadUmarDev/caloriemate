@@ -26,11 +26,15 @@ class StatisticsScreen extends StatefulWidget {
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
   UserModel userObj;
+  double caloriesBurnt;
 
   @override
   void initState() {
     super.initState();
     userObj = Provider.of<General_Provider>(context, listen: false).get_user();
+    setState(() {
+    caloriesBurnt = Provider.of<General_Provider>(context, listen: false).get_totalCaloriesBunrt();
+    });
   }
 
   Stream taskDiary;
@@ -471,9 +475,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                                                                                   RichText(
                                                                                                     text: TextSpan(
                                                                                                       style: DefaultTextStyle.of(context).style,
-                                                                                                      children: const <TextSpan>[
+                                                                                                      children: <TextSpan>[
                                                                                                         TextSpan(
-                                                                                                          text: '596',
+                                                                                                          text: caloriesBurnt.toStringAsFixed(1),
                                                                                                           style: TextStyle(
                                                                                                             fontWeight: FontWeight.bold,
                                                                                                             color: Colors.white,

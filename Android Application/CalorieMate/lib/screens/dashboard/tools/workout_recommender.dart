@@ -210,13 +210,15 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                       List<Workout> workouts = [];
                       List<WorkoutPlanned> workoutsPlanned = [];
                       UserModel u = Provider.of<General_Provider>(context, listen: false).get_user();
+                      double sumBurnt = 0;
                       for (var i = 0; i < results.length; i++) {
                         Workout workoutObj = Workout.fromJson(results[i]);
                         workouts.add(Workout.fromJson(results[i]));
                         workoutsPlanned.add(WorkoutPlanned(workoutObj.exercise,DateTime.now(),(workoutObj.burnKg*u.currentWeight).toStringAsFixed(1), "60", "1", false));
+                        sumBurnt += (workoutObj.burnKg*u.currentWeight);
                       }
                       Provider.of<General_Provider>(context, listen: false).set_workoutsPlanned(workoutsPlanned);
-
+                      Provider.of<General_Provider>(context, listen: false).set_totalCaloriesBunrt(sumBurnt);
                       print (workouts);
                       setState(() {
                         workoutRecommendationsList =
@@ -254,15 +256,19 @@ class _WorkoutRecommenderState extends State<WorkoutRecommender> {
                       final response = await http.get(Uri.parse(serverURL.toString()+'/generateRandomWorkouts'));
                       final parsed = json.decode(response.body);
                       final results = parsed["results"];
+                      print(results);
                       List<Workout> workouts = [];
                       List<WorkoutPlanned> workoutsPlanned = [];
                       UserModel u = Provider.of<General_Provider>(context, listen: false).get_user();
+                      double sumBurnt = 0;
                       for (var i = 0; i < results.length; i++) {
                         Workout workoutObj = Workout.fromJson(results[i]);
                         workouts.add(workoutObj);
                         workoutsPlanned.add(WorkoutPlanned(workoutObj.exercise,DateTime.now(),(workoutObj.burnKg*u.currentWeight).toStringAsFixed(1), "60", "1", false));
+                        sumBurnt += (workoutObj.burnKg*u.currentWeight);
                       }
                       Provider.of<General_Provider>(context, listen: false).set_workoutsPlanned(workoutsPlanned);
+                      Provider.of<General_Provider>(context, listen: false).set_totalCaloriesBunrt(sumBurnt);
                       print (workouts);
                       setState(() {
                         workoutRecommendationsList =
